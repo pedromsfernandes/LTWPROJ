@@ -19,7 +19,7 @@ CREATE TABLE comment (
     username VARCHAR NOT NULL REFERENCES user
 );
 
-INSERT INTO user values ('mrzephyr17', 'da39a3ee5e6b4b0d3255bfef95601890afd80709');
+INSERT INTO user values ('mrzephyr17', '1428280996dd70facd24f0dc2a706120bec14420');
 INSERT INTO user values ('castro', '85136c79cbf9fe36bb9d05d0639c70c265c18d37');
 INSERT INTO user values ('acaciomamao', 'f369e2507256b8598a0b90660ca21b69cc87ed83');
 
