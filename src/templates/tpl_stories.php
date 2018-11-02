@@ -4,7 +4,7 @@
 
   <?php
     foreach ($stories as $story) {
-        draw_story($story);
+        draw_story($story, false);
     } ?>
 
   <article class="new-story">
@@ -19,12 +19,14 @@
 <?php
 } ?>
 
-<?php function draw_story($story)
+<?php function draw_story($story, $comments_on)
     {
         ?>
   <article class="story">
-    <header><h2><?=$story['story_title']?></h2></header>
+    <header><h2><a href="../pages/story.php?id=<?=$story['story_id']?>"><?=$story['story_title']?></a></h2></header>
     <p><?=$story['story_text']?></p>
+
+    <?php if($comments_on){ ?>
     <ol>
       <?php
         foreach ($story['story_comments'] as $comment) {
@@ -36,7 +38,7 @@
       <input type="hidden" name="story_id" value="<?=$story['story_id']?>">
       <input type="textarea" name="cmt_text" placeholder="Add comment">
     </form>
-
+      <?php }?>
   </article>
 <?php
     } ?>

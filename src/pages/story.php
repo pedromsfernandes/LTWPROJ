@@ -9,13 +9,11 @@
       die(header('Location: login.php'));
   }
 
+  $id = $_GET['id'];
 
-  $stories = getAllStories();
-  foreach ($stories as $k => $story) {
-      $stories[$k]['story_comments'] = getStoryComments($story['story_id']);
-  }
+  $story = getStory($id);
+  $story['story_comments'] = getStoryComments($story['story_id']);
 
   draw_header($_SESSION['username']);
-  draw_stories($stories);
+  draw_story($story, true);
   draw_footer();
-?>
