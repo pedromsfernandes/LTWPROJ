@@ -16,6 +16,6 @@
   }
 
   draw_header($_SESSION['username']);
-  draw_stories($stories);
+  draw_stories($stories, true);
   draw_footer();
 ?>

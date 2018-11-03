@@ -27,14 +27,6 @@
         $stmt->execute(array($attribute, $value, $username));
     }
 
-    function getUserStories($username)
-    {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM story WHERE username = ?');
-        $stmt->execute(array($username));
-        return $stmt->fetchAll();
-    }
-
     function getProfile($username)
     {
         $db = Database::instance()->db();

@@ -1,5 +1,6 @@
 <?php
-function draw_header($username){ 
+function draw_header($username)
+{
     ?>
     <!DOCTYPE html>
     <html>
@@ -12,21 +13,26 @@ function draw_header($username){
         <body>
             <header>
             <h1><a href="../index.php"><i class="fas fa-bed"></i> Super Legit Reddit</a></h1>
-      <?php if($username != NULL){ ?>
+      <?php if ($username != null) {
+        ?>
             <nav>
                 <ul>
                 <li><?=$username?></li>
                 <li><a href="../pages/profile.php">My Profile</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
+                <li><a href="../pages/search.php">Search</a></li>
                 </ul>
             </nav>
-        <?php } ?>
+        <?php
+    } ?>
             </header>    
-<?php } ?>
+<?php
+} ?>
 
 <?php function draw_footer()
-{ ?>
+    {
+        ?>
   </body>
 </html>
 <?php
-} ?>
+    } ?>
