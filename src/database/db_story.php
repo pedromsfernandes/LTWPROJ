@@ -76,6 +76,6 @@
   function insertComment($comment_text, $story_id, $username)
   {
       $db = Database::instance()->db();
-      $stmt = $db->prepare("INSERT INTO comment VALUES(NULL, ?, strtotime('now'), 0, NULL, ?, ?)");
+      $stmt = $db->prepare("INSERT INTO comment VALUES(NULL, ?, datetime('now'), 0, NULL, ?, ?)");
       $stmt->execute(array($comment_text, $story_id, $username));
   }

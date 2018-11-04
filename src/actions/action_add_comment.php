@@ -13,5 +13,5 @@
 
   insertComment($comment_text, $story_id, $username);
 
-  header('Location: ../pages/home.php');
+  header("Location: ../pages/story.php?id=$story_id");
 ?>
