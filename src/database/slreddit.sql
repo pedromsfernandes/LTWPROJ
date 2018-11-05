@@ -25,6 +25,12 @@ CREATE TABLE comment (
     username VARCHAR NOT NULL REFERENCES user
 );
 
+CREATE TABLE vote (
+    story_id INTEGER NOT NULL REFERENCES story,
+    username VARCHAR NOT NULL REFERENCES user,
+    vote INTEGER NOT NULL
+);
+
 INSERT INTO user values ('mrzephyr17', '1428280996dd70facd24f0dc2a706120bec14420', NULL, NULL, NULL);
 INSERT INTO user values ('castro', '85136c79cbf9fe36bb9d05d0639c70c265c18d37', NULL, NULL, NULL);
 INSERT INTO user values ('acaciomamao', 'f369e2507256b8598a0b90660ca21b69cc87ed83', NULL, NULL, NULL);
