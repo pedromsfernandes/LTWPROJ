@@ -17,7 +17,10 @@
 
 
   draw_header($_SESSION['username']);
-  draw_profile($profile);
+  draw_profile($profile); ?>
+
+  <a href="edit_profile.php">Edit Profile</a>
+  <?php
 
   draw_stories($stories);
 

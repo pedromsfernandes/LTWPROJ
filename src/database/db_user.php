@@ -15,16 +15,17 @@
 
     function insertUser($username, $password)
     {
+        $default_avatar = 'http://a.wordpress.com/avatar/unknown-128.jpg';
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO user VALUES(?, ?, NULL, NULL, NULL)');
-        $stmt->execute(array($username, sha1($password)));
+        $stmt = $db->prepare("INSERT INTO user VALUES(?, ?, NULL, ?, NULL)");
+        $stmt->execute(array($username, sha1($password), $default_avatar));
     }
 
-    function editAttribute($username, $attribute, $value)
+    function editProfile($new_username, $username, $password, $description, $avatar)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE user SET ? = ? WHERE username = ?');
-        $stmt->execute(array($attribute, $value, $username));
+        $stmt = $db->prepare('UPDATE user SET username = ?, password = ?, description = ?, avatar = ? WHERE username = ?');
+        $stmt->execute(array($new_username, sha1($password), $description, $avatar, $username));
     }
 
     function getProfile($username)
@@ -34,3 +35,18 @@
         $stmt->execute(array($username));
         return $stmt->fetch();
     }
+
+    function addPoint($username)
+        {
+              $db = Database::instance()->db();
+              $stmt = $db->prepare("UPDATE user SET points = points + 1 WHERE username = ?");
+              $stmt->execute(array($username));
+        }
+      
+        
+        function remPoint($username)
+          {
+                $db = Database::instance()->db();
+                $stmt = $db->prepare("UPDATE user SET points = points - 1 WHERE username = ?");
+                $stmt->execute(array($username));
+          }

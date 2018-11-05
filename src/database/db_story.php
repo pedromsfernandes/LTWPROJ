@@ -79,3 +79,20 @@
       $stmt = $db->prepare("INSERT INTO comment VALUES(NULL, ?, datetime('now'), 0, NULL, ?, ?)");
       $stmt->execute(array($comment_text, $story_id, $username));
   }
+
+  function addVote($story_id)
+  {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("UPDATE story SET story_votes = story_votes + 1 WHERE story_id = ?");
+        $stmt->execute(array($story_id));
+  }
+
+  
+  function remVote($story_id)
+    {
+          $db = Database::instance()->db();
+          $stmt = $db->prepare("UPDATE story SET story_votes = story_votes - 1 WHERE story_id = ?");
+          $stmt->execute(array($story_id));
+    }
+
+    ?>

@@ -26,6 +26,22 @@
 {
     ?>
   <article class="story">
+  <form method="post" action="../actions/action_vote.php">
+  <button name="upvote" type="submit"> Upvote </button>
+  <input type="hidden" name="story_op" value="<?=$story['username']?>">
+  <input type="hidden" name="story_id" value="<?=$story['story_id']?>">
+  <input type="hidden" name="type" value="upvote">
+  </form>
+
+    <form method="post" action="../actions/action_vote.php">
+  <button name="downvote" type="submit"> Downvote </button>
+  <input type="hidden" name="story_op" value="<?=$story['username']?>">
+  <input type="hidden" name="story_id" value="<?=$story['story_id']?>">
+  <input type="hidden" name="type" value="downvote">
+  </form>
+  
+  <p>Votes: <?=$story['story_votes'] ?></p>
+
     <header><h2><a href="../pages/story.php?id=<?=$story['story_id']?>"><?=$story['story_title']?></a></h2></header>
     <p><?=$story['story_text']?></p>
     <footer>Submitted by: <?=$story['username']?> on <?=$story['story_date']?></footer>
