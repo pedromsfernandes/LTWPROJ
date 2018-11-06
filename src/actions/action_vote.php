@@ -9,17 +9,19 @@
   }
 
   $story_id = $_POST['story_id'];
-  $username = $_POST['story_op'];
+  $story_op = $_POST['story_op'];
   $type = $_POST['type'];
+  $username = $_SESSION['username'];
 
-  if($type == "upvote"){
-    addVote($story_id);
-    addPoint($username);
+  if (!hasVoted($_SESSION['username'], $story_id)) {
+      if ($type == "upvote") {
+          addVote($story_id, $username);
+          addPoint($story_op);
+      } else {
+          remVote($story_id, $username);
+          remPoint($story_op);
+      }
   }
-  else{
-    remVote($story_id);
-    remPoint($username);
-  }
+
 
   header('Location: ../pages/home.php');
-?>

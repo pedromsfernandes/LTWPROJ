@@ -9,13 +9,15 @@
       die(header('Location: login.php'));
   }
 
+    $id = $_GET['id'];
 
-  $stories = getAllStories();
+  $channel = getChannel($id);
+  $stories = getChannelStories($id);
+
   foreach ($stories as $k => $story) {
       $stories[$k]['story_comments'] = getStoryComments($story['story_id']);
   }
 
   draw_header($_SESSION['username']);
-  draw_stories($stories);
+  draw_stories($stories, $id);
   draw_footer();
-?>

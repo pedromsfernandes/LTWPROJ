@@ -9,9 +9,10 @@
 
   $story_title = $_POST['story_title'];
   $story_text = $_POST['story_text'];
+  $channel_id = $_POST['channel_id'];
   $username = $_SESSION['username'];
 
-  insertStory($story_title, $story_text, $username);
+  insertStory($story_title, $story_text, $channel_id, $username);
 
   header('Location: ../pages/home.php');
 ?>

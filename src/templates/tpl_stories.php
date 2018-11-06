@@ -1,4 +1,4 @@
-<?php function draw_stories($stories, $add = false)
+<?php function draw_stories($stories, $channel_id = null)
 {
     ?>  <section id="stories">
 
@@ -7,12 +7,13 @@
         draw_story($story, false);
     }
 
-    if ($add) {
+    if ($channel_id) {
         ?>
   <article class="new-story">
     <form action="../actions/action_add_story.php" method="post">
       <input type="text" name="story_title" placeholder="Add story">
       <input type="textarea" name="story_text" placeholder="What's on your mind?">
+      <input type="hidden" name="channel_id" value="<?=$channel_id?>">
       <input type="submit" value="Submit">
     </form>
   </article>
@@ -40,11 +41,11 @@
   <input type="hidden" name="type" value="downvote">
   </form>
   
-  <p>Votes: <?=$story['story_votes'] ?></p>
+  <p>Votes: <?=getStoryVotes($story['story_id'])['numVotes'] ?></p>
 
     <header><h2><a href="../pages/story.php?id=<?=$story['story_id']?>"><?=$story['story_title']?></a></h2></header>
     <p><?=$story['story_text']?></p>
-    <footer>Submitted by: <?=$story['username']?> on <?=$story['story_date']?></footer>
+    <footer>Submitted by: <?=$story['username']?> on <?=$story['story_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
 
     <?php if ($comments_on) {
         ?>
