@@ -13,15 +13,32 @@
   $type = $_POST['type'];
   $username = $_SESSION['username'];
 
-  if (!hasVoted($_SESSION['username'], $story_id)) {
-      if ($type == "upvote") {
-          addVote($story_id, $username);
-          addPoint($story_op);
-      } else {
-          remVote($story_id, $username);
-          remPoint($story_op);
-      }
-  }
+  if($story_op == $username)
+    //die(header("Location: ../pages/story.php?id=$story_id"));
 
+    if($type == "upvote"){
 
-  header('Location: ../pages/home.php');
+        if(!hasUpvoted($username, $story_id)){
+            addVote($story_id, $username);
+            addPoint($story_op);
+        }
+        else {
+            remVote($story_id, $username);
+            remPoint($story_op);
+        }
+
+    }
+    else{
+
+        if(!hasDownvoted($username, $story_id)){
+            remVote($story_id, $username);
+            remPoint($story_op);
+        }
+        else {
+            addVote($story_id, $username);
+            addPoint($story_op);
+        }
+
+    }
+
+  //header("Location: ../pages/story.php?id=$story_id");
