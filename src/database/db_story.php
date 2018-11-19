@@ -87,7 +87,7 @@
       $stmt->execute(array($comment_text, $story_id, $username));
   }
 
-  function addVote($story_id, $username)
+  function addUpVote($story_id, $username)
   {
       $db = Database::instance()->db();
       $stmt = $db->prepare("INSERT INTO vote VALUES(?, ?, 1)");
@@ -102,12 +102,20 @@
   }
 
   
-  function remVote($story_id, $username)
+  function addDownVote($story_id, $username)
   {
       $db = Database::instance()->db();
       $stmt = $db->prepare("INSERT INTO vote VALUES(?, ?, -1)");
       $stmt->execute(array($story_id, $username));
   }
+  
+  function remVote($story_id, $username)
+  {
+      $db = Database::instance()->db();
+      $stmt = $db->prepare("DELETE FROM vote WHERE story_id = ? AND username = ?");
+      $stmt->execute(array($story_id, $username));
+  }
+
 
   function getChannel($channel_id)
   {
@@ -129,6 +137,13 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('INSERT INTO channel VALUES(NULL, ?, ?, ?');
         $stmt->execute(array($channel_name, $channel_description, $username));
+    }
+
+    function lastVote($username, $story_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM vote WHERE username = ? AND story_id = ?');
+        $stmt->execute(array($username, $story_id));
+        return $stmt->fetch()['vote'];
     }
 
     function hasUpvoted($username, $story_id)

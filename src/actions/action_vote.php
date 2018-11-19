@@ -14,31 +14,44 @@
   $username = $_SESSION['username'];
 
   if($story_op == $username)
-    //die(header("Location: ../pages/story.php?id=$story_id"));
+    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+
+    $lastVote = lastVote($username, $story_id);
 
     if($type == "upvote"){
 
-        if(!hasUpvoted($username, $story_id)){
-            addVote($story_id, $username);
-            addPoint($story_op);
-        }
-        else {
+        if($lastVote == 1){
             remVote($story_id, $username);
             remPoint($story_op);
+        }
+        else {
+            if($lastVote == -1){
+                remVote($story_id, $username);
+                addPoint($story_op);
+            }
+
+            addUpVote($story_id, $username);
+            addPoint($story_op);
         }
 
     }
     else{
 
-        if(!hasDownvoted($username, $story_id)){
+        if($lastVote == -1){
             remVote($story_id, $username);
-            remPoint($story_op);
-        }
-        else {
-            addVote($story_id, $username);
             addPoint($story_op);
         }
+        else {
+            if($lastVote == 1){
+                remVote($story_id, $username);
+                remPoint($story_op);
+            }
+
+            addDownVote($story_id, $username);
+            remPoint($story_op);
+        }
+
 
     }
 
-  //header("Location: ../pages/story.php?id=$story_id");
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
