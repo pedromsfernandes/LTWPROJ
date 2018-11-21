@@ -1,4 +1,4 @@
-CREATE TABLE user (
+CREATE TABLE IF NOT EXISTS user (
     username VARCHAR PRIMARY KEY,
     password VARCHAR NOT NULL,
     description VARCHAR,
@@ -6,7 +6,7 @@ CREATE TABLE user (
     points INTEGER
 );
 
-CREATE TABLE story (
+CREATE TABLE IF NOT EXISTS story (
     story_id INTEGER PRIMARY KEY,
     story_title VARCHAR NOT NULL,
     story_text VARCHAR NOT NULL,
@@ -15,13 +15,13 @@ CREATE TABLE story (
     username VARCHAR NOT NULL REFERENCES user
 );
 
-CREATE TABLE subscription (
+CREATE TABLE IF NOT EXISTS subscription (
     channel_id INTEGER REFERENCES channel,
     username VARCHAR REFERENCES user,
     PRIMARY KEY (channel_id, username)
 );
 
-CREATE TABLE comment (
+CREATE TABLE IF NOT EXISTS comment (
     cmt_id INTEGER PRIMARY KEY,
     cmt_text VARCHAR NOT NULL,
     cmt_date DATETIME NOT NULL,
@@ -31,14 +31,14 @@ CREATE TABLE comment (
     username VARCHAR NOT NULL REFERENCES user
 );
 
-CREATE TABLE channel (
+CREATE TABLE IF NOT EXISTS channel (
     channel_id INTEGER PRIMARY KEY,
     channel_name VARCHAR NOT NULL,
     channel_desc VARCHAR NOT NULL,
     username VARCHAR NOT NULL REFERENCES user
 );
 
-CREATE TABLE vote (
+CREATE TABLE IF NOT EXISTS vote (
     story_id INTEGER NOT NULL REFERENCES story,
     username VARCHAR NOT NULL REFERENCES user,
     vote INTEGER NOT NULL
