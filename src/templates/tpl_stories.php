@@ -28,14 +28,14 @@
     ?>
   <article class="story">
   <form method="post" action="../actions/action_vote.php">
-  <button name="upvote" type="submit"> Upvote </button>
+  <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
   <input type="hidden" name="story_op" value="<?=$story['username']?>">
   <input type="hidden" name="story_id" value="<?=$story['story_id']?>">
   <input type="hidden" name="type" value="upvote">
   </form>
 
     <form method="post" action="../actions/action_vote.php">
-  <button name="downvote" type="submit"> Downvote </button>
+  <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
   <input type="hidden" name="story_op" value="<?=$story['username']?>">
   <input type="hidden" name="story_id" value="<?=$story['story_id']?>">
   <input type="hidden" name="type" value="downvote">
@@ -67,6 +67,19 @@
     {
         ?>
   <li>
+  <form method="post" action="../actions/action_vote.php">
+  <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+  <input type="hidden" name="cmt_op" value="<?=$comment['username']?>">
+  <input type="hidden" name="story_id" value="<?=$comment['story_id']?>">
+  <input type="hidden" name="type" value="upvote">
+  </form>
+
+    <form method="post" action="../actions/action_vote.php">
+  <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+  <input type="hidden" name="cmt_op" value="<?=$comment['username']?>">
+  <input type="hidden" name="cmt_id" value="<?=$comment['cmt_id']?>">
+  <input type="hidden" name="type" value="downvote">
+  </form>
       <?=$comment['cmt_text']?> <br>by <?=$comment['username']?>
   </li>
 <?php

@@ -48,6 +48,11 @@ input[type=text], input[type=password] {
   background-color: var(--panel-color);
 }
 
+button {
+  border: none; /* Remove borders */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
 input[type="submit"], input[type="button"] {
   padding: 1em;
 

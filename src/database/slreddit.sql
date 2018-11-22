@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR NOT NULL,
     description VARCHAR,
     avatar VARCHAR,
-    points INTEGER
+    points INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS story (
@@ -38,15 +38,21 @@ CREATE TABLE IF NOT EXISTS channel (
     username VARCHAR NOT NULL REFERENCES user
 );
 
-CREATE TABLE IF NOT EXISTS vote (
+CREATE TABLE IF NOT EXISTS vote_story (
     story_id INTEGER NOT NULL REFERENCES story,
     username VARCHAR NOT NULL REFERENCES user,
     vote INTEGER NOT NULL
 );
 
-INSERT INTO user values ('mrzephyr17', '1428280996dd70facd24f0dc2a706120bec14420', NULL, NULL, NULL);
-INSERT INTO user values ('castro', '85136c79cbf9fe36bb9d05d0639c70c265c18d37', NULL, NULL, NULL);
-INSERT INTO user values ('acaciomamao', 'f369e2507256b8598a0b90660ca21b69cc87ed83', NULL, NULL, NULL);
+CREATE TABLE IF NOT EXISTS vote_comment (
+    cmt_id INTEGER NOT NULL REFERENCES comment,
+    username VARCHAR NOT NULL REFERENCES user,
+    vote INTEGER NOT NULL
+);
+
+INSERT INTO user values ('mrzephyr17', '1428280996dd70facd24f0dc2a706120bec14420', NULL, NULL, 0);
+INSERT INTO user values ('castro', '85136c79cbf9fe36bb9d05d0639c70c265c18d37', NULL, NULL, 0);
+INSERT INTO user values ('acaciomamao', 'f369e2507256b8598a0b90660ca21b69cc87ed83', NULL, NULL, 0);
 
 INSERT INTO story values(NULL, 'Porto won!', 'Thank you Eder.', '2018-10-25 10:00:00', 1,'mrzephyr17');
 INSERT INTO story values(NULL, 'Daredevil S3 is out!', 'Go check it out!', '2018-10-26 21:08:07', 2, 'castro');

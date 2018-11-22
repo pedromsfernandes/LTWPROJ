@@ -1,6 +1,6 @@
 <?php
   include_once('../includes/session.php');
-  include_once('../database/db_story.php');
+  include_once('../database/db_comment.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
