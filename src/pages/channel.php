@@ -4,6 +4,7 @@
   include_once('../database/db_channel.php');
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_stories.php');
+  include_once('../database/db_comment.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {

@@ -16,36 +16,36 @@
   if($story_op == $username)
     die(header('Location: ' . $_SERVER['HTTP_REFERER']));
 
-    $lastVote = lastVote($username, $story_id);
-    if($type == "upvote"){
+    $lastVote = lastStoryVote($username, $story_id);
+    if(strcmp($type,"upvote")===0){
         if($lastVote == 1){
-            remVote($story_id, $username);
+            remStoryVote($story_id, $username);
             remPoint($story_op);
         }
         else {
             if($lastVote == -1){
-                remVote($story_id, $username);
+                remStoryVote($story_id, $username);
                 addPoint($story_op);
             }
 
-            addVote($story_id, $username, 1);
+            addStoryVote($story_id, $username, 1);
             addPoint($story_op);
         }
     }
     else{
         if($lastVote == -1){
-            remVote($story_id, $username);
+            remStoryVote($story_id, $username);
             addPoint($story_op);
         }
         else {
             if($lastVote == 1){
-                remVote($story_id, $username);
+                remStoryVote($story_id, $username);
                 remPoint($story_op);
             }
 
-            addVote($story_id, $username, -1);
+            addStoryVote($story_id, $username, -1);
             remPoint($story_op);
         }
     }
 
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+   header('Location: ' . $_SERVER['HTTP_REFERER']);
