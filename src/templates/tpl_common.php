@@ -9,6 +9,7 @@ function draw_header($username)
             <link rel="stylesheet" href="../css/style.css">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans+Condensed:300" rel="stylesheet">
+            <script src="../scripts/script.js" defer></script>
         </head>
         <body>
             <header>

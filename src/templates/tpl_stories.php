@@ -2,6 +2,11 @@
 {
     ?>  <section id="stories">
 
+  <section id="sorting">
+    <input type="button" value = "Top">
+    <input type="button" value = "New">
+  </section>
+
   <?php
     foreach ($stories as $story) {
         draw_story($story, false);
@@ -27,6 +32,7 @@
 {
     ?>
   <article class="story">
+
   <form method="post" action="../actions/action_vote_story.php">
   <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
   <input type="hidden" name="story_op" value="<?=$story['username']?>">
