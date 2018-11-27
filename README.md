@@ -22,4 +22,4 @@ Project for FEUP MIEIC's curricular unit LTW - Reddit clone.
 
 ## Database
 
-![Database](doc/database.png)
+![Database](doc/slreddit.png)
