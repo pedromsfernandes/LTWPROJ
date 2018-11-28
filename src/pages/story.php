@@ -13,6 +13,10 @@
       die(header('Location: login.php'));
   }
 
+  if (!isset($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = generate_random_token();
+  }
+
   $id = $_GET['id'];
 
   $story = getStory($id);

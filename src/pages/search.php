@@ -13,6 +13,10 @@
       die(header('Location: login.php'));
   }
 
+  if (!isset($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = generate_random_token();
+  }
+
   draw_header($_SESSION['username']);
 
   ?>
@@ -24,6 +28,7 @@
         <option value="comments">Comments</option>
     </select>
     <input type="submit" name="submit" value="Search"> 
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form> 
 
   <?php

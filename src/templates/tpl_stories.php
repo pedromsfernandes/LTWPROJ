@@ -20,6 +20,7 @@
       <input type="textarea" name="story_text" placeholder="What's on your mind?">
       <input type="hidden" name="channel_id" value="<?=$channel_id?>">
       <input type="submit" value="Submit">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
   </article>
 
@@ -38,6 +39,7 @@
   <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
   <input type="hidden" name="type" value="upvote">
+  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
 
     <form method="post" action="../actions/action_vote.php">
@@ -45,6 +47,7 @@
   <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
   <input type="hidden" name="type" value="downvote">
+  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
   
   <p>Votes: <?=getVotes($story['post_id']) ?></p>
@@ -79,6 +82,7 @@
   <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
   <input type="hidden" name="type" value="upvote">
+  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
 
     <form method="post" action="../actions/action_vote.php">
@@ -86,6 +90,7 @@
   <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
   <input type="hidden" name="type" value="downvote">
+  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
       <?=$comment['post_text']?> <br>by <?=getUserName($comment['post_op'])?>
   </li>

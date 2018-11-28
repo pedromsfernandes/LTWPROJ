@@ -12,6 +12,10 @@
       die(header('Location: login.php'));
   }
 
+  if (!isset($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = generate_random_token();
+  }
+
   $user_id = getUserId($_SESSION['username']);
   $profile = getProfile($user_id);
 
@@ -27,6 +31,7 @@
     <label for="avatar">Avatar URL: </label> <input type="text" name="avatar" placeholder="Paste an image URL" value=<?=$profile['user_avatar']?>>
     <label for="old_password">Confirm Old Password:  </label> <input type="password" name="old_password">
     <input type="submit" name="submit" value="Submit">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
   
 <?php

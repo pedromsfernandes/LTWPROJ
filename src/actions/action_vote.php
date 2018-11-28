@@ -8,6 +8,10 @@
       die(header('Location: ../pages/login.php'));
   }
 
+  if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+  }
+
   $post_id = $_POST['post_id'];
   $post_op = $_POST['post_op'];
   $type = $_POST['type'];

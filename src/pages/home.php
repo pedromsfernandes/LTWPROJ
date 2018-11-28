@@ -9,17 +9,29 @@
   include_once('../database/db_user.php');
 
   // Verify if user is logged in
+  $stories;
   if (!isset($_SESSION['username'])) {
-      die(header('Location: login.php'));
+    $stories = getAllStories();
+    draw_header(null);
+  }
+  else {
+    if (!isset($_SESSION['csrf'])) {
+       $_SESSION['csrf'] = generate_random_token();
+     }
+
+    $stories = getSubscribedStories(getUserId($_SESSION['username']));
+    draw_header($_SESSION['username']);
   }
 
-
-  $stories = getAllStories();
   foreach ($stories as $k => $story) {
       $stories[$k]['story_comments'] = getStoryComments($story['post_id']);
   }
+?>
 
-  draw_header($_SESSION['username']);
+<form action="add_story.php">
+    <input type="submit" value="Add story" />
+</form>
+<?php
   draw_stories($stories);
   draw_footer();
 ?>

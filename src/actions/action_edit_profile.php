@@ -7,6 +7,10 @@
       die(header('Location: ../pages/login.php'));
   }
 
+  if ($_SESSION['csrf'] !== $_POST['csrf']) {
+    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+  }
+
   $username = $_SESSION['username'];
   $new_username = $_POST['username'];
   $new_password = $_POST['new_password'];
