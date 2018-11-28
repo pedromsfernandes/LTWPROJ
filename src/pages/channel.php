@@ -5,6 +5,8 @@
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_stories.php');
   include_once('../database/db_comment.php');
+  include_once('../database/db_post.php');
+  include_once('../database/db_user.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
@@ -17,7 +19,7 @@
   $stories = getChannelStories($id);
 
   foreach ($stories as $k => $story) {
-      $stories[$k]['story_comments'] = getStoryComments($story['story_id']);
+      $stories[$k]['story_comments'] = getStoryComments($story['post_id']);
   }
 
   draw_header($_SESSION['username']);

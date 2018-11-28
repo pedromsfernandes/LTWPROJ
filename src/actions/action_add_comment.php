@@ -1,6 +1,7 @@
 <?php
   include_once('../includes/session.php');
   include_once('../database/db_comment.php');
+  include_once('../database/db_user.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
@@ -9,9 +10,9 @@
 
   $story_id = $_POST['story_id'];
   $comment_text = $_POST['cmt_text'];
-  $username = $_SESSION['username'];
+  $user_id = getUserId($_SESSION['username']);
 
-  insertComment($comment_text, $story_id, $username);
+  insertComment($comment_text, $story_id, $user_id);
 
   header("Location: ../pages/story.php?id=$story_id");
 ?>

@@ -5,6 +5,8 @@
   include_once('../database/db_channel.php');
   include_once('../database/db_comment.php');
   include_once('../database/db_story.php');
+  include_once('../database/db_post.php');
+  include_once('../database/db_user.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {

@@ -7,15 +7,17 @@
   include_once('../database/db_channel.php');
   include_once('../database/db_comment.php');
   include_once('../templates/tpl_profile.php');
+  include_once('../database/db_post.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
       die(header('Location: login.php'));
   }
 
-  $profile = getProfile($_SESSION['username']);
-  $stories = getUserStories($_SESSION['username']);
-  $comments = getUserComments($_SESSION['username']);
+  $user_id = getUserId($_SESSION['username']);
+  $profile = getProfile($user_id);
+  $stories = getUserStories($user_id);
+  $comments = getUserComments($user_id);
 
 
   draw_header($_SESSION['username']);
