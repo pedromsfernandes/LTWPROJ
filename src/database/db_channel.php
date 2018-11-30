@@ -36,4 +36,12 @@
         $stmt->execute(array($channel_id));
         return $stmt->fetch();
     }
+
+    function getChannelId($channel_name)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM channel WHERE channel_name = ?');
+        $stmt->execute(array($channel_name));
+        return $stmt->fetch()['channel_id'];
+    }
 ?>

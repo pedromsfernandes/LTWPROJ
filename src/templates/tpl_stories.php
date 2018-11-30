@@ -131,7 +131,21 @@ function draw_comment($comment)
   <input type="hidden" name="type" value="downvote">
   <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
-      <?=    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
+      <?php  
+
+        function getUserLink($matches){
+          $id = getUserId($matches[1]);
+          return "<a href=\"profile.php?id=$id\">$matches[0]</a>";
+        }
+
+        function getChannelLink($matches){
+          $id = getChannelId($matches[1]);
+          return "<a href=\"channel.php?id=$id\">$matches[0]</a>";
+        }
+      
+      $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
+             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
+             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
 ?> <br>by <?=getUserName($comment['post_op'])?>
   </li>
 <?php
