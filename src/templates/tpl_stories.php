@@ -74,7 +74,9 @@ function draw_story($story, $comments_on)
   <p>Votes: <?=getVotes($story['post_id']) ?></p>
 
     <header><h2><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></h2></header>
-    <p><?=$story['post_text']?></p>
+    <p><?=
+    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+    ?></p>
     <ul>
     <?php
       draw_tags($story['post_id']);
@@ -129,7 +131,8 @@ function draw_comment($comment)
   <input type="hidden" name="type" value="downvote">
   <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
-      <?=$comment['post_text']?> <br>by <?=getUserName($comment['post_op'])?>
+      <?=    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
+?> <br>by <?=getUserName($comment['post_op'])?>
   </li>
 <?php
     }
