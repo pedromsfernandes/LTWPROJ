@@ -7,7 +7,7 @@
     <input type="button" value = "New">
   </section>
 
-  <section id="stories">
+  <section id="list">
   <?php
     foreach ($stories as $story) {
         draw_story($story, false);

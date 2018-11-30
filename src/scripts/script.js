@@ -2,7 +2,7 @@
 
 let inputs = document.querySelectorAll("#sorting input")
     
-if(inputs){
+if(inputs.length != 0){
     inputs[0].addEventListener("click", getTopStories)
     
     inputs[1].addEventListener("click", function(){
@@ -21,18 +21,20 @@ function getTopStories(event){
 }
 
 function handler(event){
-    let lines = JSON.parse(this.responseText)
+    let newStories = JSON.parse(this.responseText)
 
-    console.log(lines)
+    console.log(newStories)
 
-    if(lines.length > 0) {
-        let stories = document.querySelectorAll("#stories")
-        
+    if(newStories.length > 0) {
+        let stories = document.querySelectorAll("#list article")
+
+        console.log(stories)
+
         stories.forEach(function(data){
             data.remove()
         })
 
-        lines.forEach(function(data){
+        newStories.forEach(function(data){
         
         /*
             <article class="story">
