@@ -26,15 +26,31 @@
       <input type="hidden" name="channel_id" value="<?=$channel_id?>">
       <input type="submit" value="Submit">
       <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+      <select name="tags[]" multiple> <?php
+      draw_select_tags(getAllTags());
+?>
+      </select>
     </form>
   </article>
 
   </section>
 <?php
     }
-} ?>
+} 
 
-<?php function draw_story($story, $comments_on)
+function draw_select_tag($tag){
+  ?>
+  <option value=<?=$tag['tag_id']?>><?=$tag['tag_text']?></option>
+  <?php
+}
+
+function draw_select_tags($tags){
+  foreach($tags as $tag){
+    draw_select_tag($tag);
+  }
+}
+
+function draw_story($story, $comments_on)
 {
     ?>
   <article class="story">
@@ -59,6 +75,11 @@
 
     <header><h2><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></h2></header>
     <p><?=$story['post_text']?></p>
+    <ul>
+    <?php
+      draw_tags($story['post_id']);
+    ?>
+    </ul>
     <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
 
     <?php if ($comments_on) {
@@ -76,9 +97,19 @@
     } ?>
   </article>
 <?php
-} ?>
+} 
 
-<?php function draw_comment($comment)
+function draw_tags($story_id){
+  $tags = getStoryTags($story_id);
+
+  foreach($tags as $tag){
+    ?>
+    <li><?=$tag['tag_text']?></li>
+    <?php
+  }
+}
+
+function draw_comment($comment)
     {
         ?>
   <li>

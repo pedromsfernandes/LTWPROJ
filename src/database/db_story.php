@@ -20,13 +20,14 @@
     function getAllStoriesByVotes()
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("SELECT post.* from 
-                            post,
-                            (   SELECT post_id, SUM(vote) AS sum FROM vote
-                                GROUP BY post_id
-                                ORDER BY sum DESC
-                            ) as votes 
-                            where post.post_id = votes.post_id and post.post_title IS NOT NULL");
+        // $stmt = $db->prepare("SELECT post.* from 
+        //                     post,
+        //                     (   SELECT post_id, SUM(vote) AS sum FROM vote
+        //                         GROUP BY post_id
+        //                         ORDER BY sum DESC
+        //                     ) as votes 
+        //                     where post.post_id = votes.post_id and post.post_title IS NOT NULL");
+        $stmt = $db->prepare("SELECT * FROM post JOIN (SELECT vote.post_id, SUM(vote) AS numVotes FROM vote, post GROUP BY vote.post_id UNION SELECT post_id, 0 FROM post WHERE post_id NOT IN (SELECT post_id FROM vote) ORDER BY numVotes DESC) USING(post_id) WHERE post_title IS NOT NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -66,10 +67,21 @@
    /**
    * Inserts a new story into the database.
    */
-    function insertStory($story_title, $story_text, $user_id, $channel_id)
+    function insertStory($story_title, $story_text, $user_id, $channel_id, $tags)
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare("INSERT INTO post VALUES(NULL, ?, ?, datetime('now'), ?, NULL, ?)");
         $stmt->execute(array($story_title, $story_text, $user_id, $channel_id));
+
+        if($tags){
+            $stmt = $db->prepare("SELECT MAX(post_id) AS last_post FROM post");
+            $stmt->execute();
+            $id = $stmt->fetch()['last_post'];
+
+            foreach($tags as $tag){
+                $stmt = $db->prepare("INSERT INTO post_tag VALUES(?, ?)");
+                $stmt->execute(array($id, $tag));
+            }
+        }
     }
 
