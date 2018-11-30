@@ -18,7 +18,6 @@
   }
 
     $id = $_GET['id'];
-
   $channel = getChannel($id);
   $stories = getChannelStories($id);
 
@@ -38,6 +37,6 @@
   <input type="hidden" name="channel_id" value="<?=$id?>">
   <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
-  <?
+  <?php
   draw_stories($stories, $id);
   draw_footer();

@@ -69,6 +69,7 @@
     </ol>
         <form action="../actions/action_add_comment.php" method="post">
       <input type="hidden" name="story_id" value="<?=$story['post_id']?>">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
       <input type="textarea" name="cmt_text" placeholder="Add comment">
     </form>
       <?php
