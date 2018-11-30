@@ -7,13 +7,18 @@
     <input type="button" value = "New">
   </section>
 
+  <section id="stories">
   <?php
     foreach ($stories as $story) {
         draw_story($story, false);
     }
+  ?>
+  </section>
 
+  <?php
     if ($channel_id) {
-        ?>
+  ?>
+
   <article class="new-story">
     <form action="../actions/action_add_story.php" method="post">
       <input type="text" name="story_title" placeholder="Add story">

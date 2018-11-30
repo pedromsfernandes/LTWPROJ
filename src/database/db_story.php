@@ -17,6 +17,20 @@
         return $stmt->fetchAll();
     }
 
+    function getAllStoriesByVotes()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT post.* from 
+                            post,
+                            (   SELECT post_id, SUM(vote) AS sum FROM vote
+                                GROUP BY post_id
+                                ORDER BY sum DESC
+                            ) as votes 
+                            where post.post_id = votes.post_id");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     function getChannelStories($channel, $order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();
