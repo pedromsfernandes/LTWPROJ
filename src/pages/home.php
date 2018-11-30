@@ -8,10 +8,12 @@
   include_once('../database/db_comment.php');
   include_once('../database/db_user.php');
 
+
+
   // Verify if user is logged in
-  $stories;
-  if (!isset($_SESSION['username'])) {
     $stories = getAllStories();
+
+  if (!isset($_SESSION['username'])) {
     draw_header(null);
   }
   else {
@@ -19,7 +21,7 @@
        $_SESSION['csrf'] = generate_random_token();
      }
 
-    $stories = getSubscribedStories(getUserId($_SESSION['username']));
+    //$stories = getSubscribedStories(getUserId($_SESSION['username']));
     draw_header($_SESSION['username']);
   }
 
