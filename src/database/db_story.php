@@ -26,7 +26,7 @@
                                 GROUP BY post_id
                                 ORDER BY sum DESC
                             ) as votes 
-                            where post.post_id = votes.post_id");
+                            where post.post_id = votes.post_id and post.post_title IS NOT NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
