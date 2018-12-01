@@ -55,7 +55,18 @@ function draw_story($story, $comments_on)
     ?>
   <article class="story">
 
-  <form method="post" action="../actions/action_vote.php">
+    <header><h2><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></h2></header>
+    <p><?=
+    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+    ?></p>
+    <ul>
+    <?php
+      draw_tags($story['post_id']);
+    ?>
+    </ul>
+    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+  <div class="votes">
+    <form method="post" action="../actions/action_vote.php">
   <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
   <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
@@ -71,19 +82,8 @@ function draw_story($story, $comments_on)
   <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
   
-  <p>Votes: <?=getVotes($story['post_id']) ?></p>
-
-    <header><h2><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></h2></header>
-    <p><?=
-    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
-    ?></p>
-    <ul>
-    <?php
-      draw_tags($story['post_id']);
-    ?>
-    </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
-
+  <p><?=getVotes($story['post_id']) ?></p>
+</div>
     <?php if ($comments_on) {
         ?>
     <ol>

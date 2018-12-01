@@ -3,16 +3,16 @@
  */
 
 body {
+
   max-width: 80em;
   margin: 0 auto;
-
   --bg-color: #EEE;
   --panel-color: #FFF;
 
-  --main-color: #396;
+  --main-color: rgb(36, 68, 156);
 
   --dark-color: #333;
-  --light-color: #CCC;
+  --light-color: rgb(204, 204, 204);
 
   --serif-font: 'Merriweather';
   --sans-font: 'Open Sans Condensed';
@@ -127,6 +127,16 @@ body > header nav li:last-child {
   border: 1px solid var(--light-color);
 
   background: white;
+}
+
+#login > form > input[type=submit], #signup > form > input[type=submit]{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+#login > form > input[type=submit]:hover, #signup > form > input[type=submit]:hover{
+  background-color: rgb(23, 95, 143); /* Green */
+  color: white;
 }
 
 #login header, #signup header {
@@ -253,4 +263,85 @@ body > header nav li:last-child {
   font-weight: bold;
 
   border-bottom: none;
+}
+
+/** 
+*Storys
+*/
+
+.story {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 0.1fr,0.1fr,0.1fr;
+  border: 5px solid var(--main-color);
+  border-radius: 10px;
+  margin: 1em;
+}
+.story:hover {
+  background: rgb(215, 237, 245);
+}
+
+.story > header {
+  font-size: 1em;
+  grid-column: 2/3;
+  grid-row: 1;
+  text-align: left;
+}
+/*Post text */
+.story > p:first-of-type {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 0;
+}
+.story > footer {
+  grid-column: 3;
+  grid-row: 3;
+}
+.votes {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-gap: 0;
+  grid-template-rows: 0.5fr,0.5fr,0.5fr;
+  text-align: center;
+}
+/*Upvote */
+.votes > form:nth-of-type(1) > button{
+  grid-row: 1;
+  font-size: 2em;
+  background-color:transparent; 
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  color: rgb(156, 177, 216);
+}
+.votes > form:nth-of-type(1) > button:hover{
+  color: rgb(78, 137, 247);
+}
+
+/*Downvote */
+.votes > form:nth-of-type(2) > button{
+  grid-row: 3;
+  font-size: 2em;
+  background-color: transparent; 
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  color: rgb(156, 177, 216);
+}
+.votes > form:nth-of-type(2) > button:hover{
+  color: rgb(78, 137, 247);
+}
+/*Votes*/
+.votes > p {
+  grid-row: 2;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+.story > ul {
+  grid-column: 2;
+  grid-row: 3; 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }

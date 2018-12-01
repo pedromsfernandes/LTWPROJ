@@ -13,7 +13,7 @@ function draw_header($username)
         </head>
         <body>
             <header>
-            <h1><a href="../index.php"><i class="fas fa-bed"></i> Super Legit Reddit</a></h1>
+            <h1><a href="../index.php"><img src="../../res/LogoSmall.png" width = "114" height = "132"> </a></h1>
       <?php if ($username != null) {
         ?>
             <nav>
