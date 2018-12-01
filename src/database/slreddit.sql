@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS post_tag (
 CREATE TABLE IF NOT EXISTS channel (
     channel_id INTEGER PRIMARY KEY,
     channel_name VARCHAR NOT NULL,
-    channel_desc VARCHAR NOT NULL
+    channel_desc VARCHAR NOT NULL,
+    -- channel_header VARCHAR,
+    channel_creator INTEGER REFERENCES user
 );
 
 CREATE TABLE IF NOT EXISTS vote (
@@ -49,13 +51,13 @@ CREATE TABLE IF NOT EXISTS tag (
 
 -- DEFAULTS
 
-INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.');
-INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.');
-INSERT INTO channel VALUES (NULL, 'nba', 'Discuss nba.');
-INSERT INTO channel VALUES (NULL, 'news', 'Discuss news.');
-INSERT INTO channel VALUES (NULL, 'television', 'Discuss television.');
-INSERT INTO channel VALUES (NULL, 'games', 'Discuss games.');
-INSERT INTO channel VALUES (NULL, 'mma', 'Discuss mma.');
+INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.', NULL);
+INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.', NULL);
+INSERT INTO channel VALUES (NULL, 'nba', 'Discuss nba.', NULL);
+INSERT INTO channel VALUES (NULL, 'news', 'Discuss news.', NULL);
+INSERT INTO channel VALUES (NULL, 'television', 'Discuss television.', NULL);
+INSERT INTO channel VALUES (NULL, 'games', 'Discuss games.', NULL);
+INSERT INTO channel VALUES (NULL, 'mma', 'Discuss mma.', NULL);
 
 INSERT INTO tag VALUES (NULL, 'help');
 INSERT INTO tag VALUES (NULL, 'media');

@@ -1,4 +1,7 @@
 <?php
+
+include_once('../database/db_user.php');
+
 function draw_header($username)
 {
     ?>
@@ -22,6 +25,8 @@ function draw_header($username)
                 <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>">My Profile</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
                 <li><a href="search.php">Search</a></li>
+                <li><a href="create_channel.php">Create channel</a></li>
+                <li><a href="add_story.php">Add story</a></li>
                 </ul>
             </nav>
         <?php

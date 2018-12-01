@@ -88,5 +88,10 @@
                 $stmt->execute(array($id, $tag));
             }
         }
+
+        $stmt = $db->prepare('SELECT MAX(post_id) AS post_id FROM post');
+        $stmt->execute();
+
+        return $stmt->fetch()['post_id'];
     }
 
