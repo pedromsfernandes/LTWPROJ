@@ -84,12 +84,6 @@ function handler(event){
         `</ul>
 
         <footer>Submitted by: `/*<?=getUserName($story['post_op'])?>*/+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
-      
-        <form action="../actions/action_add_comment.php" method="post">
-            <input type="hidden" name="story_id" value="`+data.post_id+`">
-            <input type="hidden" name="csrf" value="`+session.csrf+`">
-            <input type="textarea" name="cmt_text" placeholder="Add comment">
-        </form>
         `
 
         list.append(story)
