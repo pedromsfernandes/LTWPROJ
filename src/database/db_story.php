@@ -27,7 +27,12 @@
         //                         ORDER BY sum DESC
         //                     ) as votes 
         //                     where post.post_id = votes.post_id and post.post_title IS NOT NULL");
-        $stmt = $db->prepare("SELECT * FROM post JOIN (SELECT vote.post_id, SUM(vote) AS numVotes FROM vote, post GROUP BY vote.post_id UNION SELECT post_id, 0 FROM post WHERE post_id NOT IN (SELECT post_id FROM vote) ORDER BY numVotes DESC) USING(post_id) WHERE post_title IS NOT NULL");
+        $stmt = $db->prepare("SELECT * FROM 
+                            post JOIN (SELECT vote.post_id, SUM(vote) AS numVotes
+                                FROM vote, post GROUP BY vote.post_id UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_id FROM vote)) 
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY numVotes DESC, post_date DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
