@@ -24,12 +24,12 @@
       <input type="text" name="story_title" placeholder="Add story">
       <input type="textarea" name="story_text" placeholder="What's on your mind?">
       <input type="hidden" name="channel_id" value="<?=$channel_id?>">
-      <input type="submit" value="Submit">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
       <select name="tags[]" multiple> <?php
       draw_select_tags(getAllTags());
 ?>
       </select>
+      <input type="submit" value="Submit">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
   </article>
 
@@ -47,6 +47,18 @@ function draw_select_tag($tag){
 function draw_select_tags($tags){
   foreach($tags as $tag){
     draw_select_tag($tag);
+  }
+}
+
+function draw_select_channel($channel){
+  ?>
+  <option value=<?=$channel['channel_id']?>><?=$channel['channel_name']?></option>
+  <?php
+}
+
+function draw_select_channels($channels){
+  foreach($channels as $channel){
+    draw_select_channel($channel);
   }
 }
 
@@ -82,7 +94,7 @@ function draw_story($story, $comments_on)
       draw_tags($story['post_id']);
     ?>
     </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+    <footer>Submitted by: <a href="../pages/profile.php?id=<?=$story['post_op']?>"><?=getUserName($story['post_op'])?></a> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
 
     <?php if ($comments_on) {
         ?>

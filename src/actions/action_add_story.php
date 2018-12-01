@@ -18,7 +18,7 @@
   $user_id = getUserId($_SESSION['username']);
   $tags = $_POST['tags'];
 
-  insertStory($story_title, $story_text, $user_id, $channel_id, $tags);
+  $story_id = insertStory($story_title, $story_text, $user_id, $channel_id, $tags);
 
-  header('Location: ../pages/home.php');
+  header("Location: ../pages/story.php?id=$story_id");
 ?>

@@ -25,8 +25,13 @@
     function insertChannel($channel_name, $channel_description, $user_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO channel VALUES(NULL, ?, ?, ?');
+        $stmt = $db->prepare('INSERT INTO channel VALUES(NULL, ?, ?, ?)');
         $stmt->execute(array($channel_name, $channel_description, $user_id));
+
+        $stmt = $db->prepare('SELECT MAX(channel_id) AS channel_id FROM channel');
+        $stmt->execute();
+
+        return $stmt->fetch()['channel_id'];
     }
 
     function getChannel($channel_id)
@@ -43,5 +48,13 @@
         $stmt = $db->prepare('SELECT * FROM channel WHERE channel_name = ?');
         $stmt->execute(array($channel_name));
         return $stmt->fetch()['channel_id'];
+    }
+
+    function getAllChannels()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM channel');
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 ?>
