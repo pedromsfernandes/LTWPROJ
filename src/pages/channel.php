@@ -29,7 +29,7 @@
   ?>
   <form method="post" action="../actions/action_subscribe_channel.php">
   <button name="subscribe" type="submit"><?php
-    if(isUserSubscribed($id, $_SESSION['username']))
+    if(isUserSubscribed($id, getUserId($_SESSION['username'])))
       echo 'Unsubscribe';
     else
       echo 'Subscribe';
