@@ -56,18 +56,18 @@
         return $stmt->fetch();
     }
 
-    function addPoint($username)
+    function addPoint($user_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("UPDATE user SET user_points = user_points + 1 WHERE user_name = ?");
-        $stmt->execute(array($username));
+        $stmt = $db->prepare("UPDATE user SET user_points = user_points + 1 WHERE user_id = ?");
+        $stmt->execute(array($user_id));
     }
       
-    function remPoint($username)
+    function remPoint($user_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("UPDATE user SET user_points = user_points - 1 WHERE user_name = ?");
-        $stmt->execute(array($username));
+        $stmt = $db->prepare("UPDATE user SET user_points = user_points - 1 WHERE user_id = ?");
+        $stmt->execute(array($user_id));
     }
 
     function getSubscribedStories($user_id){

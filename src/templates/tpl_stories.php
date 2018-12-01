@@ -82,7 +82,7 @@ function draw_story($story, $comments_on)
       draw_tags($story['post_id']);
     ?>
     </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+    <footer>Submitted by: <a href="../pages/profile.php?id=<?=$story['post_op']?>"><?=getUserName($story['post_op'])?></a> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
 
     <?php if ($comments_on) {
         ?>

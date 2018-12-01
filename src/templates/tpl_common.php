@@ -19,7 +19,7 @@ function draw_header($username)
             <nav>
                 <ul>
                 <li><?=$username?></li>
-                <li><a href="profile.php">My Profile</a></li>
+                <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>">My Profile</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
                 <li><a href="search.php">Search</a></li>
                 </ul>

@@ -18,17 +18,21 @@
     $_SESSION['csrf'] = generate_random_token();
   }
 
-  $user_id = getUserId($_SESSION['username']);
+  $user_id = $_GET['id'];
   $profile = getProfile($user_id);
   $stories = getUserStories($user_id);
   $comments = getUserComments($user_id);
 
 
   draw_header($_SESSION['username']);
-  draw_profile($profile); ?>
+  draw_profile($profile); 
+  
+  if($user_id === getUserId($_SESSION['username'])){
+      ?>
 
   <a href="edit_profile.php">Edit Profile</a>
   <?php
+  }
 
   draw_stories($stories);
 
