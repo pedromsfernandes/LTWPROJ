@@ -29,9 +29,10 @@
   
   if($user_id === getUserId($_SESSION['username'])){
       ?>
-
+<div class = "editProfile">
   <a href="edit_profile.php">Edit Profile</a>
-  <?php
+  </div>
+<?php
   }
 
   draw_stories($stories);
