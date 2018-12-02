@@ -53,10 +53,10 @@
         return $stmt->fetch();
     }
 
-    function getChildComments($post_id)
+    function getChildComments($post_id, $order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM post WHERE post_father = ?');
+        $stmt = $db->prepare("SELECT * FROM post WHERE post_father = ? ORDER BY $order $asc_desc");
         $stmt->execute(array($post_id));
         return $stmt->fetchAll();
     }
@@ -93,5 +93,12 @@
         $stmt->execute();
 
         return $stmt->fetch()['post_id'];
+    }
+
+    function getUpvotedStories($user_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM post WHERE post_title IS NOT NULL AND post_op <> ? AND post_id IN (SELECT post_title FROM vote WHERE user_id = ?)');
+        $stmt->execute(array($user_id, $user_id));
+        return $stmt->fetchAll();
     }
 

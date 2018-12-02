@@ -1,10 +1,10 @@
 <?php
   include_once('../includes/database.php');
 
-  /**
-   * Verifies if a certain username, password combination
-   * exists in the database. Use the sha1 hashing function.
-   */
+    /**
+     * Verifies if a certain username, password combination
+     * exists in the database. Use the sha1 hashing function.
+     */
     function checkUserPassword($username, $password)
     {
         $db = Database::instance()->db();

@@ -57,4 +57,13 @@
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    function getNumSubscribers($channel_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT COUNT(*) as numSubscribers FROM subscription GROUP BY channel_id HAVING channel_id = ?');
+        $stmt->execute(array($channel_id));
+        $res = $stmt->fetch()['numSubscribers'];
+
+        return $res == 0 ? 0 : $res;
+    }
 ?>
