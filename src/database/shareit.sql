@@ -92,3 +92,11 @@ BEGIN
 INSERT INTO subscription VALUES(New.channel_id, New.channel_creator);
 END;
 
+
+CREATE TRIGGER AutoUpvote
+AFTER INSERT ON post
+FOR EACH ROW
+BEGIN
+INSERT INTO vote VALUES(New.post_id, New.post_op, 1);
+END;
+
