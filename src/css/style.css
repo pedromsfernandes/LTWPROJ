@@ -125,179 +125,7 @@ input[type="submit"], input[type="button"] {
   background-color: var(--panel-color);
 }
 
-/**
- * Lists
- */
 
-#lists {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;	
-}
-
-#lists article.list {
-  border: 1px solid black;
-
-  margin: 1em;
-  background-color: var(--panel-color);
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-#lists article.list header{
-  background-color: var(--main-color);
-  padding: 1em;
-}
-
-#lists article.list header h2{
-  color: var(--panel-color);
-  margin: 0;
-}
-
-#lists article.list ol{
-  padding: 1em;
-}
-
-#lists article.list ol li{
-  display: block;
-
-  margin: 0;
-  padding: 1em 1em 1em 0;
-}
-
-#lists article.list ol li a{
-  float: left;
-  padding: 0 .5em 0 0;
-  visibility: hidden;
-}
-
-#lists article.list ol li:hover a{
-  visibility: visible;
-}
-
-#lists article.list ol li label{
-  display: block;
-  max-width: 20em;
-}
-
-#lists article.list ol li label input{
-  float: right;
-}
-
-#lists article.list form {
-  padding: 1em;
-}
-
-#lists article.list form input {
-  width: 100%;
-  padding: 1em;
-}
-
-#lists article.new-list {
-  border: 1px solid black;
-
-  margin: 1em;
-  background-color: var(--panel-color);
-}
-
-#lists article.new-list form {
-  background-color: var(--main-color);
-}
-
-#lists article.new-list form input {
-  padding: .5em;
-
-  color: var(--panel-color);
-  background-color: var(--main-color);
-
-  font-family: var(--sans-font);
-  font-size: 1.5em;
-  font-weight: bold;
-
-  border-bottom: none;
-}
-
-/** 
-*Storys
-*/
-
-.story {
-  display: grid;
-  grid-template-columns: 1fr 2fr 2fr 1fr;
-  grid-template-rows: 0.1fr,0.1fr,0.1fr;
-  border: 5px solid var(--main-color);
-  border-radius: 10px;
-  margin: 1em;
-}
-.story:hover {
-  background: rgb(215, 237, 245);
-}
-
-.story > header {
-  font-size: 1em;
-  grid-column: 2/3;
-  grid-row: 1;
-  text-align: left;
-}
-/*Post text */
-.story > p:first-of-type {
-  grid-column: 2;
-  grid-row: 2;
-  padding: 0;
-}
-.story > footer {
-  grid-column: 3;
-  grid-row: 3;
-}
-.votes {
-  grid-column: 1;
-  grid-row: 2;
-  display: grid;
-  grid-gap: 0;
-  grid-template-rows: 0.5fr,0.5fr,0.5fr;
-  text-align: center;
-}
-/*Upvote */
-.votes > form:nth-of-type(1) > button{
-  grid-row: 1;
-  font-size: 2em;
-  background-color:transparent; 
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  color: rgb(156, 177, 216);
-}
-.votes > form:nth-of-type(1) > button:hover{
-  color: rgb(78, 137, 247);
-}
-
-/*Downvote */
-.votes > form:nth-of-type(2) > button{
-  grid-row: 3;
-  font-size: 2em;
-  background-color: transparent; 
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  color: rgb(156, 177, 216);
-}
-.votes > form:nth-of-type(2) > button:hover{
-  color: rgb(78, 137, 247);
-}
-/*Votes*/
-.votes > p {
-  grid-row: 2;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-}
-
-.story > ul {
-  grid-column: 2;
-  grid-row: 3; 
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
 
 /**
 * Profile
@@ -383,4 +211,107 @@ input[type="submit"], input[type="button"] {
 
 .account > ul > li > a:hover {
   background-color: rgb(48, 152, 238);
+}
+
+.titles {
+  display: grid;
+  grid-template-areas:
+    'upvote image header header header header header'
+    'vote image header header header header header'
+    'downvote image footer footer footer footer footer';
+  border: 5px solid var(--main-color);
+  border-radius: 10px;
+  margin: 1em;
+}
+
+.titles:hover {
+  background: rgb(197, 208, 228);
+}
+
+.titles > header {
+  grid-area: header;
+  text-align: left;
+  font-size: 2em;
+}
+.voteup{
+  text-align: center;
+  grid-area: upvote;
+}
+.voteup > form > button{
+  text-align: center;
+  font-size: 2em;
+  background-color:transparent; 
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  color: rgb(156, 177, 216);
+}
+.voteup > form > button:hover{
+  color: rgb(78, 137, 247);
+}
+.votedown{
+  grid-area: downvote;
+  text-align: center;
+  grid-row: 3;
+}
+
+.votedown > form > button {
+  font-size: 2em;
+  background-color: transparent; 
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  color: rgb(156, 177, 216);
+}
+.votedown > form > button:hover{
+  color: rgb(78, 137, 247);
+}
+/*Votes*/
+.titles > p {
+  text-align: center;
+  grid-area: vote;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+.titles > footer {
+  grid-area: footer;
+  text-align: right;
+}
+
+.post {
+  display: grid;
+
+  grid-template-areas:
+    'upvote header header header header header header'
+    'vote header header header header header header'
+    'downvote header header header header header header'
+    'blank text text text text text text'
+    'footer footer footer footer footer footer footer';
+  border: 5px solid var(--main-color);
+  border-radius: 10px;
+  margin: 1em;
+}
+
+.post > p {
+  text-align: center;
+  grid-area: vote;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+.post > footer {
+  grid-area: footer;
+  text-align: right;
+}
+
+.post > header {
+  grid-area: header;
+  text-align: left;
+  font-size: 2em;
+}
+
+.storytext {
+  grid-area: text;
+  text-align: left;
+  font-size: 1em;
 }
