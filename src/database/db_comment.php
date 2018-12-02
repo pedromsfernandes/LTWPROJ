@@ -20,10 +20,10 @@
     /**
    * Inserts a new comment into a story.
    */
-  function insertComment($comment_text, $story_id, $user_id)
+  function insertComment($comment_text, $post_id, $user_id)
   {
       $db = Database::instance()->db();
       $stmt = $db->prepare("INSERT INTO post VALUES(NULL, NULL, ?, datetime('now'), ?, ?, NULL)");
-      $stmt->execute(array($comment_text, $user_id, $story_id));
+      $stmt->execute(array($comment_text, $user_id, $post_id));
   }
   ?>

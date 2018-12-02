@@ -12,11 +12,12 @@
     die(header('Location: ' . $_SERVER['HTTP_REFERER']));
   }
 
-  $story_id = $_POST['story_id'];
+  
+  $post_id = $_POST['post_id'];
   $comment_text = $_POST['cmt_text'];
   $user_id = getUserId($_SESSION['username']);
 
-  insertComment($comment_text, $story_id, $user_id);
+  insertComment($comment_text, $post_id, $user_id);
 
-  header("Location: ../pages/story.php?id=$story_id");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

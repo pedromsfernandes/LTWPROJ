@@ -20,7 +20,7 @@
   $id = $_GET['id'];
 
   $story = getStory($id);
-  $story['story_comments'] = getStoryComments($story['post_id']);
+  $story['story_comments'] = getChildComments($story['post_id']);
 
   draw_header($_SESSION['username']);
   draw_story($story, true);

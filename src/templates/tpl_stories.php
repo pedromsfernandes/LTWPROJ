@@ -102,16 +102,20 @@ function draw_story($story, $comments_on)
       <?php
             draw_comments($story['story_comments']); ?>
     </ol>
-        <form action="../actions/action_add_comment.php" method="post">
-      <input type="hidden" name="story_id" value="<?=$story['post_id']?>">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-      <input type="textarea" name="cmt_text" placeholder="Add comment">
-    </form>
       <?php
+      draw_comment_form($story);
     } ?>
   </article>
 <?php
 } 
+
+function draw_comment_form($post){ ?>
+  <form action="../actions/action_add_comment.php" method="post">
+    <input type="hidden" name="post_id" value="<?=$post['post_id']?>">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+    <input type="textarea" name="cmt_text" placeholder="Add comment">
+  </form> <?php
+}
 
 function draw_tags($story_id){
   $tags = getStoryTags($story_id);
@@ -123,42 +127,48 @@ function draw_tags($story_id){
   }
 }
 
+function getUserLink($matches){
+  $id = getUserId($matches[1]);
+  return "<a href=\"profile.php?id=$id\">$matches[0]</a>";
+}
+
+function getChannelLink($matches){
+  $id = getChannelId($matches[1]);
+  return "<a href=\"channel.php?id=$id\">$matches[0]</a>";
+}
+
 function draw_comment($comment)
     {
+      $children = getChildComments($comment['post_id']);
         ?>
   <li>
   <p>Votes: <?=getVotes($comment['post_id']) ?></p>
   <form method="post" action="../actions/action_vote.php">
-  <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
-  <input type="hidden" name="type" value="upvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+    <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+    <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
+    <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
+    <input type="hidden" name="type" value="upvote">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
 
-    <form method="post" action="../actions/action_vote.php">
-  <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
-  <input type="hidden" name="type" value="downvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+  <form method="post" action="../actions/action_vote.php">
+    <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+    <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
+    <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
+    <input type="hidden" name="type" value="downvote">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form>
-      <?php  
-
-        function getUserLink($matches){
-          $id = getUserId($matches[1]);
-          return "<a href=\"profile.php?id=$id\">$matches[0]</a>";
-        }
-
-        function getChannelLink($matches){
-          $id = getChannelId($matches[1]);
-          return "<a href=\"channel.php?id=$id\">$matches[0]</a>";
-        }
-      
+      <?php        
       $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
-             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
-             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
+      $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
+      echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
 ?> <br>by <?=getUserName($comment['post_op'])?>
+<?php
+  draw_comment_form($comment);
+?>
+    <ol>
+<?php draw_comments($children); ?>
+    </ol> 
   </li>
 <?php
     }

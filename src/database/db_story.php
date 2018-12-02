@@ -53,11 +53,11 @@
         return $stmt->fetch();
     }
 
-    function getStoryComments($story_id)
+    function getChildComments($post_id)
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM post WHERE post_father = ?');
-        $stmt->execute(array($story_id));
+        $stmt->execute(array($post_id));
         return $stmt->fetchAll();
     }
 

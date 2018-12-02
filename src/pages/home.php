@@ -26,7 +26,7 @@
   }
 
   foreach ($stories as $k => $story) {
-      $stories[$k]['story_comments'] = getStoryComments($story['post_id']);
+      $stories[$k]['story_comments'] = getChildComments($story['post_id']);
   }
 ?>
 
