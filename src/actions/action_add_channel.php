@@ -22,7 +22,6 @@
   }
 
   $channel_id = insertChannel($channel_name, $channel_description, $user_id);
-  addSubscription($channel_id, $user_id);
 
   header("Location: ../pages/channel.php?id=$channel_id");
 ?>

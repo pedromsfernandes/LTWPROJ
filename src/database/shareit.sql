@@ -78,7 +78,17 @@ INSERT INTO post VALUES(NULL, 'ya', 'O incentivo ao avanço tecnológico, assim 
 INSERT INTO post VALUES(NULL, 'ye', 'O cuidado em identificar pontos críticos na mobilidade dos capitais internacionais estende o alcance e a importância das direções preferenciais no sentido do progresso.
 ', '2018-10-26 21:08:07', 2, NULL, 2);
 
-INSERT INTO post values(NULL, NULL, 'Casillas is a god.', '2018-10-25 10:05:00',3,1,NULL);
-INSERT INTO post values(NULL, NULL,'Who needs Aboubakar?', '2018-10-25 10:30:00',2,1, NULL);
-INSERT INTO post values(NULL, NULL,'Poindexter is crazy', '2018-10-26 21:51:17', 1,2,NULL);
-INSERT INTO post values(NULL, NULL,'Murdock and Nelson avocados at law!', '2018-10-26 22:32:41',3,2, NULL);
+INSERT INTO post values(NULL, NULL, 'Casillas is a god.', '2018-10-25 10:05:00', 3, 1, NULL);
+INSERT INTO post values(NULL, NULL, 'Who needs Aboubakar?', '2018-10-25 10:30:00', 2, 1, NULL);
+INSERT INTO post values(NULL, NULL, 'Poindexter is crazy', '2018-10-26 21:51:17', 1, 2, NULL);
+INSERT INTO post values(NULL, NULL, 'Murdock and Nelson avocados at law!', '2018-10-26 22:32:41', 3, 2, NULL);
+
+-- TRIGGERS
+
+CREATE TRIGGER AutoSub
+AFTER INSERT ON channel
+FOR EACH ROW
+BEGIN
+INSERT INTO subscription VALUES(New.channel_id, New.channel_creator);
+END;
+
