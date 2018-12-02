@@ -20,22 +20,29 @@ function draw_header($username)
       <?php if ($username != null) {
         ?>
             <nav>
-                <ul>
-                <li><?=$username?></li>
-                <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>">My Profile</a></li>
+                <div class="account">
+                 <ul>   
+                <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>"><?=$username?></a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
+                <ul>
+                </div>
+                <div class="toolbar">
+                <ul>
                 <li><a href="search.php">Search</a></li>
                 <li><a href="create_channel.php">Create channel</a></li>
                 <li><a href="add_story.php">Add story</a></li>
+                </div>
                 </ul>
             </nav>
         <?php
     }else{
         ?>
             <nav>   
+                <div class="account"> 
                 <ul>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="signup.php">Signup</a></li>
+                </div>
                 </ul>
             </nav>
         <?php

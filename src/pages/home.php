@@ -29,10 +29,6 @@
       $stories[$k]['story_comments'] = getChildComments($story['post_id']);
   }
 ?>
-
-<form action="add_story.php">
-    <input type="submit" value="Add story" />
-</form>
 <?php
   draw_stories($stories);
   draw_footer();

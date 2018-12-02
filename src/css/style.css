@@ -69,53 +69,6 @@ input[type="submit"], input[type="button"] {
 }
 
 /**
- * Primary header
- */
-
-body > header {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-
-  margin: 0;
-  padding: 1em;
-
-  font-size: 2em;
-  text-align: center;
-
-  color: var(--dark-color);
-}
-
-body > header h1 {
-  margin: 0;
-  flex-grow: 1;
-  grid-column-start: 2;
-}
-
-body > header h1 i {
-  color: var(--main-color);
-}
-
-body > header h1 a {
-  font-family: var(--sans-font), sans-serif;
-}
-
-body > header nav ul {
-  padding: 0;
-}
-
-body > header nav li {
-  display: inline-block;
-  font-size: 0.5em;
-  border-right: 1px solid var(--dark-color);
-  padding: 0 1em;
-}
-
-body > header nav li:last-child {
-  border: none;
-}
-
-
-/**
  * Login
  */
 
@@ -379,4 +332,55 @@ body > header nav li:last-child {
 
 .editProfile:hover {
   opacity: 0.7;
+}
+
+/**
+*Header
+*/
+.toolbar > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.toolbar > ul > li {
+  float: left;
+}
+
+.toolbar > ul > li > a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.toolbar > ul > li > a:hover {
+  background-color: #111;
+}
+
+.account > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--main-color);
+}
+
+.account > ul > li {
+  float: right;
+}
+
+.account > ul > li > a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.account > ul > li > a:hover {
+  background-color: rgb(48, 152, 238);
 }
