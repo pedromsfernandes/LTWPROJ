@@ -24,31 +24,25 @@
     if(strcmp($type,"upvote")===0){
         if($lastVote == 1){
             remVote($post_id, $user_id);
-            remPoint($post_op);
         }
         else {
             if($lastVote == -1){
                 remVote($post_id, $user_id);
-                addPoint($post_op);
             }
 
             addVote($post_id, $user_id, 1);
-            addPoint($post_op);
         }
     }
     else{
         if($lastVote == -1){
             remVote($post_id, $user_id);
-            addPoint($post_op);
         }
         else {
             if($lastVote == 1){
                 remVote($post_id, $user_id);
-                remPoint($post_op);
             }
 
             addVote($post_id, $user_id, -1);
-            remPoint($post_op);
         }
     }
 
