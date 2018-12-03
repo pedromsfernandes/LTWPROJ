@@ -7,6 +7,13 @@
         $stmt = $db->prepare('INSERT INTO subscription VALUES(?, ?)');
         $stmt->execute(array($channel_id, $user_id));
     }
+    
+    function searchChannels($pattern){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM channel WHERE channel_name LIKE ? OR channel_desc LIKE ?');
+        $stmt->execute(array("%$pattern%", "%$pattern%"));
+        return $stmt->fetchAll();
+    }
 
     function removeSubscription($channel_id, $user_id)
     {

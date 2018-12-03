@@ -56,20 +56,6 @@
         return $stmt->fetch();
     }
 
-    function addPoint($user_id)
-    {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare("UPDATE user SET user_points = user_points + 1 WHERE user_id = ?");
-        $stmt->execute(array($user_id));
-    }
-      
-    function remPoint($user_id)
-    {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare("UPDATE user SET user_points = user_points - 1 WHERE user_id = ?");
-        $stmt->execute(array($user_id));
-    }
-
     function getSubscribedStories($user_id){
         $db = Database::instance()->db();
        $stmt = $db->prepare('SELECT * FROM post WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)');

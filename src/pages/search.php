@@ -2,6 +2,7 @@
   include_once('../includes/session.php');
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_stories.php');
+  include_once('../templates/tpl_channels.php');
   include_once('../database/db_channel.php');
   include_once('../database/db_comment.php');
   include_once('../database/db_story.php');
@@ -26,6 +27,7 @@
     <select name="search_type">
         <option value="stories">Stories</option>
         <option value="comments">Comments</option>
+        <option value="channels">Channels</option>
     </select>
     <input type="submit" name="submit" value="Search"> 
     <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
@@ -39,9 +41,13 @@
         if ($search_type == 'stories') {
             $stories = searchStories($search_text);
             draw_stories($stories);
-        } elseif ($search_type == 'comments') {
+        } else if ($search_type == 'comments') {
             $comments = searchComments($search_text);
             draw_comments($comments);
+        }
+        else if ($search_type == 'channels') {
+            $channels = searchChannels($search_text);
+            draw_channels($channels);
         }
     }
   draw_footer();
