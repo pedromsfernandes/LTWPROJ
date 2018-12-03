@@ -65,15 +65,17 @@ function draw_select_channels($channels){
 function draw_story_titles($story) {
   ?>
   <div class="titles">
-  <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
+  <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>~
+  <ul>
+
   <?php
     draw_tags($story['post_id']);
     ?>
 
-     </ul>
+    </ul>
     <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
   <div class="voteup">
-    <form method="post" action="../actions/action_vote.php">
+  <form method="post" action="../actions/action_vote.php">
   <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
   <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
   <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
@@ -92,7 +94,6 @@ function draw_story_titles($story) {
 </div>
 
   <p><?=getVotes($story['post_id']) ?></p>
-</div>
 </div>
   <?php
 

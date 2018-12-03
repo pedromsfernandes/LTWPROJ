@@ -38,11 +38,7 @@ function handler(event){
 
     let newStories = JSON.parse(this.responseText)
 
-    console.log(newStories)
-
-    let stories = document.querySelectorAll("#list article")
-
-    console.log(stories)
+    let stories = document.querySelectorAll("#list div")
 
     stories.forEach(function(data){
         data.remove()
@@ -55,36 +51,37 @@ function handler(event){
         story.classList.add("story")
 
         story.innerHTML = `
-        <form method="post" action="../actions/action_vote.php">
-            <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
-            <input type="hidden" name="post_op" value="`+data.post_op+`">
-            <input type="hidden" name="post_id" value="`+data.post_id+`">
-            <input type="hidden" name="type" value="upvote">
-            <input type="hidden" name="csrf" value="`+session.csrf+`">
-        </form>
-      
-        <form method="post" action="../actions/action_vote.php">
-            <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
-            <input type="hidden" name="post_op" value="`+data.post_op+`">
-            <input type="hidden" name="post_id" value="`+data.post_id+`">
-            <input type="hidden" name="type" value="downvote">
-            <input type="hidden" name="csrf" value="`+session.csrf+`">
-        </form>
+        <div class="titles">
+        <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
+        `/*<ul>
         
-        <p>Votes: `/*<?=getVotes($story['post_id']) ?>*/+`</p>
-      
-        <header><h2><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></h2></header>
-        `+
-        /*<p><?=
-          preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
-          ?></p>*/
-        
-        `<ul>
-            `+getTags(data.post_id)+
-        `</ul>
+        <?php
+            draw_tags($story['post_id']);
+            ?>
 
-        <footer>Submitted by: <a href="../pages/profile.php?id=`+data.post_op+`">`/*<?=getUserName($story['post_op'])?>*/+`</a> on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
-        `
+            </ul>*/+`
+        <footer>Submitted by: `/*<?=getUserName($story['post_op'])?>*/+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
+        <div class="voteup">
+        <form method="post" action="../actions/action_vote.php">
+        <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+        <input type="hidden" name="post_op" value="`+data.post_op+`>">
+        <input type="hidden" name="post_id" value="`+data.post_id+`">
+        <input type="hidden" name="type" value="upvote">
+        <input type="hidden" name="csrf" value="`+session.csrf+`">
+        </form>
+        </div>
+        <div class = "votedown">
+        <form method="post" action="../actions/action_vote.php">
+        <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+        <input type="hidden" name="post_op" value="`+data.post_op+`">
+        <input type="hidden" name="post_id" value="`+data.post_id+`">
+        <input type="hidden" name="type" value="downvote">
+        <input type="hidden" name="csrf" value="`+session.csrf+`">
+        </form>
+        </div>
+
+        `/*<p><?=getVotes($story['post_id']) ?></p>*/+`
+        </div>`
 
         list.append(story)
     })
