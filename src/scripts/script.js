@@ -53,13 +53,10 @@ function handler(event){
         story.innerHTML = `
         <div class="titles">
         <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
-        `/*<ul>
-        
-        <?php
-            draw_tags($story['post_id']);
-            ?>
-
-            </ul>*/+`
+        <ul>
+        `+//getTags(data.post_id)+
+        `
+        </ul>
         <footer>Submitted by: `/*<?=getUserName($story['post_op'])?>*/+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
         <div class="voteup">
         <form method="post" action="../actions/action_vote.php">
@@ -92,8 +89,6 @@ function getTags(story_id){
     request.addEventListener('load', tagHandler)
     request.open('post', '../actions/action_get_story_tags.php', true)
     request.send(encodeForAjax({story_id: story_id}))
-
-    //console.log(tags)
 
     let string = ""
 /*

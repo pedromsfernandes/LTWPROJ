@@ -65,7 +65,7 @@ function draw_select_channels($channels){
 function draw_story_titles($story) {
   ?>
   <div class="titles">
-  <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>~
+  <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
   <ul>
 
   <?php
