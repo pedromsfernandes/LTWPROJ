@@ -3,7 +3,7 @@
 let inputs = document.querySelectorAll("#sorting input")
 
 var session
-var tags
+var store
 
 let request = new XMLHttpRequest()
 request.addEventListener('load', getSession)
@@ -57,7 +57,7 @@ function handler(event){
         `+//getTags(data.post_id)+
         `
         </ul>
-        <footer>Submitted by: `/*<?=getUserName($story['post_op'])?>*/+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
+        <footer>Submitted by: `+getUserName(data.post_op)+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
         <div class="voteup">
         <form method="post" action="../actions/action_vote.php">
         <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
@@ -84,26 +84,37 @@ function handler(event){
     })
 }
 
+function getUserName(story_op){
+    let request = new XMLHttpRequest()
+    request.addEventListener('load', receiver)
+    request.open('post', '../actions/action_get_story_op_username.php', false)
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    request.send(encodeForAjax({story_op: story_op}))
+
+    return store
+}
+
 function getTags(story_id){
     let request = new XMLHttpRequest()
-    request.addEventListener('load', tagHandler)
-    request.open('post', '../actions/action_get_story_tags.php', true)
+    request.addEventListener('load', receiver)
+    request.open('post', '../actions/action_get_story_tags.php', false)
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     request.send(encodeForAjax({story_id: story_id}))
 
     let string = ""
 /*
-    tags.forEach(function(tag){
+    store.forEach(function(tag){
         string += "<li>"+tag.tag_text+"</li>\n"
     })
 */
     return string
 }
 
-function tagHandler(event){
+function receiver(event){
     event.preventDefault()
 
-    tags = JSON.parse(this.responseText)
-    console.log(tags)
+    store = JSON.parse(this.responseText)
+    console.log(store)
 }
 
 function encodeForAjax(data) {
