@@ -2,29 +2,23 @@
 
 let inputs = document.querySelectorAll("#sorting input")
 
-var session
-var store
-
 let request = new XMLHttpRequest()
 request.addEventListener('load', getSession)
 request.open('get', '../api/api_get_session.php', true)
 request.send()
-    
-if(inputs.length != 0){
-    inputs[0].addEventListener("click", getTopStories)
-    
-    inputs[1].addEventListener("click", function(){
-        console.log("new")
-    })
+
+var session
+var list = document.querySelector("#list")
+
+if(list){
+    var original = list.innerHTML
+    inputs[0].addEventListener("click", drawTopStories)
+    inputs[1].addEventListener("click", drawNewStories)
 }
 
-function getSession(event){
-    event.preventDefault()
 
-    session = JSON.parse(this.responseText)
-}
 
-function getTopStories(event){
+function drawTopStories(event){
     event.preventDefault()
 
     let request = new XMLHttpRequest()
@@ -33,18 +27,22 @@ function getTopStories(event){
     request.send()
 }
 
+function drawNewStories(event){
+    event.preventDefault()
+
+    list.innerHTML = original
+}
+
 function handler(event){
     event.preventDefault()
 
     let newStories = JSON.parse(this.responseText)
 
-    let stories = document.querySelectorAll("#list div")
+    let stories = list.querySelectorAll("div")
 
     stories.forEach(function(data){
         data.remove()
     })
-
-    let list = document.querySelector("#list")
 
     newStories.forEach(function(data){
         let story = document.createElement("article")
@@ -54,10 +52,10 @@ function handler(event){
         <div class="titles">
         <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
         <ul>
-        `+//getTags(data.post_id)+
+        `+getTags(data.tags)+
         `
         </ul>
-        <footer>Submitted by: `+getUserName(data.post_op)+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`/*<?=getChannel($story['channel_id'])['channel_name']?>*/+`</a></footer>
+        <footer>Submitted by: `+data.user_name+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`+data.channel+`</a></footer>
         <div class="voteup">
         <form method="post" action="../actions/action_vote.php">
         <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
@@ -77,44 +75,27 @@ function handler(event){
         </form>
         </div>
 
-        `/*<p><?=getVotes($story['post_id']) ?></p>*/+`
+        <p>`+data.num_votes+`</p>
         </div>`
 
         list.append(story)
     })
 }
 
-function getUserName(story_op){
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', receiver)
-    request.open('post', '../api/api_get_story_op_username.php', false)
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({story_op: story_op}))
-
-    return store
-}
-
-function getTags(story_id){
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', receiver)
-    request.open('post', '../api/api_get_story_tags.php', false)
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({story_id: story_id}))
-
+function getTags(tags){
     let string = ""
-/*
-    store.forEach(function(tag){
+
+    tags.forEach(function(tag){
         string += "<li>"+tag.tag_text+"</li>\n"
     })
-*/
+
     return string
 }
 
-function receiver(event){
+function getSession(event){
     event.preventDefault()
 
-    store = JSON.parse(this.responseText)
-    console.log(store)
+    session = JSON.parse(this.responseText)
 }
 
 function encodeForAjax(data) {
