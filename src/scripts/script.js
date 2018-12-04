@@ -2,34 +2,35 @@
 
 let inputs = document.querySelectorAll("#sorting input")
 
-var session
-
 let request = new XMLHttpRequest()
 request.addEventListener('load', getSession)
 request.open('get', '../api/api_get_session.php', true)
 request.send()
-    
-if(inputs.length != 0){
-    inputs[0].addEventListener("click", getTopStories)
-    
-    inputs[1].addEventListener("click", function(){
-        console.log("new")
-    })
+
+var session
+var list = document.querySelector("#list")
+
+if(list){
+    var original = list.innerHTML
+    inputs[0].addEventListener("click", drawTopStories)
+    inputs[1].addEventListener("click", drawNewStories)
 }
 
-function getSession(event){
-    event.preventDefault()
 
-    session = JSON.parse(this.responseText)
-}
 
-function getTopStories(event){
+function drawTopStories(event){
     event.preventDefault()
 
     let request = new XMLHttpRequest()
     request.addEventListener('load', handler)
     request.open('get', '../api/api_get_stories.php', true)
     request.send()
+}
+
+function drawNewStories(event){
+    event.preventDefault()
+
+    list.innerHTML = original
 }
 
 function handler(event){
@@ -39,13 +40,11 @@ function handler(event){
 
     console.log(newStories)
 
-    let stories = document.querySelectorAll("#list div")
+    let stories = list.querySelectorAll("div")
 
     stories.forEach(function(data){
         data.remove()
     })
-
-    let list = document.querySelector("#list")
 
     newStories.forEach(function(data){
         let story = document.createElement("article")
@@ -95,6 +94,11 @@ function getTags(tags){
     return string
 }
 
+function getSession(event){
+    event.preventDefault()
+
+    session = JSON.parse(this.responseText)
+}
 
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){
