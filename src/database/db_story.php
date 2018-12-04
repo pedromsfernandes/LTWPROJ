@@ -53,14 +53,6 @@
         return $stmt->fetch();
     }
 
-    function getChildComments($post_id, $order = "post_date", $asc_desc = "DESC")
-    {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare("SELECT * FROM post WHERE post_father = ? ORDER BY $order $asc_desc");
-        $stmt->execute(array($post_id));
-        return $stmt->fetchAll();
-    }
-
     function searchStories($pattern)
     {
         $db = Database::instance()->db();
