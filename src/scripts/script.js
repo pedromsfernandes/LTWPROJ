@@ -8,7 +8,7 @@ request.open('get', '../api/api_get_session.php', true)
 request.send()
 
 var session
-var list = document.querySelector("#list")
+var list = document.querySelector("#stories")
 
 if(list){
     var original = list.innerHTML
