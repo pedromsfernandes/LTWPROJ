@@ -17,6 +17,12 @@ body {
   --serif-font: 'Merriweather';
   --sans-font: 'Open Sans Condensed';
 
+  --success-bg-color: #DFF2BF;
+  --success-fg-color: #4F8A10;
+
+  --error-bg-color: #FFD2D2;
+  --error-fg-color: #D8000C;
+
   background-color: var(--bg-color);
 }
 
@@ -314,4 +320,26 @@ input[type="submit"], input[type="button"] {
   grid-area: text;
   text-align: left;
   font-size: 1em;
+}
+
+
+/*
+  Messages
+*/
+
+body > #messages div {
+  max-width: 40em;
+  margin: 0 auto; 
+  padding: 1em;
+  text-align: center;
+}
+
+body > #messages .error {
+  color: var(--error-fg-color);
+  background-color: var(--error-bg-color);
+}
+
+body > #messages .success {
+  color: var(--success-fg-color);
+  background-color: var(--success-bg-color);
 }

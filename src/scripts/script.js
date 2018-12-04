@@ -7,7 +7,7 @@ var store
 
 let request = new XMLHttpRequest()
 request.addEventListener('load', getSession)
-request.open('get', '../actions/action_get_session.php', true)
+request.open('get', '../api/api_get_session.php', true)
 request.send()
     
 if(inputs.length != 0){
@@ -29,7 +29,7 @@ function getTopStories(event){
 
     let request = new XMLHttpRequest()
     request.addEventListener('load', handler)
-    request.open('get', '../actions/action_get_stories.php', true)
+    request.open('get', '../api/api_get_stories.php', true)
     request.send()
 }
 
@@ -87,7 +87,7 @@ function handler(event){
 function getUserName(story_op){
     let request = new XMLHttpRequest()
     request.addEventListener('load', receiver)
-    request.open('post', '../actions/action_get_story_op_username.php', false)
+    request.open('post', '../api/api_get_story_op_username.php', false)
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     request.send(encodeForAjax({story_op: story_op}))
 
@@ -97,7 +97,7 @@ function getUserName(story_op){
 function getTags(story_id){
     let request = new XMLHttpRequest()
     request.addEventListener('load', receiver)
-    request.open('post', '../actions/action_get_story_tags.php', false)
+    request.open('post', '../api/api_get_story_tags.php', false)
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     request.send(encodeForAjax({story_id: story_id}))
 
