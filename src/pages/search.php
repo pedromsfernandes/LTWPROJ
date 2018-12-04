@@ -39,7 +39,22 @@
         $search_type = $_POST['search_type'];
 
         if ($search_type == 'stories') {
-            $stories = searchStories($search_text);
+
+            if(strstr($search_text, '#')){
+                $tok = strtok($search_text," \n");
+
+                $tags = array();
+                while ($tok !== false) {
+                    array_push($tags, substr($tok, 1));
+                    $tok = strtok(" ");
+                }
+
+                $stories = searchStoriesByTags($tags);
+            }
+            else{
+                $stories = searchStories($search_text);
+            }
+
             draw_stories($stories);
         } else if ($search_type == 'comments') {
             $comments = searchComments($search_text);

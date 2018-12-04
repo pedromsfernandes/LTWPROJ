@@ -102,3 +102,13 @@
         return $stmt->fetchAll();
     }
 
+    function searchStoriesByTags($tags){
+
+        $inQuery = implode(',', array_fill(0, count($tags), '?'));
+
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * FROM post WHERE post_id IN (SELECT post_id FROM post_tag WHERE tag_id IN (SELECT tag_id FROM tag WHERE tag_text IN ($inQuery)))");
+        $stmt->execute($tags);
+        return $stmt->fetchAll();
+    }
+
