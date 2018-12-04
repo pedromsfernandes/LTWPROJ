@@ -22,7 +22,7 @@
 
   ?>
 
-  <form method="post" id="searchform"> 
+  <form method="get" id="searchform"> 
     <input type="text" name="search_text"> 
     <select name="search_type">
         <option value="stories">Stories</option>
@@ -30,13 +30,12 @@
         <option value="channels">Channels</option>
     </select>
     <input type="submit" name="submit" value="Search"> 
-    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
   </form> 
 
   <?php
-    if (isset($_POST['submit']) && preg_match("/[A-Z  | a-z]+/", $_POST['search_text'])) {
-        $search_text = $_POST['search_text'];
-        $search_type = $_POST['search_type'];
+    if (isset($_GET['submit']) && preg_match("/[A-Z  | a-z]+/", $_GET['search_text'])) {
+        $search_text = $_GET['search_text'];
+        $search_type = $_GET['search_type'];
 
         if ($search_type == 'stories') {
 

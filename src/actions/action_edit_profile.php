@@ -4,6 +4,7 @@
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
+      $_SESSION['messages'][] = array('type' => 'error', 'content' => 'You\'re not logged in!');
       die(header('Location: ../pages/login.php'));
   }
 
@@ -20,7 +21,6 @@
   $avatar = $_POST['avatar'];
 
   if(checkUserPassword($username, $old_password)){
-    $password;
 
     if($new_password != '' && $new_password == $confirm_password)
         $password = $new_password;
@@ -30,5 +30,5 @@
     editProfile($new_username, $username, $password, $description, $avatar);
   }
 
-  header("Location: ../pages/home.php");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

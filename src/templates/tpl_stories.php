@@ -7,7 +7,7 @@
     <input type="button" value = "New">
   </section>
 
-  <section id="list">
+  <section id="stories">
   <?php
     foreach ($stories as $story) {
         draw_story_titles($story);
@@ -73,7 +73,7 @@ function draw_story_titles($story) {
     ?>
 
     </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+    <footer>Submitted by:<a href="profile.php?id=<?=$story['post_op']?>"><?=getUserName($story['post_op'])?></a> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
   <div class="voteup">
   <form method="post" action="../actions/action_vote.php">
   <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
@@ -105,16 +105,17 @@ function draw_story($story, $comments_on)
     <div class="post">
     <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
     <div class="storytext">
-    <p><?=
-    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
-    ?></p>
-    </div>
+    <p> <?php $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+      $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
+      echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
+    ?></p></div>
     <ul>
     <?php
       draw_tags($story['post_id']);
     ?>
     </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+    <footer>Submitted by: <a href="profile.php?id="<?=$story['post_op']?>><?=getUserName($story['post_op'])?></a>on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a>
+    NumComments: <?=getNumComments($story['post_id'])?></footer>
   <div class="voteup">
     <form method="post" action="../actions/action_vote.php">
   <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
@@ -163,7 +164,7 @@ function draw_tags($story_id){
 
   foreach($tags as $tag){
     ?>
-    <li><?=$tag['tag_text']?></li>
+    <li><a href="search.php?search_text=%23<?=$tag['tag_text']?>&search_type=stories&submit=Search"><?=$tag['tag_text']?></a></li>
     <?php
   }
 }

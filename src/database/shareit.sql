@@ -108,18 +108,10 @@ BEGIN
 UPDATE user SET user_points = user_points + New.vote WHERE user_id IN (SELECT post_op FROM post WHERE post_id = New.post_id);
 END;
 
-CREATE TRIGGER RemPoint1
+CREATE TRIGGER RemPoint
 AFTER DELETE ON vote
 FOR EACH ROW
 WHEN Old.vote = 1
 BEGIN
-UPDATE user SET user_points = user_points - 1 WHERE user_id IN (SELECT post_op FROM post WHERE post_id = Old.post_id);
-END;
-
-CREATE TRIGGER RemPoint2
-AFTER DELETE ON vote
-FOR EACH ROW
-WHEN Old.vote = -1
-BEGIN
-UPDATE user SET user_points = user_points + 1 WHERE user_id IN (SELECT post_op FROM post WHERE post_id = Old.post_id);
+UPDATE user SET user_points = user_points - Old.vote WHERE user_id IN (SELECT post_op FROM post WHERE post_id = Old.post_id);
 END;

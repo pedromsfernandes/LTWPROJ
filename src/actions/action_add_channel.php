@@ -17,8 +17,9 @@
   $channel_description = $_POST['channel_description'];
   $user_id = getUserId($_SESSION['username']);
 
-  if(getChannelId($channel_name) !== null){
-    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+  if(($id = getChannelId($channel_name)) !== null){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Channel already exists!');
+    header("Location: ../pages/channel.php?id=$id");
   }
 
   $channel_id = insertChannel($channel_name, $channel_description, $user_id);
