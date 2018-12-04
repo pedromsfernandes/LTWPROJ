@@ -38,8 +38,6 @@ function handler(event){
 
     let newStories = JSON.parse(this.responseText)
 
-    console.log(newStories)
-
     let stories = list.querySelectorAll("div")
 
     stories.forEach(function(data){
