@@ -136,8 +136,10 @@ function draw_story($story, $comments_on)
         </div> 
       </div>
       <div class="storytext">
-          <p><?=
-            preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+          <p><?php
+             $links_on = preg_replace("/\[([0-9a-zA-Z ]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
+             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
           ?></p>
       </div>
       <div class="flex-container-2">
@@ -146,7 +148,8 @@ function draw_story($story, $comments_on)
             draw_tags($story['post_id']);
           ?>
         </ul>
-        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a>
+        NumComments: <?=getNumComments($story['post_id'])?></footer>
       </div>
       </div>
       <div class="comments">
@@ -177,7 +180,7 @@ function draw_tags($story_id){
 
   foreach($tags as $tag){
     ?>
-    <li><?=$tag['tag_text']?></li>
+    <li><a href="search.php?search_text=%23<?=$tag['tag_text']?>&search_type=stories&submit=Search"><?=$tag['tag_text']?></a></li>
     <?php
   }
 }
@@ -224,11 +227,11 @@ function draw_comment($comment)
       </div>
     </div>
     <div class = "comment-text"> 
-      <?php        
-            $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
+    <p> <?php        
+            $links_on = preg_replace("/\[([0-9a-zA-Z ]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
-            ?>
+            ?></p>
     </div>
   <?php
     draw_comment_form($comment);
