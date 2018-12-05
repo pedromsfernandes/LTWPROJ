@@ -28,11 +28,11 @@
         //                     ) as votes 
         //                     where post.post_id = votes.post_id and post.post_title IS NOT NULL");
         $stmt = $db->prepare("SELECT * FROM 
-                            post JOIN (SELECT vote.post_id, SUM(vote) AS numVotes
-                                FROM vote, post GROUP BY vote.post_id UNION 
+                            post JOIN (SELECT vote.post_id, SUM(vote.vote) AS num_votes
+                                FROM vote GROUP BY vote.post_id UNION 
                                 SELECT post_id, 0 FROM post 
                                 WHERE post_id NOT IN (SELECT post_id FROM vote)) 
-                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY numVotes DESC, post_date DESC");
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -51,14 +51,6 @@
         $stmt = $db->prepare('SELECT * FROM post WHERE post_id = ? AND post_title IS NOT NULL');
         $stmt->execute(array($story_id));
         return $stmt->fetch();
-    }
-
-    function getChildComments($post_id, $order = "post_date", $asc_desc = "DESC")
-    {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare("SELECT * FROM post WHERE post_father = ? ORDER BY $order $asc_desc");
-        $stmt->execute(array($post_id));
-        return $stmt->fetchAll();
     }
 
     function searchStories($pattern)
