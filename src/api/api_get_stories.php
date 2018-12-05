@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<?php
-    include_once('../database/db_story.php');
-    
-    $stories = getAllStoriesByVotes();
-
-    echo json_encode($stories);
-=======
 <?php
     include_once('../database/db_story.php');
     include_once('../database/db_user.php');
@@ -21,5 +13,4 @@
     }
 
     echo json_encode($stories);
->>>>>>> 3a84a6dcac15dda9c1622021c83f398912f60894
 ?>
