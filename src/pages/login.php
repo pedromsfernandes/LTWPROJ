@@ -8,7 +8,7 @@
       die(header('Location: home.php'));
   }
 
-  draw_header(null);
+  draw_header_login();
   draw_login();
   draw_footer();
 ?>

@@ -3,11 +3,10 @@
  */
 
 body {
-
-  max-width: 80em;
-  margin: 0 auto;
+  background-image: url(../../res/LogInBackground.jpg);
+  background-size: cover;
   --bg-color: #EEE;
-  --panel-color: #FFF;
+  --panel-color: rgb(2, 32, 66);
 
   --main-color: rgb(36, 68, 156);
 
@@ -59,33 +58,18 @@ button {
   cursor: pointer; /* Mouse pointer on hover */
 }
 
-input[type="submit"], input[type="button"] {
-  padding: 1em;
-
-  background: var(--main-color);
-  color: var(--panel-color);
-
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1.2em;
-
-  border:none;
-  border-radius: 2px;
-
-  text-transform: uppercase;
-}
-
 /**
  * Login
  */
 
-#login, #signup {
+ #login, #signup {
   width: 30em;
 
   margin: 2em auto;
 
   border: 1px solid var(--light-color);
 
-  background: white;
+  background: rgb(2, 32, 66);
 }
 
 #login > form > input[type=submit], #signup > form > input[type=submit]{
@@ -103,7 +87,7 @@ input[type="submit"], input[type="button"] {
   padding: 2em 0;
   text-align: center;
   text-transform: uppercase;
-  background: var(--main-color);  
+  background: rgb(2, 32, 66);  
 }
 
 #login header h2, #signup header h2 {
@@ -131,6 +115,88 @@ input[type="submit"], input[type="button"] {
   background-color: var(--panel-color);
 }
 
+#login > form > input[type=submit], #signup > form > input[type=submit]{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+#login > form > input[type=submit]:hover, #signup > form > input[type=submit]:hover{
+  background-color: rgb(37, 156, 117);
+  color: white;
+}
+
+input[type=text], input[type=password] {
+  box-sizing: border-box;
+
+  padding: 1em 0;
+
+  border: 0;
+  border-bottom: 1px solid var(--light-color);
+
+  background-color: rgb(2, 32, 66);
+}
+
+input[type="submit"], input[type="button"] {
+  padding: 1em;
+
+  background: rgb(33, 91, 124);
+  color: var(--panel-color);
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+
+  border:none;
+  border-radius: 2px;
+
+  text-transform: uppercase;
+}
+.header-flexbox {
+  display: flex;
+
+  padding: 5px;
+  background: rgba(107, 187, 154, 0.3);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+
+.login-header {
+  padding: 5px;
+  background: rgba(107, 187, 154, 0.3);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.login-flexbox {
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+  justify-content: center;
+}
+
+.login-flexbox > a:not(.active) {
+  text-align: center;
+  font-size: 0.7em;
+  color: white;
+  background: rgb(58, 56, 56);
+  padding: 15px;
+  padding-left: 80px;
+  padding-right: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.active {
+  background: rgb(37, 156, 117);
+  text-align: center;
+  font-size: 0.7em;
+  color: white;
+  padding: 15px;
+  padding-left: 80px;
+  padding-right: 80px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 
 /**
@@ -171,105 +237,151 @@ input[type="submit"], input[type="button"] {
 /**
 *Header
 */
-.toolbar > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
 
-.toolbar > ul > li {
-  float: left;
-}
 
-.toolbar > ul > li > a{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.toolbar > ul > li > a:hover {
-  background-color: #111;
-}
-
-.account > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: var(--main-color);
-}
-
-.account > ul > li {
-  float: right;
-}
-
-.account > ul > li > a{
+.story {
   display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.account > ul > li > a:hover {
-  background-color: rgb(48, 152, 238);
+.storytext {
+  margin-left: 5px;
+}
+.comment-op > p{
+  margin:0;
 }
 
-.titles {
-  display: grid;
-  grid-template-areas:
-    'upvote image header header header header header'
-    'vote image header header header header header'
-    'downvote image footer footer footer footer footer';
-  border: 5px solid var(--main-color);
-  border-radius: 10px;
+.comment-text {
+  padding-left: 10px;
+}
+.parent-comment {
+  border-left: 3px solid var(--main-color);
+  padding: 5px;
+  background: rgba(192, 192, 192, 0.541);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.post {
+  display: block;
+  padding: 5px;
+  border: 3px solid var(--main-color);;
   margin: 1em;
+  padding: 10px;
+  background: rgba(192, 192, 192, 0.541);
+}
+
+.title {
+  text-align: center;
+  padding-left: 30px;
+}
+.flex-container-3 {
+  display: flex;
+  font-size: 1.5em;
+}
+
+#stories {
+  display: block;
+}
+#list {
+  padding: 5px;
+  background: rgba(240, 250, 249, 0.541);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#sorting {
+  padding: 5px;
+  background: rgba(240, 250, 249, 0.541);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  
+}
+
+#sorting > input {
+  font-size: 16px;
+  background-color: rgb(83, 92, 175); /* Green */
+  border: 2px solid rgb(44, 1, 143);
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 15px 50px 30px 5px;
+ 
+}
+
+#sorting > input:hover {
+  background-color: var(--main-color);
+}
+.titles {
+  display: block;
+  border-left: 3px solid var(--main-color);;
+  margin: 1em;
+  padding: 5px;
+  background: rgba(192, 192, 192, 0.541);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .titles:hover {
-  background: rgb(197, 208, 228);
+  background: rgb(199, 199, 199);
+}
+.title {
+  font-size: 1.3em;
+}
+.flex-container-1 {
+  display: flex;
 }
 
-.titles > header {
-  grid-area: header;
-  text-align: left;
-  font-size: 2em;
-}
-.voteup{
+.flex-container-1 > * {
   text-align: center;
-  grid-area: upvote;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
 }
-.voteup > form > button{
-  text-align: center;
-  font-size: 2em;
+.vote-amount > p {
+  margin:0;
+  font-size: 1em;
+}
+.vote > form > button {
+  font-size: 1em;
   background-color:transparent; 
-  -webkit-transition-duration: 0.4s; /* Safari */
+  -webkit-transition-duration: 0.4s; 
   transition-duration: 0.4s;
-  color: rgb(156, 177, 216);
-}
-.voteup > form > button:hover{
-  color: rgb(78, 137, 247);
-}
-.votedown{
-  grid-area: downvote;
-  text-align: center;
-  grid-row: 3;
+  color: rgb(41, 43, 46);
 }
 
-.votedown > form > button {
-  font-size: 2em;
-  background-color: transparent; 
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  color: rgb(156, 177, 216);
-}
-.votedown > form > button:hover{
+.vote > form > button:hover {
   color: rgb(78, 137, 247);
 }
+
+
+.flex-container-2 {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+.flex-container-2 > ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 5px;
+}
+.flex-container-2 > ul > li  {
+  float: left;
+  padding: 5px;
+  margin-top: 3px;
+  margin-right: 3px;
+  color: white;
+  border-radius: 10%;
+  font-size: 0.8em;
+  background-color:var(--main-color); 
+  text-align: center;
+}
+
+
 /*Votes*/
 .titles > p {
   text-align: center;
@@ -284,43 +396,6 @@ input[type="submit"], input[type="button"] {
   text-align: right;
 }
 
-.post {
-  display: grid;
-
-  grid-template-areas:
-    'upvote header header header header header header'
-    'vote header header header header header header'
-    'downvote header header header header header header'
-    'blank text text text text text text'
-    'footer footer footer footer footer footer footer';
-  border: 5px solid var(--main-color);
-  border-radius: 10px;
-  margin: 1em;
-}
-
-.post > p {
-  text-align: center;
-  grid-area: vote;
-  font-size: 1em;
-  padding: 0;
-  margin: 0;
-}
-.post > footer {
-  grid-area: footer;
-  text-align: right;
-}
-
-.post > header {
-  grid-area: header;
-  text-align: left;
-  font-size: 2em;
-}
-
-.storytext {
-  grid-area: text;
-  text-align: left;
-  font-size: 1em;
-}
 
 
 /*

@@ -3,8 +3,9 @@
     ?>  <section id="stories">
 
   <section id="sorting">
-    <input type="button" value = "Top">
-    <input type="button" value = "New">
+      <input type="button" value = "Top">
+      <input type="button" value = "New">
+
   </section>
 
   <section id="list">
@@ -64,37 +65,42 @@ function draw_select_channels($channels){
 }
 function draw_story_titles($story) {
   ?>
-  <div class="titles">
-  <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
-  <ul>
-
-  <?php
-    draw_tags($story['post_id']);
-    ?>
-
-    </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
-  <div class="voteup">
-  <form method="post" action="../actions/action_vote.php">
-  <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
-  <input type="hidden" name="type" value="upvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-</div>
-<div class = "votedown">
-    <form method="post" action="../actions/action_vote.php">
-  <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
-  <input type="hidden" name="type" value="downvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-</div>
-
-  <p><?=getVotes($story['post_id']) ?></p>
-</div>
+    <div class="titles">
+      <div class="flex-container-1">
+        <div style= "order: 4" class="title">
+          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
+        </div>
+        <div style= "order: 1" class="vote">
+          <form method="post" action="../actions/action_vote.php">
+            <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+            <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
+            <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
+            <input type="hidden" name="type" value="upvote">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+          </form>
+        </div>
+        <div style= "order: 3" class = "vote">
+          <form method="post" action="../actions/action_vote.php">
+            <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+            <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
+            <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
+            <input type="hidden" name="type" value="downvote">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+          </form>
+        </div>
+        <div style= "order: 2" class="vote-amount">
+          <p><?=getVotes($story['post_id']) ?></p>
+        </div>
+      </div>
+      <div class="flex-container-2">
+        <ul>
+        <?php
+          draw_tags($story['post_id']);
+        ?>
+        </ul>
+        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+      </div>
+    </div>
   <?php
 
 }
@@ -103,49 +109,57 @@ function draw_story($story, $comments_on)
     ?>
   <article class="story">
     <div class="post">
-    <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
-    <div class="storytext">
-    <p><?=
-    preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
-    ?></p>
+      <div class="flex-container-3">
+        <div style= "order: 4" class="title">
+          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
+        </div>        
+        <div style= "order: 1" class="vote">
+          <form method="post" action="../actions/action_vote.php">
+            <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+            <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
+            <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
+            <input type="hidden" name="type" value="upvote">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+          </form>
+        </div>
+        <div style= "order: 3" class="vote">
+          <form method="post" action="../actions/action_vote.php">
+            <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+            <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
+            <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
+            <input type="hidden" name="type" value="downvote">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+          </form>
+        </div>
+        <div style= "order: 2" class="vote-amount">
+          <p><?=getVotes($story['post_id']) ?></p> 
+        </div> 
+      </div>
+      <div class="storytext">
+          <p><?=
+            preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
+          ?></p>
+      </div>
+      <div class="flex-container-2">
+        <ul>
+          <?php
+            draw_tags($story['post_id']);
+          ?>
+        </ul>
+        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+      </div>
+      </div>
+      <div class="comments">
+        <?php if ($comments_on) {
+            ?>
+        <ol>
+          <?php
+                draw_comments($story['story_comments']); ?>
+        </ol>
+          <?php
+          draw_comment_form($story);
+        }  ?>
     </div>
-    <ul>
-    <?php
-      draw_tags($story['post_id']);
-    ?>
-    </ul>
-    <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
-  <div class="voteup">
-    <form method="post" action="../actions/action_vote.php">
-  <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
-  <input type="hidden" name="type" value="upvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-</div>
-<div class="votedown">
-    <form method="post" action="../actions/action_vote.php">
-  <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
-  <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
-  <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
-  <input type="hidden" name="type" value="downvote">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-</div>
-  
-  <p><?=getVotes($story['post_id']) ?></p>
-</div>
-</div>
-    <?php if ($comments_on) {
-        ?>
-    <ol>
-      <?php
-            draw_comments($story['story_comments']); ?>
-    </ol>
-      <?php
-      draw_comment_form($story);
-    } ?>
   </article>
 <?php
 } 
@@ -182,44 +196,55 @@ function draw_comment($comment)
     {
       $children = getChildComments($comment['post_id']);
         ?>
-  <li>
-  <p>Votes: <?=getVotes($comment['post_id']) ?></p>
-  <form method="post" action="../actions/action_vote.php">
-    <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
-    <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
-    <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
-    <input type="hidden" name="type" value="upvote">
-    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-
-  <form method="post" action="../actions/action_vote.php">
-    <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
-    <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
-    <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
-    <input type="hidden" name="type" value="downvote">
-    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
+<div class="parent-comment"> 
+    <div class="flex-container-1">       
+      <div style= "order: 2" class="vote-amount">
+        <p><?=getVotes($comment['post_id']) ?></p>
+      </div>  
+      <div style= "order: 1" class="vote">
+        <form method="post" action="../actions/action_vote.php">
+          <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+          <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
+          <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
+          <input type="hidden" name="type" value="upvote">
+          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+        </form>
+      </div>
+      <div style= "order: 3" class="vote">  
+        <form method="post" action="../actions/action_vote.php">
+          <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+          <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
+          <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
+          <input type="hidden" name="type" value="downvote">
+          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+        </form>
+      </div>
+      <div style= "order: 4" class="comment-op">  
+        <p><?=getUserName($comment['post_op'])?></p>
+      </div>
+    </div>
+    <div class = "comment-text"> 
       <?php        
-      $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
-      $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
-      echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
-?> <br>by <?=getUserName($comment['post_op'])?>
-<?php
-  draw_comment_form($comment);
-?>
-    <ol>
-<?php draw_comments($children); ?>
-    </ol> 
-  </li>
-<?php
-    }
-    function draw_comments($comments)
-    {
-        foreach ($comments as $comment) {
-            draw_comment($comment);
-        }
-    }
-    
-    
-    ?>
+            $links_on = preg_replace("/\[([0-9a-zA-Z]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
+            $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
+            echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
+            ?>
+    </div>
+  <?php
+    draw_comment_form($comment);
+  ?>
+      <ol>
+  <?php draw_comments($children); ?>
+      </ol>
+</div> 
+    </li>
+  <?php
+      }
+      function draw_comments($comments)
+      {
+          foreach ($comments as $comment) {
+              draw_comment($comment);
+          }
+      }
+      ?>
 
