@@ -42,17 +42,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--sans-font), sans-serif;
 }
 
-input[type=text], input[type=password] {
-  box-sizing: border-box;
-
-  padding: 1em 0;
-
-  border: 0;
-  border-bottom: 1px solid var(--light-color);
-
-  background-color: var(--panel-color);
-}
-
 button {
   border: none; /* Remove borders */
   cursor: pointer; /* Mouse pointer on hover */
@@ -128,10 +117,9 @@ button {
 input[type=text], input[type=password] {
   box-sizing: border-box;
 
-  padding: 1em 0;
+  padding: 1em;
 
-  border: 0;
-  border-bottom: 1px solid var(--light-color);
+  border: 1px solid rgb(33, 91, 124);
 
   background-color: rgb(2, 32, 66);
 }
@@ -152,7 +140,8 @@ input[type="submit"], input[type="button"] {
 }
 .header-flexbox {
   display: flex;
-
+  flex: 1 1 auto;
+  justify-content: space-between;
   padding: 5px;
   background: rgba(107, 187, 154, 0.3);
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
@@ -160,6 +149,34 @@ input[type="submit"], input[type="button"] {
   margin-bottom: 10px;
   
 }
+.header-flexbox > div > nav > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.header-flexbox > div > nav > ul > li:hover {
+  background-color: rgba(73, 71, 71,1);
+}
+
+.header-flexbox > div > nav > ul > li {
+  list-style-type: none;
+  float: left;
+  border-right:1px solid rgb(76, 99, 126);
+  background-color: rgba(73, 71, 71,0.3);
+}
+
+.header-flexbox > div > nav > ul > li > a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+
 
 .login-header {
   padding: 5px;
@@ -206,6 +223,7 @@ input[type="submit"], input[type="button"] {
 .profile {
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: rgba(192, 192, 192, 0.541);
   max-width: 300px;
   margin: auto;
   text-align: center;
@@ -221,7 +239,7 @@ input[type="submit"], input[type="button"] {
   color: white;
   background-color: var(--main-color);
   text-align: center;
-  max-width: 300px;
+  max-width: 292px;
   margin: auto;
   font-size: 18px;
   padding: 5px;
@@ -379,6 +397,9 @@ input[type="submit"], input[type="button"] {
   font-size: 0.8em;
   background-color:var(--main-color); 
   text-align: center;
+}
+.flex-container-2 > ul > li > a {
+  color: white;
 }
 
 

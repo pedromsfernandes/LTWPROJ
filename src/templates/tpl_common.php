@@ -16,35 +16,39 @@ function draw_header($username)
         </head>
         <body> 
             <header>
-            <div class = "header-flexbox">      
                 <h1><a href="../index.php"><img src="../../res/LogoSmall.png" width = "114" height = "132"> </a></h1>
         <?php if ($username != null) {
             ?>
-                <nav>
-                    <div style= "order: 3" class="account">
-                    <ul>   
-                    <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>"><?=$username?></a></li>
-                    <li><a href="../actions/action_logout.php">Logout</a></li>
-                    <ul>
-                    </div>
-                    <div style= "order: 2" class="toolbar">
-                    <ul>
-                    <li><a href="../index.php">Home</a></li>
-                    <li><a href="search.php">Search</a></li>
-                    <li><a href="create_channel.php">Create channel</a></li>
-                    <li><a href="add_story.php">Add story</a></li>
-                    </div>
+             <div class = "header-flexbox">      
+                <div style= "order: 3" class="account">
+                    <nav>
+                        <ul>   
+                        <li><a href="profile.php?id=<?=getUserId($_SESSION['username'])?>"><?=$username?></a></li>
+                        <li><a href="../actions/action_logout.php">Logout</a></li>
+                        <ul>
+                    </nav>
+                </div>
+                <div style= "order: 2" class="toolbar">
+                    <nav>
+                        <ul>
+                        <li><a href="../index.php">Home</a></li>
+                        <li><a href="search.php">Search</a></li>
+                        <li><a href="create_channel.php">Create channel</a></li>
+                        <li><a href="add_story.php">Add story</a></li>
+                    </nav>
+                </div>
                     </ul>
                 </nav>
             <?php
         }else{
-            ?>
-                <nav>   
-                    <div style= "order: 2" class="account"> 
-                    <ul>
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="signup.php">Signup</a></li>
-                    </div>
+            ?>      
+                <div style= "order: 2" class="account">
+                    <nav>  
+                        <ul>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="signup.php">Signup</a></li>
+                    </nav> 
+                </div>
                     </ul>
                 </nav>
             <?php
