@@ -40,12 +40,12 @@
         $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT, $options), $default_avatar));
     }
 
-    function editProfile($new_username, $username, $password, $description, $avatar)
+    function editProfile($username, $password, $description, $avatar)
     {
         $options = ['cost' => 12];
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE user SET user_name = ?, user_pass = ?, user_description = ?, user_avatar = ? WHERE user_name = ?');
-        $stmt->execute(array($new_username, password_hash($password, PASSWORD_DEFAULT, $options), $description, $avatar, $username));
+        $stmt = $db->prepare('UPDATE user SET user_pass = ?, user_description = ?, user_avatar = ? WHERE user_name = ?');
+        $stmt->execute(array(password_hash($password, PASSWORD_DEFAULT, $options), $description, $avatar, $username));
     }
 
     function getProfile($user_id)
