@@ -13,7 +13,6 @@
   }
 
   $username = $_SESSION['username'];
-  $new_username = $_POST['username'];
   $new_password = $_POST['new_password'];
   $confirm_password = $_POST['confirm_password'];
   $old_password = $_POST['old_password'];
@@ -27,7 +26,7 @@
     else
         $password = $old_password;
 
-    editProfile($new_username, $username, $password, $description, $avatar);
+    editProfile($username, $password, $description, $avatar);
   }
 
   header('Location: ' . $_SERVER['HTTP_REFERER']);

@@ -98,12 +98,24 @@ function draw_story_titles($story) {
           draw_tags($story['post_id']);
         ?>
         </ul>
-        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a></footer>
+        <?php draw_story_footer($story);?>
       </div>
     </div>
   <?php
 
 }
+
+function draw_story_footer($story){?>
+  <footer>Submitted by: <a href="profile.php?id=<?=$story['post_op']?>"><?=getUserName($story['post_op'])?></a> on <?=$story['post_date']?> <?php 
+  if(basename($_SERVER['PHP_SELF']) !== 'channel.php'){
+    ?>
+  to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a>
+    <?php
+  }?>
+        NumComments: <?=getNumComments($story['post_id'])?></footer>
+        <?php
+}
+
 function draw_story($story, $comments_on)
 {
     ?>
@@ -148,8 +160,7 @@ function draw_story($story, $comments_on)
             draw_tags($story['post_id']);
           ?>
         </ul>
-        <footer>Submitted by: <?=getUserName($story['post_op'])?> on <?=$story['post_date']?> to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a>
-        NumComments: <?=getNumComments($story['post_id'])?></footer>
+        <?php draw_story_footer($story);?>
       </div>
       </div>
       <div class="comments">
@@ -232,6 +243,7 @@ function draw_comment($comment)
             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
             ?></p>
+            <div>Submitted by: <a href="profile.php?id=<?=$comment['post_op']?>"><?=getUserName($comment['post_op'])?></a> on <?=$comment['post_date']?> </div>
     </div>
   <?php
     draw_comment_form($comment);
