@@ -71,17 +71,17 @@ function draw_story_titles($story) {
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
         </div>
         <div style= "order: 1" class="vote">
-          <form method="post" action="../actions/action_vote.php">
-            <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+          <form method="post">
+            <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
             <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
           </form>
         </div>
-        <div style= "order: 3" class = "vote">
-          <form method="post" action="../actions/action_vote.php">
-            <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+        <div style= "order: 3" class="vote">
+          <form method="post">
+            <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
@@ -114,8 +114,8 @@ function draw_story($story, $comments_on)
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
         </div>        
         <div style= "order: 1" class="vote">
-          <form method="post" action="../actions/action_vote.php">
-            <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+          <form method="post">
+            <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
@@ -123,8 +123,8 @@ function draw_story($story, $comments_on)
           </form>
         </div>
         <div style= "order: 3" class="vote">
-          <form method="post" action="../actions/action_vote.php">
-            <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+          <form method="post">
+            <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
@@ -205,8 +205,8 @@ function draw_comment($comment)
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  
       <div style= "order: 1" class="vote">
-        <form method="post" action="../actions/action_vote.php">
-          <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+        <form method="post">
+          <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="upvote">
@@ -214,8 +214,8 @@ function draw_comment($comment)
         </form>
       </div>
       <div style= "order: 3" class="vote">  
-        <form method="post" action="../actions/action_vote.php">
-          <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+        <form method="post">
+          <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="downvote">

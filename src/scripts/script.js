@@ -3,14 +3,49 @@
 var session
 getSession()
 
-var list = document.querySelector("#list")
-let inputs = document.querySelectorAll("#sorting input")
+var list = document.querySelector('#list')
+var data
 
 if(list){
-    var original = list.innerHTML
-    inputs[0].addEventListener("click", drawTopStories)
-    inputs[1].addEventListener("click", drawNewStories)
+    let inputs = document.querySelectorAll('#sorting input')
+
+    inputs[0].addEventListener('click', drawTopStories)
+    inputs[1].addEventListener('click', drawNewStories)
 }
+
+let votes = document.querySelectorAll('div.vote')
+
+votes.forEach(function(data){
+    let button = data.querySelector('button')
+
+    let info = data.querySelectorAll('input')
+    let post_op = info[0].value
+    let post_id = info[1].value
+    let type = info[2].value
+    let csrf = info[3].value
+
+    button.addEventListener('click', function(event){
+        event.preventDefault()
+
+        let request = new XMLHttpRequest()
+        request.open('post', '../api/api_vote.php', true)
+        request.addEventListener('load', function(event){
+            event.preventDefault()
+
+            let votes = JSON.parse(this.responseText)
+
+            if(votes == 'reject_log'){
+                window.location.href = "../pages/login.php";
+            } else
+            if(votes != 'reject_csrf'){
+                let label = data.parentElement.querySelector('div.vote-amount').querySelector('p')
+                label.innerHTML = ""+votes
+            }
+        })
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: csrf}))
+    })
+})
 
 
 
@@ -41,17 +76,15 @@ function handler(event){
 
     let newStories = JSON.parse(this.responseText)
 
-    console.log(newStories)
-
-    let stories = list.querySelectorAll("div")
+    let stories = list.querySelectorAll('div')
 
     stories.forEach(function(data){
         data.remove()
     })
 
     newStories.forEach(function(data){
-        let story = document.createElement("div")
-        story.classList.add("titles")
+        let story = document.createElement('div')
+        story.classList.add('titles')
 
         story.innerHTML = 
         `   <div class="flex-container-1">
