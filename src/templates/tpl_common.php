@@ -41,14 +41,16 @@ function draw_header($username)
                 </nav>
             <?php
         }else{
-            ?>      
-                <div style= "order: 2" class="account">
+            ?>
+             <div class = "header-flexbox">        
+                <div class="account">
                     <nav>  
                         <ul>
                         <li><a href="login.php">Login</a></li>
                         <li><a href="signup.php">Signup</a></li>
                     </nav> 
                 </div>
+            </div>
                     </ul>
                 </nav>
             <?php
