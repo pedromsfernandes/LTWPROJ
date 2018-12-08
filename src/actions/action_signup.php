@@ -10,6 +10,11 @@
     die(header('Location: ../pages/signup.php'));
   }
 
+  if(usernameExists($username)){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Username already exists!');
+    die(header('Location: ../pages/signup.php'));
+  }
+
   try {
     insertUser($username, $password);
     $_SESSION['username'] = $username;

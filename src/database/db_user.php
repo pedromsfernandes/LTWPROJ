@@ -17,6 +17,15 @@
         return false;
     }
 
+    function usernameExists($username){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM user WHERE user_name = ?');
+        $stmt->execute(array($username));
+        $user = $stmt->fetch(); // return true if a line exists
+
+        return $user !== false;
+    }
+
     function getUserId($username){
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT user_id FROM user WHERE user_name = ?');
