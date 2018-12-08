@@ -10,7 +10,9 @@
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
-      die(header('Location: login.php'));
+    $username = null;
+  } else {
+    $username = $_SESSION['username'];
   }
 
   if (!isset($_SESSION['csrf'])) {
@@ -22,6 +24,6 @@
   $story = getStory($id);
   $story['story_comments'] = getChildComments($story['post_id']);
 
-  draw_header($_SESSION['username']);
+  draw_header($username);
   draw_story($story, true);
   draw_footer();
