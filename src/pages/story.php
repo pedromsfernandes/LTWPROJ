@@ -21,7 +21,18 @@
 
   $id = $_GET['id'];
 
+  if(!is_numeric($id)){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Invalid story!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $story = getStory($id);
+
+  if($story == null){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'No such story!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $story['story_comments'] = getChildComments($story['post_id']);
 
   draw_header($username);

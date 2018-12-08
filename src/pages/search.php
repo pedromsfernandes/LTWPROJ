@@ -63,5 +63,8 @@
             $channels = searchChannels($search_text);
             draw_channels($channels);
         }
+        else {
+            die(header('Location: ../pages/home.php'));
+        }
     }
   draw_footer();

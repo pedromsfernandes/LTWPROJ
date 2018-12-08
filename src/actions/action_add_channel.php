@@ -14,6 +14,12 @@
   }
 
   $channel_name = $_POST['channel_name'];
+
+  if (!preg_match ("/^[a-zA-Z0-9]+$/", $channel_name)) {
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Channel name can only be alpha-numeric!');
+    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+  }
+
   $channel_description = $_POST['channel_description'];
   $user_id = getUserId($_SESSION['username']);
 

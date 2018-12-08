@@ -2,6 +2,8 @@
   include_once('../includes/session.php');
   include_once('../database/db_user.php');
 
+  //session_regenerate_id(true);
+
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
       $_SESSION['messages'][] = array('type' => 'error', 'content' => 'You\'re not logged in!');

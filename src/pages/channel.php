@@ -20,7 +20,19 @@
   }
 
   $id = $_GET['id'];
+
+  if(!is_numeric($id)){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Invalid channel!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $channel = getChannel($id);
+
+  if($channel == null){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'No such channel!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $stories = getChannelStories($id);
 
   foreach ($stories as $k => $story) {

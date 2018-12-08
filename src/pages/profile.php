@@ -19,7 +19,19 @@
   }
 
   $user_id = $_GET['id'];
+
+  if(!is_numeric($user_id)){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Invalid profile!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $profile = getProfile($user_id);
+
+  if($profile == null){
+    $_SESSION['messages'][] = array('type' => 'error', 'content' => 'No such profile!');
+    die(header('Location: ../pages/home.php'));
+  }
+
   $stories = getUserStories($user_id);
   $comments = getUserComments($user_id);
 

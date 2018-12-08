@@ -68,7 +68,7 @@ function draw_story_titles($story) {
     <div class="titles">
       <div class="flex-container-1">
         <div style= "order: 4" class="title">
-          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
+          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>
         <div style= "order: 1" class="vote">
           <form method="post">
@@ -123,7 +123,7 @@ function draw_story($story, $comments_on)
     <div class="post">
       <div class="flex-container-3">
         <div style= "order: 4" class="title">
-          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=$story['post_title']?></a></header>
+          <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>        
         <div style= "order: 1" class="vote">
           <form method="post">
@@ -151,7 +151,7 @@ function draw_story($story, $comments_on)
           <p><?php
              $links_on = preg_replace("/\[([0-9a-zA-Z ]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$story['post_text']);
              $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
-             echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
+             echo htmlentities(preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on));
           ?></p>
       </div>
       <div class="flex-container-2">
@@ -241,7 +241,7 @@ function draw_comment($comment)
     <p> <?php        
             $links_on = preg_replace("/\[([0-9a-zA-Z ]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$comment['post_text']);
             $user_tags_on = preg_replace_callback("/\/u\/([a-zA-Z0-9]*)/","getUserLink",$links_on);
-            echo preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on);
+            echo htmlentities(preg_replace_callback("/\/c\/([a-zA-Z0-9]*)/","getChannelLink",$user_tags_on));
             ?></p>
             <div>Submitted by: <a href="profile.php?id=<?=$comment['post_op']?>"><?=getUserName($comment['post_op'])?></a> on <?=$comment['post_date']?> </div>
     </div>
