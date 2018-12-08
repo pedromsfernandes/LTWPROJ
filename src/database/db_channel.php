@@ -21,7 +21,8 @@
         $stmt = $db->prepare('DELETE FROM subscription WHERE channel_id = ? AND user_id = ?');
         $stmt->execute(array($channel_id, $user_id));
     }
-     function isUserSubscribed($channel_id, $user_id)
+
+    function isUserSubscribed($channel_id, $user_id)
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM subscription WHERE channel_id = ? AND user_id = ?');

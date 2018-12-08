@@ -27,27 +27,22 @@
 
   draw_header($_SESSION['username']);
   ?>
-  <form method="post" action="../actions/action_subscribe_channel.php">
-  <button name="subscribe" type="submit"><?php
-    if(isUserSubscribed($id, getUserId($_SESSION['username'])))
-      echo 'Unsubscribe';
-    else
-      echo 'Subscribe';
-  ?></button>
-  <input type="hidden" name="channel_id" value="<?=$id?>">
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
-  <ul>
-    <li>Name: <?=$channel['channel_name']?></li>
-    <li>Subscribers: <?=getNumSubscribers($id)?></li>
-    <?php $user = getUserName($channel['channel_creator']);
-      if($user !== null){
-          ?>
-      <li>Creator: 
-      <?php echo $user;
-      }?>
-      </li>
-  </ul>
+  <section id="channelInfo">
+    <form method="post">
+      <button name="subscribe"><?php
+      if(isUserSubscribed($id, getUserId($_SESSION['username'])))
+        echo 'Unsubscribe';
+      else
+        echo 'Subscribe';
+      ?></button>
+      <input type="hidden" name="channel_id" value="<?=$id?>">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+    </form>
+    <ul>
+      <li>Name: <?=$channel['channel_name']?></li>
+      <li>Subscribers: <?=getNumSubscribers($id)?></li>
+    </ul>
+  </section>
   <?php
   draw_stories($stories, $id);
   draw_footer();

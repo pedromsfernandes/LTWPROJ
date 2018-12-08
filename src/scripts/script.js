@@ -4,8 +4,6 @@ var session
 getSession()
 
 var list = document.querySelector('#list')
-var data
-
 if(list){
     let inputs = document.querySelectorAll('#sorting input')
 
@@ -14,7 +12,6 @@ if(list){
 }
 
 let votes = document.querySelectorAll('div.vote')
-
 votes.forEach(function(data){
     let button = data.querySelector('button')
 
@@ -46,6 +43,39 @@ votes.forEach(function(data){
         request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: csrf}))
     })
 })
+
+let channelInfo = document.querySelector('#channelInfo')
+if(channelInfo){
+    let button = channelInfo.querySelector('button')
+    let info = channelInfo.querySelectorAll('input')
+    let channel_id = info[0].value
+    let csrf = info[1].value
+
+    button.addEventListener('click', function(event){
+        event.preventDefault()
+
+        let request = new XMLHttpRequest()
+        request.open('post', '../api/api_subscribe.php', true)
+        request.addEventListener('load', function(event){
+            event.preventDefault()
+
+            let answer = JSON.parse(this.responseText)
+
+            if(answer == 'reject_log'){
+                window.location.href = "../pages/login.php";
+            } else
+            if(answer != 'reject_csrf'){
+                button.innerHTML = answer[0]
+
+                let label = button.parentElement.parentElement.querySelectorAll('li')[1]
+
+                label.innerHTML = "Subscribers: " + answer[1]
+            }
+        })
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({csrf: csrf, channel_id: channel_id}))
+    })
+}
 
 
 
