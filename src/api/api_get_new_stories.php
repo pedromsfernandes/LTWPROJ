@@ -11,6 +11,7 @@
        $stories[$key]['channel'] = getChannel($story['channel_id'])['channel_name'];
        $stories[$key]['tags'] = getStoryTags($story['post_id']);
        $stories[$key]['num_votes'] = getVotes($story['post_id']);
+       $stories[$key]['num_comments'] = getNumComments($story['post_id']);
     }
 
     echo json_encode($stories);

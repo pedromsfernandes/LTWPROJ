@@ -115,9 +115,11 @@ function handler(event){
             </div>
             <div class="flex-container-2">
                 <ul>
-            `       +getTags(data.tags)+`
+            `       +drawTags(data.tags)+`
                 </ul>
-                <footer>Submitted by: `+data.user_name+` on `+data.post_date+` to <a href="../pages/channel.php?id=`+data.channel_id+`">`+data.channel+`</a></footer>
+                <footer>Submitted by: <a href="profile.php?id=`+data.post_op+`">`+data.user_name+`</a> on `+data.post_date+
+                drawChannel(data.channel_id, data.channel)+
+                `NumComments: `+data.num_comments+`</footer>
             </div>`
 
         list.append(story)
@@ -137,13 +139,23 @@ function sessionHandler(event){
     session = JSON.parse(this.responseText)
 }
 
-function getTags(tags){
+function drawTags(tags){
     let string = ""
 
     tags.forEach(function(tag){
         string += `<li><a href="search.php?search_text=%23`+tag.tag_text+`&search_type=stories&submit=Search">`+tag.tag_text+`</a></li>\n`
     })
 
+    return string
+}
+
+function drawChannel(channel_id, channel_name){
+    let string = " "
+
+    if (document.URL != 'channel.php'){
+        string += `to <a href="../pages/channel.php?id=`+channel_id+`">`+channel_name+` </a>`
+    }
+    
     return string
 }
 
