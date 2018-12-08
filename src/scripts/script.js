@@ -11,70 +11,42 @@ if(list){
     inputs[1].addEventListener('click', drawNewStories)
 }
 
-let votes = document.querySelectorAll('div.vote')
-votes.forEach(function(data){
-    let button = data.querySelector('button')
-
-    let info = data.querySelectorAll('input')
-    let post_op = info[0].value
-    let post_id = info[1].value
-    let type = info[2].value
-    let csrf = info[3].value
-
-    button.addEventListener('click', function(event){
-        event.preventDefault()
-
-        let request = new XMLHttpRequest()
-        request.open('post', '../api/api_vote.php', true)
-        request.addEventListener('load', function(event){
-            event.preventDefault()
-
-            let votes = JSON.parse(this.responseText)
-
-            if(votes == 'reject_log'){
-                window.location.href = "../pages/login.php";
-            } else
-            if(votes != 'reject_csrf'){
-                let label = data.parentElement.querySelector('div.vote-amount').querySelector('p')
-                label.innerHTML = ""+votes
-            }
-        })
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: csrf}))
-    })
-})
+addVoteListeners()
 
 let channelInfo = document.querySelector('#channelInfo')
 if(channelInfo){
-    let button = channelInfo.querySelector('button')
-    let info = channelInfo.querySelectorAll('input')
-    let channel_id = info[0].value
-    let csrf = info[1].value
+    let button2 = channelInfo.querySelector('button')
 
-    button.addEventListener('click', function(event){
-        event.preventDefault()
+    if(button2){
+        let info2 = channelInfo.querySelectorAll('input')
+        let channel_id2 = info2[0].value
+        let csrf2 = info2[1].value
 
-        let request = new XMLHttpRequest()
-        request.open('post', '../api/api_subscribe.php', true)
-        request.addEventListener('load', function(event){
+        button2.addEventListener('click', function(event){
             event.preventDefault()
 
-            let answer = JSON.parse(this.responseText)
+            let request = new XMLHttpRequest()
+            request.open('post', '../api/api_subscribe.php', true)
+            request.addEventListener('load', function(event){
+                event.preventDefault()
 
-            if(answer == 'reject_log'){
-                window.location.href = "../pages/login.php";
-            } else
-            if(answer != 'reject_csrf'){
-                button.innerHTML = answer[0]
+                let answer = JSON.parse(this.responseText)
 
-                let label = button.parentElement.parentElement.querySelectorAll('li')[1]
+                if(answer == 'reject_log'){
+                    window.location.href = "../pages/login.php";
+                } else
+                if(answer != 'reject_csrf'){
+                    button2.innerHTML = answer[0]
 
-                label.innerHTML = "Subscribers: " + answer[1]
-            }
+                    let label = button2.parentElement.parentElement.querySelectorAll('li')[1]
+
+                    label.innerHTML = "Subscribers: " + answer[1]
+                }
+            })
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            request.send(encodeForAjax({csrf: csrf2, channel_id: channel_id2}))
         })
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({csrf: csrf, channel_id: channel_id}))
-    })
+    }
 }
 
 
@@ -82,6 +54,42 @@ if(channelInfo){
 //---------
 //functions
 //---------
+
+function addVoteListeners(){
+    let votes = document.querySelectorAll('div.vote')
+
+    votes.forEach(function(data){
+        let button = data.querySelector('button')
+
+        let info = data.querySelectorAll('input')
+        let post_op = info[0].value
+        let post_id = info[1].value
+        let type = info[2].value
+        let csrf = info[3].value
+
+        button.addEventListener('click', function(event){
+            event.preventDefault()
+
+            let request = new XMLHttpRequest()
+            request.open('post', '../api/api_vote.php', true)
+            request.addEventListener('load', function(event){
+                event.preventDefault()
+
+                let votes = JSON.parse(this.responseText)
+
+                if(votes == 'reject_log'){
+                    window.location.href = "../pages/login.php";
+                } else
+                if(votes != 'reject_csrf' && votes != 'reject_op'){
+                    let label = data.parentElement.querySelector('div.vote-amount').querySelector('p')
+                    label.innerHTML = ""+votes
+                }
+            })
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: csrf}))
+        })
+    })
+}
 
 function drawTopStories(event){
     event.preventDefault()
@@ -122,8 +130,8 @@ function handler(event){
                     <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
                 </div>
                 <div style= "order: 1" class="vote">
-                    <form method="post" action="../actions/action_vote.php">
-                        <button name="upvote" type="submit"> <i class="fas fa-chevron-up"></i> </button>
+                    <form method="post">
+                        <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
                         <input type="hidden" name="post_op" value="`+data.post_op+`">
                         <input type="hidden" name="post_id" value="`+data.post_id+`">
                         <input type="hidden" name="type" value="upvote">
@@ -131,8 +139,8 @@ function handler(event){
                     </form>
                 </div>
                 <div style= "order: 3" class = "vote">
-                    <form method="post" action="../actions/action_vote.php">
-                        <button name="downvote" type="submit">  <i class="fas fa-chevron-down"></i> </button>
+                    <form method="post">
+                        <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
                         <input type="hidden" name="post_op" value="`+data.post_op+`">
                         <input type="hidden" name="post_id" value="`+data.post_id+`">
                         <input type="hidden" name="type" value="downvote">
@@ -145,15 +153,17 @@ function handler(event){
             </div>
             <div class="flex-container-2">
                 <ul>
-            `       +drawTags(data.tags)+`
+                    `+drawTags(data.tags)+`
                 </ul>
-                <footer>Submitted by: <a href="profile.php?id=`+data.post_op+`">`+data.user_name+`</a> on `+data.post_date+
-                drawChannel(data.channel_id, data.channel)+
+                <footer>Submitted by: <a href="profile.php?id=`+data.post_op+`">`+data.user_name+`</a> on `
+                +data.post_date+drawChannel(data.channel_id, data.channel)+
                 `NumComments: `+data.num_comments+`</footer>
             </div>`
 
         list.append(story)
     })
+
+    addVoteListeners()
 }
 
 function getSession(){

@@ -18,8 +18,8 @@
         $user_id = getUserId($_SESSION['username']);
 
         if($post_op == $user_id)
-            die(header('Location: ' . $_SERVER['HTTP_REFERER']));
-
+            $votes = 'reject_op';
+        else{
             $lastVote = lastVote($user_id, $post_id);
             if(strcmp($type,"upvote")===0){
                 if($lastVote == 1){
@@ -48,6 +48,7 @@
 
             $votes = getVotes($post_id);
         }
+    }
     }
 
     echo json_encode($votes);
