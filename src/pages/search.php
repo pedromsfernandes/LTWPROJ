@@ -3,6 +3,7 @@
   include_once('../templates/tpl_common.php');
   include_once('../templates/tpl_stories.php');
   include_once('../templates/tpl_channels.php');
+  include_once('../templates/tpl_search.php');
   include_once('../database/db_channel.php');
   include_once('../database/db_comment.php');
   include_once('../database/db_story.php');
@@ -19,20 +20,8 @@
   }
 
   draw_header($_SESSION['username']);
+  draw_search_form();
 
-  ?>
-
-  <form method="get" id="searchform"> 
-    <input type="text" name="search_text"> 
-    <select name="search_type">
-        <option value="stories">Stories</option>
-        <option value="comments">Comments</option>
-        <option value="channels">Channels</option>
-    </select>
-    <input type="submit" name="submit" value="Search"> 
-  </form> 
-
-  <?php
     if (isset($_GET['submit']) && preg_match("/[A-Z  | a-z]+/", $_GET['search_text'])) {
         $search_text = $_GET['search_text'];
         $search_type = $_GET['search_type'];

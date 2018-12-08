@@ -78,7 +78,7 @@ function draw_header($username)
     <?php function draw_header_login()
         {
             ?>
-            <!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
         <head>
             <meta charset="utf-8">

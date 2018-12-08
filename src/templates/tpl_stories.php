@@ -1,44 +1,40 @@
 <?php function draw_stories($stories, $channel_id = null)
 {
-    ?>  <section id="stories">
-
-  <section id="sorting">
-      <input type="button" value = "Top">
-      <input type="button" value = "New">
-
-  </section>
-
-  <section id="list">
+    ?>  
+  <section id="stories">
+    <section id="sorting">
+        <input type="button" value = "Top">
+        <input type="button" value = "New">
+    </section>
+    <section id="list">
   <?php
     foreach ($stories as $story) {
         draw_story_titles($story);
     }
   ?>
-  </section>
+    </section>
 
   <?php
     if ($channel_id) {
   ?>
 
-  <article class="new-story">
-    <form action="../actions/action_add_story.php" method="post">
-      <input type="text" name="story_title" placeholder="Add story">
-      <input type="textarea" name="story_text" placeholder="What's on your mind?">
-      <input type="hidden" name="channel_id" value="<?=$channel_id?>">
-      <select name="tags[]" multiple> <?php
-      draw_select_tags(getAllTags());
-?>
-      </select>
-      <input type="submit" value="Submit">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-    </form>
-  </article>
-
+    <article class="new-story">
+      <form action="../actions/action_add_story.php" method="post">
+        <input type="text" name="story_title" placeholder="Add story">
+        <input type="textarea" name="story_text" placeholder="What's on your mind?">
+        <input type="hidden" name="channel_id" value="<?=$channel_id?>">
+        <select name="tags[]" multiple> <?php
+        draw_select_tags(getAllTags());
+  ?>
+        </select>
+        <input type="submit" value="Submit">
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+      </form>
+    </article>
   </section>
 <?php
     }
 } 
-
 
 function draw_select_tag($tag){
   ?>
@@ -102,7 +98,6 @@ function draw_story_titles($story) {
       </div>
     </div>
   <?php
-
 }
 
 function draw_story_footer($story){?>
@@ -255,11 +250,28 @@ function draw_comment($comment)
     </li>
   <?php
       }
-      function draw_comments($comments)
-      {
-          foreach ($comments as $comment) {
-              draw_comment($comment);
-          }
-      }
-      ?>
+      
+function draw_comments($comments){
+    foreach ($comments as $comment) {
+        draw_comment($comment);
+    }
+}
 
+
+function draw_story_adder(){?>
+    <form action="../actions/action_add_story.php" method="post">
+      <input type="text" name="story_title" placeholder="Add story">
+      <input type="textarea" name="story_text" placeholder="What's on your mind?">
+      <select name="channel_id" required> <?php
+      draw_select_channels(getAllChannels());
+?>
+      </select>
+      <select name="tags[]" multiple> <?php
+      draw_select_tags(getAllTags());
+?>
+      </select>
+      <input type="submit" value="Submit">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+    </form>
+  <?php
+}

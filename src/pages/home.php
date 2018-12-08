@@ -8,10 +8,8 @@
   include_once('../database/db_comment.php');
   include_once('../database/db_user.php');
 
-
-
   // Verify if user is logged in
-    $stories = getAllStories();
+  $stories = getAllStories();
 
   if (!isset($_SESSION['username'])) {
     draw_header(null);
@@ -28,8 +26,7 @@
   foreach ($stories as $k => $story) {
       $stories[$k]['story_comments'] = getChildComments($story['post_id']);
   }
-?>
-<?php
+
   draw_stories($stories);
   draw_footer();
 ?>
