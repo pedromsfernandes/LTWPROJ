@@ -10,7 +10,9 @@
   
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
-      die(header('Location: login.php'));
+    $username = null;
+  } else {
+    $username = $_SESSION['username'];
   }
 
   if (!isset($_SESSION['csrf'])) {
@@ -25,16 +27,24 @@
       $stories[$k]['story_comments'] = getChildComments($story['post_id']);
   }
 
-  draw_header($_SESSION['username']);
+  draw_header($username);
   ?>
   <section id="channelInfo">
     <form method="post">
-      <button name="subscribe"><?php
-      if(isUserSubscribed($id, getUserId($_SESSION['username'])))
-        echo 'Unsubscribe';
-      else
-        echo 'Subscribe';
-      ?></button>
+      <?php
+        if($username){
+      ?>
+      <button name="subscribe">
+      <?php
+        if(isUserSubscribed($id, getUserId($_SESSION['username'])))
+          echo 'Unsubscribe';
+        else
+          echo 'Subscribe';
+      ?>
+      </button>
+      <?php
+      }
+      ?>
       <input type="hidden" name="channel_id" value="<?=$id?>">
       <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
