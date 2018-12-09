@@ -62,16 +62,6 @@ button {
   background: rgb(2, 32, 66);
 }
 
-#login > form > input[type=submit], #signup > form > input[type=submit]{
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-#login > form > input[type=submit]:hover, #signup > form > input[type=submit]:hover{
-  background-color: rgb(23, 95, 143); /* Green */
-  color: white;
-}
-
 #login header, #signup header {
   color: var(--panel-color);
   padding: 2em 0;
@@ -105,15 +95,6 @@ button {
   background-color: var(--panel-color);
 }
 
-#login > form > input[type=submit], #signup > form > input[type=submit]{
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-#login > form > input[type=submit]:hover, #signup > form > input[type=submit]:hover{
-  background-color: rgb(37, 156, 117);
-  color: white;
-}
 
 input[type=text],input[type=textarea], input[type=password] {
   box-sizing: border-box;
@@ -124,11 +105,20 @@ input[type=text],input[type=textarea], input[type=password] {
 
   color: white;
 
-  background-color: rgb(2, 32, 66);
+  background-color: rgba(2, 32, 66,0.7);
+}
+
+input[type=textarea]{
+  width: auto;
+  height: auto;
 }
 
 input[type="submit"], input[type="button"] {
-  padding: 1em;
+  padding: 0.6em;
+  margin: 0.5em;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 
   background: rgb(33, 91, 124);
   color: var(--panel-color);
@@ -140,6 +130,11 @@ input[type="submit"], input[type="button"] {
   border-radius: 2px;
 
   text-transform: uppercase;
+}
+
+input[type=submit]:hover, input[type=submit]:hover{
+  background-color: rgb(37, 156, 117);
+  color: white;
 }
 .header-flexbox {
   display: flex;
@@ -438,7 +433,7 @@ input[type="submit"], input[type="button"] {
   background-color: rgb(0, 102, 128); /* Green */
   border: none;
   color: white;
-  padding: 16px 32px;
+  padding: 12px 28px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -447,8 +442,12 @@ input[type="submit"], input[type="button"] {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
-  border: 2px solid #333;
+  border: 1px solid #333;
 }
+.channel-flexbox > button:active {
+  background-color: rgb(23, 67, 78);
+}
+
 .subscribers {
   margin-top: 40px;
 }
@@ -540,4 +539,13 @@ body > #messages .success {
 }
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+/*Search*/
+#searchform {
+  display: block;
+}
+/*Story Adder*/
+.story-adder-container > form {
+  display: inline;
 }

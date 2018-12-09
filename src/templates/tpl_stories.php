@@ -262,18 +262,23 @@ function draw_comments($comments){
 
 function draw_story_adder(){?>
     <form action="../actions/action_add_story.php" method="post">
-      <input type="text" name="story_title" placeholder="Add story">
-      <input type="textarea" name="story_text" placeholder="What's on your mind?">
-      <select name="channel_id" required> <?php
-      draw_select_channels(getAllChannels());
-?>
-      </select>
-      <select name="tags[]" multiple> <?php
-      draw_select_tags(getAllTags());
-?>
-      </select>
-      <input type="submit" value="Submit">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+     <div class="choice-select" style="width:200px;"> 
+          <select name="channel_id" required> <?php
+            draw_select_channels(getAllChannels());
+    ?>
+          </select>
+      </div>
+        <input type="text" name="story_title" placeholder="Add story">
+        <input type="textarea" name="story_text" placeholder="What's on your mind?">
+        </div>
+        <div class="tags">
+          <select name="tags[]" multiple> <?php
+          draw_select_tags(getAllTags());
+    ?>
+          </select>
+        </div>
+        <input type="submit" value="Submit">
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
   <?php
 }
