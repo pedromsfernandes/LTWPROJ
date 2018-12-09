@@ -41,6 +41,35 @@
   }
 
   draw_header($username);
-  draw_channel_info($channel);
+  ?>
+  <section id="channelInfo">
+    <form method="post">
+      <div class="channel-flexbox">
+        <?php
+          if($username){
+        ?>
+        <button name="subscribe">
+        <?php
+          if(isUserSubscribed($id, getUserId($_SESSION['username'])))
+            echo 'Unsubscribe';
+          else
+            echo 'Subscribe';
+        ?>
+        </button>
+        <?php
+        }
+        ?>
+        <input type="hidden" name="channel_id" value="<?=$id?>">
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+      </form>
+        <div class="channel">
+          <?=$channel['channel_name']?>
+        </div>
+        <div class="subscribers">
+          Subscribers: <?=getNumSubscribers($id)?>
+        </div>
+    </div>
+  </section>
+  <?php
   draw_stories($stories, $id);
   draw_footer();

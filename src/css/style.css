@@ -3,9 +3,10 @@
  */
 
 body {
-  background-image: url(../../res/LogInBackground.jpg);
+  background-image: url(../../res/background.png);
   background-size: cover;
-  --bg-color: #EEE;
+  background-repeat: no-repeat;
+  --bg-color: rgb(0, 85, 160);
   --panel-color: rgb(2, 32, 66);
 
   --main-color: rgb(36, 68, 156);
@@ -114,12 +115,14 @@ button {
   color: white;
 }
 
-input[type=text], input[type=password] {
+input[type=text],input[type=textarea], input[type=password] {
   box-sizing: border-box;
 
   padding: 1em;
 
   border: 1px solid rgb(33, 91, 124);
+
+  color: white;
 
   background-color: rgb(2, 32, 66);
 }
@@ -157,7 +160,7 @@ input[type="submit"], input[type="button"] {
 }
 
 .header-flexbox > div > nav > ul > li:hover {
-  background-color: rgba(73, 71, 71,1);
+  background-color: rgb(37, 156, 117);
 }
 
 .header-flexbox > div > nav > ul > li {
@@ -320,18 +323,19 @@ input[type="submit"], input[type="button"] {
 
 #sorting > input {
   font-size: 16px;
-  background-color: rgb(83, 92, 175); /* Green */
-  border: 2px solid rgb(44, 1, 143);
+  background-color: rgb(33, 91, 124);
+  -moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
   color: white;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
-  border-radius: 15px 50px 30px 5px;
  
 }
 
 #sorting > input:hover {
-  background-color: var(--main-color);
+  background-color:rgb(37, 156, 117);
 }
 .titles {
   display: block;
@@ -417,6 +421,38 @@ input[type="submit"], input[type="button"] {
   text-align: right;
 }
 
+.channel-flexbox {
+  padding: 5px;
+  display: flex;
+  background: rgba(240, 250, 249, 0.541);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+}
+.channel {
+  font-size: 2em;
+  text-transform: capitalize;
+  color: #333;
+}
+
+.channel-flexbox > button {
+  background-color: rgb(0, 102, 128); /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border: 2px solid #333;
+}
+.subscribers {
+  margin-top: 40px;
+}
+
 
 
 /*
@@ -438,4 +474,70 @@ body > #messages .error {
 body > #messages .success {
   color: var(--success-fg-color);
   background-color: var(--success-bg-color);
+}
+
+/* New Story */
+.new-element {
+  display: inline;
+}
+.new-element > form > input[type="submit"]{
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.new-element > form > input[type="submit"]:hover{
+  background-color: rgb(37, 156, 117);
+  color: white;
+}
+
+.choice-select {
+  position: relative;
+  font-family: Arial;
+}
+.choice-select select {
+  display: none; /*hide original SELECT element:*/
+}
+.select-selected {
+  background-color: DodgerBlue;
+}
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
 }
