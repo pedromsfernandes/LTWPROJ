@@ -30,11 +30,11 @@
         return $stmt->fetch() ? true : false;
     }
 
-    function insertChannel($channel_name, $channel_description, $user_id)
+    function insertChannel($channel_name, $channel_description, $channel_header, $user_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO channel VALUES(NULL, ?, ?, ?)');
-        $stmt->execute(array($channel_name, $channel_description, $user_id));
+        $stmt = $db->prepare('INSERT INTO channel VALUES(NULL, ?, ?, ?, ?)');
+        $stmt->execute(array($channel_name, $channel_description, $channel_header, $user_id));
 
         $stmt = $db->prepare('SELECT MAX(channel_id) AS channel_id FROM channel');
         $stmt->execute();

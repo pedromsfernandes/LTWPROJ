@@ -42,11 +42,14 @@ function draw_channel_info($channel){
 <?php
 }
 function draw_channel_adder(){ ?>
-    <form action="../actions/action_add_channel.php" method="post">
+<article class="new-element">
+    <form action="../actions/action_add_channel.php" method="post" enctype="multipart/form-data">
       <input type="text" name="channel_name" placeholder="Channel name">
       <input type="textarea" name="channel_description" placeholder="What is the channel for?">
+      <input type="file" name="image">
       <input type="submit" value="Submit">
       <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
+</article>
 <?php
 }

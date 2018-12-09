@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS channel (
     channel_id INTEGER PRIMARY KEY,
     channel_name VARCHAR NOT NULL,
     channel_desc VARCHAR NOT NULL,
-    -- channel_header VARCHAR,
+    channel_header INTEGER REFERENCES image,
     channel_creator INTEGER REFERENCES user
 );
 
@@ -49,15 +49,27 @@ CREATE TABLE IF NOT EXISTS tag (
     tag_text VARCHAR NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS image (
+    img_id INTEGER PRIMARY KEY
+); 
+
 -- DEFAULTS
 
-INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.', NULL);
-INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.', NULL);
-INSERT INTO channel VALUES (NULL, 'nba', 'Discuss nba.', NULL);
-INSERT INTO channel VALUES (NULL, 'news', 'Discuss news.', NULL);
-INSERT INTO channel VALUES (NULL, 'television', 'Discuss television.', NULL);
-INSERT INTO channel VALUES (NULL, 'games', 'Discuss games.', NULL);
-INSERT INTO channel VALUES (NULL, 'mma', 'Discuss mma.', NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
+
+INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.', 1, NULL);
+INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.', 2, NULL);
+INSERT INTO channel VALUES (NULL, 'nba', 'Discuss nba.', 3, NULL);
+INSERT INTO channel VALUES (NULL, 'news', 'Discuss news.', 4, NULL);
+INSERT INTO channel VALUES (NULL, 'television', 'Discuss television.', 5, NULL);
+INSERT INTO channel VALUES (NULL, 'games', 'Discuss games.', 6, NULL);
+INSERT INTO channel VALUES (NULL, 'mma', 'Discuss mma.', 7, NULL);
 
 INSERT INTO tag VALUES (NULL, 'help');
 INSERT INTO tag VALUES (NULL, 'media');

@@ -61,10 +61,11 @@
         ?>
         <input type="hidden" name="channel_id" value="<?=$id?>">
         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-      </form>
+    </form>
         <div class="channel">
           <?=$channel['channel_name']?>
         </div>
+        <img src="../images/originals/<?=$channel['channel_header']?>.jpg" width="800" height="400">
         <div class="subscribers">
           Subscribers: <?=getNumSubscribers($id)?>
         </div>

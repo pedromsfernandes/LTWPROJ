@@ -1,8 +1,10 @@
 <?php
   include_once('../includes/session.php');
+  include_once('../includes/image.php');
   include_once('../database/db_story.php');
   include_once('../database/db_user.php');
   include_once('../database/db_channel.php');
+  include_once('../database/db_image.php');
 
   // Verify if user is logged in
   if (!isset($_SESSION['username'])) {
@@ -28,7 +30,13 @@
     header("Location: ../pages/channel.php?id=$id");
   }
 
-  $channel_id = insertChannel($channel_name, $channel_description, $user_id);
+  insertImage();
+  $db = Database::instance()->db();
+  $img_id = $db->lastInsertId();
+
+  $channel_id = insertChannel($channel_name, $channel_description, $img_id, $user_id);
+
+  saveImage($img_id);
 
   header("Location: ../pages/channel.php?id=$channel_id");
 ?>
