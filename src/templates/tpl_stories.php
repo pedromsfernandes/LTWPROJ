@@ -67,21 +67,19 @@ function draw_story_titles($story) {
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>
         <div style= "order: 1" class="vote">
-          <form method="post">
+          <form>
             <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
-            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
           </form>
         </div>
         <div style= "order: 3" class="vote">
-          <form method="post">
+          <form>
             <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
-            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
           </form>
         </div>
         <div style= "order: 2" class="vote-amount">
@@ -121,21 +119,19 @@ function draw_story($story, $comments_on)
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>        
         <div style= "order: 1" class="vote">
-          <form method="post">
+          <form>
             <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
-            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
           </form>
         </div>
         <div style= "order: 3" class="vote">
-          <form method="post">
+          <form>
             <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
-            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
           </form>
         </div>
         <div style= "order: 2" class="vote-amount">
@@ -175,9 +171,8 @@ function draw_story($story, $comments_on)
 } 
 
 function draw_comment_form($post){ ?>
-  <form action="../actions/action_add_comment.php" method="post">
+  <form id="addComment">
     <input type="hidden" name="post_id" value="<?=$post['post_id']?>">
-    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     <input type="textarea" name="cmt_text" placeholder="Add comment">
   </form> <?php
 }
@@ -212,21 +207,19 @@ function draw_comment($comment)
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  
       <div style= "order: 1" class="vote">
-        <form method="post">
+        <form>
           <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="upvote">
-          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
         </form>
       </div>
       <div style= "order: 3" class="vote">  
-        <form method="post">
+        <form>
           <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="downvote">
-          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
         </form>
       </div>
       <div style= "order: 4" class="comment-op">  

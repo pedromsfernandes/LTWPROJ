@@ -17,26 +17,32 @@ function draw_channel_info($channel){
     ?>
   <section id="channelInfo">
     <form method="post">
-      <?php
-        if ($_SESSION['username']) {
-            ?>
-      <button name="subscribe">
-      <?php
-        if (isUserSubscribed($id, getUserId($_SESSION['username']))) {
+      <div class="channel-flexbox">
+        <?php
+          if($_SESSION['username']){
+        ?>
+        <button name="subscribe">
+        <?php
+          if(isUserSubscribed($id, getUserId($_SESSION['username'])))
             echo 'Unsubscribe';
-        } else {
+          else
             echo 'Subscribe';
-        } ?>
-      </button>
-      <?php
-        } ?>
-      <input type="hidden" name="channel_id" value="<?=$id?>">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+        ?>
+        </button>
+        <?php
+        }
+        ?>
+        <input type="hidden" name="channel_id" value="<?=$id?>">
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
-    <ul>
-      <li>Name: <?=$channel['channel_name']?></li>
-      <li>Subscribers: <?=getNumSubscribers($id)?></li>
-    </ul>
+        <div class="channel">
+          <?=$channel['channel_name']?>
+        </div>
+        <img src="../images/originals/<?=$channel['channel_header']?>.jpg" width="800" height="400">
+        <div class="subscribers">
+          Subscribers: <?=getNumSubscribers($id)?>
+        </div>
+    </div>
   </section>
 
 <?php

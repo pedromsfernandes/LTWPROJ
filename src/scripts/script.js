@@ -15,14 +15,13 @@ addVoteListeners()
 
 let channelInfo = document.querySelector('#channelInfo')
 if(channelInfo){
-    let button2 = channelInfo.querySelector('button')
+    let button = channelInfo.querySelector('button')
 
-    if(button2){
-        let info2 = channelInfo.querySelectorAll('input')
-        let channel_id2 = info2[0].value
-        let csrf2 = info2[1].value
+    if(button){
+        let info = channelInfo.querySelectorAll('input')
+        let channel_id = info[0].value
 
-        button2.addEventListener('click', function(event){
+        button.addEventListener('click', function(event){
             event.preventDefault()
 
             let request = new XMLHttpRequest()
@@ -36,17 +35,22 @@ if(channelInfo){
                     window.location.href = "../pages/login.php";
                 } else
                 if(answer != 'reject_csrf'){
-                    button2.innerHTML = answer[0]
+                    button.innerHTML = answer[0]
 
-                    let label = button2.parentElement.parentElement.querySelectorAll('li')[1]
+                    let label = button.parentElement.parentElement.querySelector('div.subscribers')
 
                     label.innerHTML = "Subscribers: " + answer[1]
                 }
             })
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({csrf: csrf2, channel_id: channel_id2}))
+            request.send(encodeForAjax({csrf: session.csrf, channel_id: channel_id}))
         })
     }
+}
+
+let commentBox = document.querySelector('#addComment')
+if(commentBox){
+
 }
 
 var x, i, j, selElmnt, a, b, c;
@@ -101,6 +105,9 @@ for (i = 0; i < x.length; i++) {
 }
 
 
+
+
+
 //---------
 //functions
 //---------
@@ -115,7 +122,6 @@ function addVoteListeners(){
         let post_op = info[0].value
         let post_id = info[1].value
         let type = info[2].value
-        let csrf = info[3].value
 
         button.addEventListener('click', function(event){
             event.preventDefault()
@@ -136,7 +142,7 @@ function addVoteListeners(){
                 }
             })
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: csrf}))
+            request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: session.csrf}))
         })
     })
 }
