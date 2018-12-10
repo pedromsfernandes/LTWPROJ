@@ -57,13 +57,16 @@ commentBox.forEach(function(data){
     button.addEventListener('click', function(event){
         event.preventDefault()
 
-        let text = data.querySelector('textarea').value 
+        let area = data.querySelector('textarea')
+        let text = area.value 
 
         let request = new XMLHttpRequest()
         request.open('post', '../api/api_add_comment.php', true)
         request.addEventListener('load', commentHandler)
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
         request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
+
+        area.value = ""
     })
 })
 
@@ -206,13 +209,16 @@ function commentHandler(event){
         button.addEventListener('click', function(event){
             event.preventDefault()
 
-            let text = commentBox.querySelector('textarea').value 
+            let area = commentBox.querySelector('textarea')
+            let text = area.value 
 
             let request = new XMLHttpRequest()
             request.open('post', '../api/api_add_comment.php', true)
             request.addEventListener('load', commentHandler)
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             request.send(encodeForAjax({cmt_text: text, post_id: new_id}))
+
+            area.value = ""
         })
     }
 }
