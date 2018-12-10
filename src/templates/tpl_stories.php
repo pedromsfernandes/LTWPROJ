@@ -171,8 +171,9 @@ function draw_story($story, $comments_on)
 } 
 
 function draw_comment_form($post){ ?>
-  <form id="addComment">
+  <form action="../actions/action_add_comment.php" method="post">
     <input type="hidden" name="post_id" value="<?=$post['post_id']?>">
+    <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     <input type="textarea" name="cmt_text" placeholder="Add comment">
   </form> <?php
 }

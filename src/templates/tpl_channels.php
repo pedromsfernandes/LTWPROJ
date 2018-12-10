@@ -17,7 +17,7 @@ function draw_channel_info($channel){
     ?>
   <section id="channelInfo">
     <form method="post">
-      <div class="channel-flexbox">
+      <div class="channel-flexbox" style="background: url(../images/originals/<?=$channel['channel_header']?>.jpg)">
         <?php
           if($_SESSION['username']){
         ?>
@@ -38,7 +38,6 @@ function draw_channel_info($channel){
         <div class="channel">
           <?=$channel['channel_name']?>
         </div>
-        <img src="../images/originals/<?=$channel['channel_header']?>.jpg" width="800" height="400">
         <div class="subscribers">
           Subscribers: <?=getNumSubscribers($id)?>
         </div>

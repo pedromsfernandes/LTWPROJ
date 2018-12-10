@@ -422,6 +422,9 @@ input[type=submit]:hover, input[type=submit]:hover{
   background: rgba(240, 250, 249, 0.541);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   justify-content: space-between;
+  background-repeat: no-repeat;
+  background-size: auto;
+
 }
 .channel {
   font-size: 2em;
