@@ -25,5 +25,9 @@
       $db = Database::instance()->db();
       $stmt = $db->prepare("INSERT INTO post VALUES(NULL, NULL, ?, datetime('now'), ?, ?, NULL)");
       $stmt->execute(array($comment_text, $user_id, $post_id));
+
+      $stmt2 = $db->prepare("SELECT post_id FROM post WHERE post_text LIKE ? AND post_op = ? AND post_father = ?");
+      $stmt2->execute(array($comment_text, $user_id, $post_id));
+      return $stmt2->fetch();
   }
   ?>

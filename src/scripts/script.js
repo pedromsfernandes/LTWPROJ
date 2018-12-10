@@ -129,6 +129,8 @@ for (i = 0; i < x.length; i++) {
 function commentHandler(event){
     event.preventDefault()
 
+    console.log(this.responseText)
+
     let answer = JSON.parse(this.responseText)
 
     if(answer == 'reject_log'){
@@ -136,6 +138,83 @@ function commentHandler(event){
     } else{
         let post_id = answer[0]
         let text = answer[1]
+        let votes = answer[2]
+        let post_op = answer[3]
+        let username = answer[4]
+        let date = answer[5].date
+        let new_id = answer[6].post_id
+
+        let comments = document.querySelector('#p'+post_id).querySelector('ol')
+
+        let comment = document.createElement('article')
+        comment.classList = 'parent-comment'
+        comment.id = '#p' + new_id
+
+        comment.innerHTML = `
+        <div class="flex-container-1">       
+            <div style= "order: 2" class="vote-amount">
+                <p>`+votes+`</p>
+            </div>  
+            <div style= "order: 1" class="vote">
+                <form>
+                    <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
+                    <input type="hidden" name="post_op" value="`+post_op+`">
+                    <input type="hidden" name="post_id" value="`+new_id+`">
+                    <input type="hidden" name="type" value="upvote">
+                </form>
+            </div>
+            <div style= "order: 3" class="vote">  
+                <form>
+                    <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
+                    <input type="hidden" name="post_op" value="`+post_op+`">
+                    <input type="hidden" name="post_id" value="`+new_id+`">
+                    <input type="hidden" name="type" value="downvote">
+                </form>
+            </div>
+            <div style= "order: 4" class="comment-op">  
+                <p>`+username+`</p>
+            </div>
+        </div>
+        <div class = "comment-text"> 
+            <p>`+text+`</p>
+            <div>Submitted by: <a href="profile.php?id=`+post_op+`">`+username+`</a> on `+date+`</div>
+        </div>
+        <section id="addComment">
+            <input type="hidden" name="post_id" value="`+new_id+`">
+            <textarea placeholder="Add a comment"></textarea>
+            <input type="submit" value="submit">
+        </section>
+        <ol>
+
+        </ol>
+        `
+        
+        comments.prepend(comment)
+
+        votes = comment.querySelectorAll('div.vote')
+
+        votes.forEach(function(data){
+            let button = data.querySelector('button')
+
+            button.addEventListener('click', function(event){
+                event.preventDefault()
+            })
+        })
+
+        let commentBox = comment.querySelector('#addComment')
+        let button = commentBox.querySelectorAll('input')[1]
+
+        button.addEventListener('click', function(event){
+            event.preventDefault()
+
+            let text = commentBox.querySelector('textarea').value 
+
+            let request = new XMLHttpRequest()
+            request.open('post', '../api/api_add_comment.php', true)
+            request.addEventListener('load', commentHandler)
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            request.send(encodeForAjax({cmt_text: text, post_id: new_id}))
+        })
     }
 }
 

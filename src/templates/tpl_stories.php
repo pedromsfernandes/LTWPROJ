@@ -112,7 +112,7 @@ function draw_story_footer($story){?>
 function draw_story($story, $comments_on)
 {
     ?>
-  <article class="story">
+  <article class="story" id="p<?=$story['post_id']?>">
     <div class="post">
       <div class="flex-container-3">
         <div style= "order: 4" class="title">
@@ -202,7 +202,7 @@ function draw_comment($comment)
     {
       $children = getChildComments($comment['post_id']);
         ?>
-<div class="parent-comment"> 
+<article class="parent-comment" id="p<?=$comment['post_id']?>"> 
     <div class="flex-container-1">       
       <div style= "order: 2" class="vote-amount">
         <p><?=getVotes($comment['post_id']) ?></p>
@@ -242,7 +242,7 @@ function draw_comment($comment)
       <ol>
   <?php draw_comments($children); ?>
       </ol>
-</div> 
+</article> 
     </li>
   <?php
       }
