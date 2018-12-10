@@ -12,10 +12,6 @@
       die(header('Location: login.php'));
   }
 
-  if (!isset($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = generate_random_token();
-  }
-
   $user_id = getUserId($_SESSION['username']);
   $profile = getProfile($user_id);
 

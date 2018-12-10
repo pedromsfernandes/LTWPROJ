@@ -16,10 +16,6 @@
     $username = $_SESSION['username'];
   }
 
-  if (!isset($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = generate_random_token();
-  }
-
   $id = $_GET['id'];
 
   if(!is_numeric($id)){

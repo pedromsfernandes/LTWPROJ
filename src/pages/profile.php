@@ -14,10 +14,6 @@
       die(header('Location: login.php'));
   }
 
-  if (!isset($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = generate_random_token();
-  }
-
   $user_id = $_GET['id'];
 
   if(!is_numeric($user_id)){
@@ -49,6 +45,6 @@
 
   draw_stories($stories);
 
-  draw_comments($comments);
+  draw_comments($comments, false);
 
   draw_footer();

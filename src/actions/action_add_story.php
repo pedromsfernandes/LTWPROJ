@@ -1,6 +1,8 @@
 <?php
   include_once('../includes/session.php');
+  include_once('../includes/image.php');
   include_once('../database/db_story.php');
+  include_once('../database/db_image.php');
   include_once('../database/db_user.php');
 
   // Verify if user is logged in
@@ -18,7 +20,15 @@
   $user_id = getUserId($_SESSION['username']);
   $tags = $_POST['tags'];
 
-  $story_id = insertStory($story_title, $story_text, $user_id, $channel_id, $tags);
+  if($story_text === null){
+    insertImage();
+    $db = Database::instance()->db();
+    $img_id = $db->lastInsertId();
+    saveImage($img_id);
+  }
+
+  $story_id = insertStory($story_title, $story_text, $img_id, $user_id,  $channel_id, $tags);
+
 
   header("Location: ../pages/story.php?id=$story_id");
 ?>

@@ -15,10 +15,6 @@
     draw_header(null);
   }
   else {
-    if (!isset($_SESSION['csrf'])) {
-       $_SESSION['csrf'] = generate_random_token();
-     }
-
     //$stories = getSubscribedStories(getUserId($_SESSION['username']));
     draw_header($_SESSION['username']);
   }

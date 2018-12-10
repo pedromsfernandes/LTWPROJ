@@ -198,7 +198,7 @@ function getChannelLink($matches){
   return "<a href=\"channel.php?id=$id\">$matches[0]</a>";
 }
 
-function draw_comment($comment)
+function draw_comment($comment, $form = true)
     {
       $children = getChildComments($comment['post_id']);
         ?>
@@ -237,24 +237,25 @@ function draw_comment($comment)
             <div>Submitted by: <a href="profile.php?id=<?=$comment['post_op']?>"><?=getUserName($comment['post_op'])?></a> on <?=$comment['post_date']?> </div>
     </div>
   <?php
-    draw_comment_form($comment);
+    if($form)
+      draw_comment_form($comment);
   ?>
       <ol>
-  <?php draw_comments($children); ?>
+  <?php draw_comments($children, $form); ?>
       </ol>
 </article> 
     </li>
   <?php
       }
       
-function draw_comments($comments){
+function draw_comments($comments, $form = true){
     foreach ($comments as $comment) {
-        draw_comment($comment);
+        draw_comment($comment, $form);
     }
 }
 
 
-function draw_story_adder(){?>
+function draw_text_story_adder(){?>
     <form action="../actions/action_add_story.php" method="post">
      <div class="choice-select" style="width:200px;"> 
           <select name="channel_id" required> <?php
@@ -275,4 +276,27 @@ function draw_story_adder(){?>
         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
   <?php
+}
+
+function draw_img_story_adder(){?>
+  <form action="../actions/action_add_story.php" method="post" enctype="multipart/form-data">
+   <div class="choice-select" style="width:200px;"> 
+        <select name="channel_id" required> <?php
+          draw_select_channels(getAllChannels());
+  ?>
+        </select>
+    </div>
+      <input type="text" name="story_title" placeholder="Add story">
+      <input type="file" name="image">
+      </div>
+      <div class="tags">
+        <select name="tags[]" multiple> <?php
+        draw_select_tags(getAllTags());
+  ?>
+        </select>
+      </div>
+      <input type="submit" value="Submit">
+      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+  </form>
+<?php
 }

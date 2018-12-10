@@ -64,11 +64,11 @@
    /**
    * Inserts a new story into the database.
    */
-    function insertStory($story_title, $story_text, $user_id, $channel_id, $tags)
+    function insertStory($story_title, $story_text, $img_id, $user_id, $channel_id, $tags)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("INSERT INTO post VALUES(NULL, ?, ?, datetime('now'), ?, NULL, ?)");
-        $stmt->execute(array($story_title, $story_text, $user_id, $channel_id));
+        $stmt = $db->prepare("INSERT INTO post VALUES(NULL, ?, ?, datetime('now'), ?, ?, NULL, ?)");
+        $stmt->execute(array($story_title, $story_text, $img_id, $user_id,  $channel_id));
 
         if($tags){
             $stmt = $db->prepare("SELECT MAX(post_id) AS last_post FROM post");
