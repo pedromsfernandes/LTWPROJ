@@ -48,10 +48,24 @@ if(channelInfo){
     }
 }
 
-let commentBox = document.querySelector('#addComment')
-if(commentBox){
+let commentBox = document.querySelectorAll('#addComment')
+commentBox.forEach(function(data){
+    let inputs = data.querySelectorAll('input')
+    let post_id = inputs[0].value
+    let button = inputs[1]
 
-}
+    button.addEventListener('click', function(event){
+        event.preventDefault()
+
+        let text = data.querySelector('textarea').value 
+
+        let request = new XMLHttpRequest()
+        request.open('post', '../api/api_add_comment.php', true)
+        request.addEventListener('load', commentHandler)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
+    })
+})
 
 var x, i, j, selElmnt, a, b, c;
 /*look for any elements with the class "channel-select":*/
@@ -112,6 +126,19 @@ for (i = 0; i < x.length; i++) {
 //functions
 //---------
 
+function commentHandler(event){
+    event.preventDefault()
+
+    let answer = JSON.parse(this.responseText)
+
+    if(answer == 'reject_log'){
+        window.location.href = "../pages/login.php";
+    } else{
+        let post_id = answer[0]
+        let text = answer[1]
+    }
+}
+
 function addVoteListeners(){
     let votes = document.querySelectorAll('div.vote')
 
@@ -151,7 +178,7 @@ function drawTopStories(event){
     event.preventDefault()
 
     let request = new XMLHttpRequest()
-    request.addEventListener('load', handler)
+    request.addEventListener('load', storyHandler)
     request.open('get', '../api/api_get_top_stories.php', true)
     request.send()
 }
@@ -160,12 +187,12 @@ function drawNewStories(event){
     event.preventDefault()
 
     let request = new XMLHttpRequest()
-    request.addEventListener('load', handler)
+    request.addEventListener('load', storyHandler)
     request.open('get', '../api/api_get_new_stories.php', true)
     request.send()
 }
 
-function handler(event){
+function storyHandler(event){
     event.preventDefault()
 
     let newStories = JSON.parse(this.responseText)

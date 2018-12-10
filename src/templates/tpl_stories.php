@@ -171,10 +171,11 @@ function draw_story($story, $comments_on)
 } 
 
 function draw_comment_form($post){ ?>
-  <form id="addComment">
+  <section id="addComment">
     <input type="hidden" name="post_id" value="<?=$post['post_id']?>">
-    <input type="textarea" name="cmt_text" placeholder="Add comment">
-  </form> <?php
+    <textarea placeholder="Add a comment"></textarea>
+    <input type="submit" value="submit">
+  </section> <?php
 }
 
 function draw_tags($story_id){
