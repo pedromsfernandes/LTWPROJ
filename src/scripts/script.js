@@ -129,8 +129,6 @@ for (i = 0; i < x.length; i++) {
 function commentHandler(event){
     event.preventDefault()
 
-    console.log(this.responseText)
-
     let answer = JSON.parse(this.responseText)
 
     if(answer == 'reject_log'){
@@ -148,7 +146,7 @@ function commentHandler(event){
 
         let comment = document.createElement('article')
         comment.classList = 'parent-comment'
-        comment.id = '#p' + new_id
+        comment.id = 'p' + new_id
 
         comment.innerHTML = `
         <div class="flex-container-1">       
@@ -187,6 +185,7 @@ function commentHandler(event){
         <ol>
 
         </ol>
+        </li>
         `
         
         comments.prepend(comment)
