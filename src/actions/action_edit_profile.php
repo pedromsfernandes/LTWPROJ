@@ -18,19 +18,12 @@
 
   $username = $_SESSION['username'];
   $id = getUserId($username);
-  $new_password = $_POST['new_password'];
-  $confirm_password = $_POST['confirm_password'];
-  $old_password = $_POST['old_password'];
+  $password = $_POST['password'];
   $description = $_POST['description'];
   
-  if(checkUserPassword($username, $old_password)){
+  if(checkUserPassword($username, $password)){
 
-    if($new_password != '' && $new_password == $confirm_password)
-        $password = $new_password;
-    else
-        $password = $old_password;
-
-    $img_id = null;
+    $img_id = getProfile($id)['user_avatar'];
     if(is_uploaded_file($_FILES['image']['tmp_name'])){
       insertImage();
       $db = Database::instance()->db();
@@ -38,7 +31,7 @@
       saveImage($img_id);
     }
 
-    editProfile($username, $password, $description, $img_id);
+    editProfile($username, $description, $img_id);
 
     header("Location: ../pages/profile.php?id=$id");
   }

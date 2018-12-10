@@ -48,12 +48,11 @@
         $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT, $options), 8));
     }
 
-    function editProfile($username, $password, $description, $avatar)
+    function editProfile($username, $description, $avatar)
     {
-        $options = ['cost' => 12];
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE user SET user_pass = ?, user_description = ?, user_avatar = ? WHERE user_name = ?');
-        $stmt->execute(array(password_hash($password, PASSWORD_DEFAULT, $options), $description, $avatar, $username));
+        $stmt = $db->prepare('UPDATE user SET user_description = ?, user_avatar = ? WHERE user_name = ?');
+        $stmt->execute(array($description, $avatar, $username));
     }
 
     function getProfile($user_id)
