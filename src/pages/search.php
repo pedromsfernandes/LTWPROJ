@@ -38,15 +38,26 @@
             else{
                 $stories = searchStories($search_text);
             }
-
-            draw_stories($stories);
+            
+            if($stories == null)
+                echo 'Ups... Didn\'t find anything!';
+            else
+                draw_stories($stories);
         } else if ($search_type == 'comments') {
             $comments = searchComments($search_text);
-            draw_comments($comments);
+
+            if($comments == null)
+                echo 'Ups... Didn\'t find anything!';
+            else
+                draw_comments($comments);
         }
         else if ($search_type == 'channels') {
             $channels = searchChannels($search_text);
-            draw_channels($channels);
+
+            if($channels == null)
+                echo 'Ups... Didn\'t find anything!';
+            else
+                draw_channels($channels);
         }
         else {
             die(header('Location: ../pages/home.php'));

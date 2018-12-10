@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS user (
     user_name VARCHAR NOT NULL,
     user_pass VARCHAR NOT NULL,
     user_description VARCHAR,
-    user_avatar VARCHAR,
-    user_points INTEGER NOT NULL
+    user_points INTEGER NOT NULL,
+    user_avatar INTEGER REFERENCES image
 );
 
 CREATE TABLE IF NOT EXISTS subscription (
@@ -63,6 +63,7 @@ INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
 
 INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.', 1, NULL);
 INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.', 2, NULL);
@@ -81,9 +82,9 @@ INSERT INTO tag VALUES (NULL, 'question');
 
 -- TESTS
 
-INSERT INTO user VALUES(NULL, 'mrzephyr17', 'asd', NULL, NULL, 0);
-INSERT INTO user VALUES(NULL, 'castro', 'asdasd', NULL, NULL, 0);
-INSERT INTO user VALUES(NULL, 'acaciomamao', 'asasdasdasdd', NULL, NULL, 0);
+INSERT INTO user VALUES(NULL, 'mrzephyr17', 'asd', NULL, 0, 8);
+INSERT INTO user VALUES(NULL, 'castro', 'asdasd', NULL, 0, 8);
+INSERT INTO user VALUES(NULL, 'acaciomamao', 'asasdasdasdd', NULL, 0, 8);
 
 INSERT INTO post VALUES(NULL, 'ya', 'O incentivo ao avanço tecnológico, assim como a valorização de fatores subjetivos oferece uma interessante oportunidade para verificação de alternativas às soluções ortodoxas.
 ', '2018-10-25 10:00:00', NULL, 1, NULL, 1);

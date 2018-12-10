@@ -43,10 +43,9 @@
     function insertUser($username, $password)
     {
         $options = ['cost' => 12];
-        $default_avatar = 'http://a.wordpress.com/avatar/unknown-128.jpg';
         $db = Database::instance()->db();
-        $stmt = $db->prepare("INSERT INTO user VALUES(NULL, ?, ?, NULL, ?, 0)");
-        $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT, $options), $default_avatar));
+        $stmt = $db->prepare("INSERT INTO user VALUES(NULL, ?, ?, NULL, 0, ?)");
+        $stmt->execute(array($username, password_hash($password, PASSWORD_DEFAULT, $options), 8));
     }
 
     function editProfile($username, $password, $description, $avatar)

@@ -43,8 +43,11 @@
 <?php
   }
 
-  draw_stories($stories);
 
-  draw_comments($comments, false);
+  if($stories != null)
+    draw_stories($stories);
+
+  if($comments != null)
+    draw_comments($comments, false);
 
   draw_footer();

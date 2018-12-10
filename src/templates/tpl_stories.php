@@ -163,7 +163,7 @@ function draw_story($story, $comments_on)
                 draw_comments($story['story_comments']); ?>
         </ol>
           <?php
-          draw_comment_form($story);
+            draw_comment_form($story);
         }  ?>
     </div>
   </article>

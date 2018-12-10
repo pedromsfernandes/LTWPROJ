@@ -1,6 +1,8 @@
 <?php
   include_once('../includes/session.php');
+  include_once('../includes/image.php');
   include_once('../database/db_user.php');
+  include_once('../database/db_image.php');
 
   //session_regenerate_id(true);
 
@@ -15,12 +17,12 @@
   }
 
   $username = $_SESSION['username'];
+  $id = getUserId($username);
   $new_password = $_POST['new_password'];
   $confirm_password = $_POST['confirm_password'];
   $old_password = $_POST['old_password'];
   $description = $_POST['description'];
-  $avatar = $_POST['avatar'];
-
+  
   if(checkUserPassword($username, $old_password)){
 
     if($new_password != '' && $new_password == $confirm_password)
@@ -28,8 +30,18 @@
     else
         $password = $old_password;
 
-    editProfile($username, $password, $description, $avatar);
-  }
+    $img_id = null;
+    if(is_uploaded_file($_FILES['image']['tmp_name'])){
+      insertImage();
+      $db = Database::instance()->db();
+      $img_id = $db->lastInsertId();
+      saveImage($img_id);
+    }
 
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
-?>
+    editProfile($username, $password, $description, $img_id);
+
+    header("Location: ../pages/profile.php?id=$id");
+  }
+  else
+    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+  ?>
