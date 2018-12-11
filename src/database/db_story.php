@@ -37,6 +37,19 @@
         return $stmt->fetchAll();
     }
 
+    function getAllStoriesByVotesFromChannel($channel)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * from (SELECT * FROM 
+                            post JOIN (SELECT vote.post_id, SUM(vote.vote) AS num_votes
+                                FROM vote GROUP BY vote.post_id UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_id FROM vote)) 
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC) this where channel_id = ?");
+        $stmt->execute(array($channel));
+        return $stmt->fetchAll();
+    }
+
     function getChannelStories($channel, $order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();

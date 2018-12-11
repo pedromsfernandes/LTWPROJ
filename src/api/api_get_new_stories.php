@@ -3,8 +3,13 @@
     include_once('../database/db_user.php');
     include_once('../database/db_channel.php');
     include_once('../database/db_post.php');
+
+    $channel = $_POST['channel'];
     
-    $stories = getAllStories();
+    if($channel == -1)
+        $stories = getAllStories();
+    else
+        $stories = getChannelStories($channel);
 
     foreach($stories as $key => $story){
        $stories[$key]['user_name'] = getUserName($story['post_op']);

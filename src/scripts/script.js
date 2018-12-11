@@ -4,6 +4,10 @@ var session
 getSession()
 
 var list = document.querySelector('#list')
+var channel = document.querySelector('article.new-story')
+if(channel)
+    var idC = channel.querySelectorAll('input')[2].value
+
 if(list){
     let inputs = document.querySelectorAll('#sorting input')
 
@@ -247,19 +251,37 @@ function addVoteListeners(){
 function drawTopStories(event){
     event.preventDefault()
 
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', storyHandler)
-    request.open('get', '../api/api_get_top_stories.php', true)
-    request.send()
+    if(channel){
+        let request = new XMLHttpRequest()
+        request.addEventListener('load', storyHandler)
+        request.open('post', '../api/api_get_top_stories.php', true)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({channel: idC}))
+    }else{
+        let request = new XMLHttpRequest()
+        request.addEventListener('load', storyHandler)
+        request.open('post', '../api/api_get_top_stories.php', true)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({channel: -1}))
+    }
 }
 
 function drawNewStories(event){
     event.preventDefault()
 
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', storyHandler)
-    request.open('get', '../api/api_get_new_stories.php', true)
-    request.send()
+    if(channel){
+        let request = new XMLHttpRequest()
+        request.addEventListener('load', storyHandler)
+        request.open('post', '../api/api_get_new_stories.php', true)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({channel: idC}))
+    }else{
+        let request = new XMLHttpRequest()
+        request.addEventListener('load', storyHandler)
+        request.open('post', '../api/api_get_new_stories.php', true)
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({channel: -1}))
+    }
 }
 
 function storyHandler(event){
@@ -304,7 +326,10 @@ function storyHandler(event){
                 </ul>
                 <footer>Submitted by: <a href="profile.php?id=`+data.post_op+`">`+data.user_name+`</a> on `
                 +data.post_date+drawChannel(data.channel_id, data.channel)+
-                `NumComments: `+data.num_comments+`</footer>
+                `<div class="num-comments">
+                    <a href="../pages/story.php?id=`+data.post_id+`"><i class="fas fa-comment-dots"></i> `+data.num_comments+` Comments</a>
+                </div>
+                </footer>
             </div>`
 
         list.append(story)
