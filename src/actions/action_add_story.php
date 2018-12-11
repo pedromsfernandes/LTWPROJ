@@ -15,10 +15,16 @@
   }
 
   $story_title = $_POST['story_title'];
-  $story_text = $_POST['story_text'];
+
+  if(isset($_POST['story_text']))
+    $story_text = $_POST['story_text'];
+    
   $channel_id = $_POST['channel_id'];
+  
   $user_id = getUserId($_SESSION['username']);
-  $tags = $_POST['tags'];
+
+  if(isset($_POST['tags']))
+    $tags = $_POST['tags'];
 
   if($story_text === null){
     insertImage();

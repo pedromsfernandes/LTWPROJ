@@ -19,7 +19,7 @@ function draw_channel_info($channel){
     <form method="post">
       <div class="channel-flexbox" style="background: url(../images/originals/<?=$channel['channel_header']?>.jpg)">
         <?php
-          if($_SESSION['username']){
+          if(isset($_SESSION['username'])){
         ?>
         <button name="subscribe">
         <?php

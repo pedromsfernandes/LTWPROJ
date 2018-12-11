@@ -6,7 +6,7 @@
     include_once('../database/db_story.php');
     include_once('../database/db_post.php');
 
-    draw_header($_SESSION['username']);  
-    draw_img_story_adder();
+    draw_header($_SESSION['username']); 
+    draw_new_story_buttons();
     draw_footer();
 ?>
