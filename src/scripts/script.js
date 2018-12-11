@@ -364,7 +364,7 @@ function drawTags(tags){
 function drawChannel(channel_id, channel_name){
     let string = " "
 
-    if (document.URL != 'channel.php'){
+    if (!channel){
         string += `to <a href="../pages/channel.php?id=`+channel_id+`">`+channel_name+` </a>`
     }
     
