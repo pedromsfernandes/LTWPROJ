@@ -40,12 +40,53 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--sans-font), sans-serif;
+  font-family: var(--serif-font), sans-serif;
 }
 
 button {
   border: none; /* Remove borders */
   cursor: pointer; /* Mouse pointer on hover */
+}
+
+input[type=text],input[type=textarea], input[type=password] {
+  box-sizing: border-box;
+
+  padding: 1em;
+
+  border: 1px solid rgb(33, 91, 124);
+
+  color: white;
+
+  background-color: rgba(2, 32, 66,0.7);
+}
+
+input[type=textarea]{
+  width: auto;
+  height: auto;
+}
+
+input[type="submit"], input[type="button"] {
+  padding: 0.6em;
+  margin: 0.5em;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+
+  background: rgb(33, 91, 124);
+  color: var(--panel-color);
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+
+  border:none;
+  border-radius: 2px;
+
+  text-transform: uppercase;
+}
+
+input[type=submit]:hover, input[type=submit]:hover{
+  background-color: rgb(37, 156, 117);
+  color: white;
 }
 
 /**
@@ -95,90 +136,9 @@ button {
   background-color: var(--panel-color);
 }
 
-
-input[type=text],input[type=textarea], input[type=password] {
-  box-sizing: border-box;
-
-  padding: 1em;
-
-  border: 1px solid rgb(33, 91, 124);
-
-  color: white;
-
-  background-color: rgba(2, 32, 66,0.7);
-}
-
-input[type=textarea]{
-  width: auto;
-  height: auto;
-}
-
-input[type="submit"], input[type="button"] {
-  padding: 0.6em;
-  margin: 0.5em;
-
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-
-  background: rgb(33, 91, 124);
-  color: var(--panel-color);
-
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2em;
-
-  border:none;
-  border-radius: 2px;
-
-  text-transform: uppercase;
-}
-
-input[type=submit]:hover, input[type=submit]:hover{
-  background-color: rgb(37, 156, 117);
-  color: white;
-}
-.header-flexbox {
-  display: flex;
-  flex: 1 1 auto;
-  justify-content: space-between;
-  padding: 5px;
-  background: rgba(107, 187, 154, 0.3);
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
-  margin-bottom: 10px;
-  
-}
-.header-flexbox > div > nav > ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.header-flexbox > div > nav > ul > li:hover {
-  background-color: rgb(37, 156, 117);
-}
-
-.header-flexbox > div > nav > ul > li {
-  list-style-type: none;
-  float: left;
-  border-right:1px solid rgb(76, 99, 126);
-  background-color: rgba(73, 71, 71,0.3);
-}
-
-.header-flexbox > div > nav > ul > li > a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-
-
-
 .login-header {
   padding: 5px;
-  background: rgba(107, 187, 154, 0.3);
+  background-color: rgba(53, 120, 184,0.6);
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
   margin-top: 10px;
   margin-bottom: 10px;
@@ -213,6 +173,46 @@ input[type=submit]:hover, input[type=submit]:hover{
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
+/* Navbar*/
+.header-flexbox {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  padding: 5px;
+  background-color: rgb(53, 120, 184);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  
+}
+.header-flexbox > div > nav > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.header-flexbox > div > nav > ul > li > a:hover {
+  color: #8f8f8f;
+}
+
+.header-flexbox > div > nav > ul > li {
+  list-style-type: none;
+  float: left;
+}
+
+.header-flexbox > div > nav > ul > li > a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+.account > nav > ul{
+  padding: auto;
+}
 
 /**
 * Profile
@@ -251,7 +251,7 @@ input[type=submit]:hover, input[type=submit]:hover{
 }
 
 /**
-*Header
+*Stories
 */
 
 
@@ -387,6 +387,7 @@ input[type=submit]:hover, input[type=submit]:hover{
   padding-left: 5px;
 }
 .flex-container-2 > ul > li  {
+  font-size: 0.7em;
   float: left;
   padding: 5px;
   margin-top: 3px;
@@ -401,6 +402,23 @@ input[type=submit]:hover, input[type=submit]:hover{
   color: white;
 }
 
+.flex-container-2 > footer {
+  font-size: 0.8em;
+}
+
+.num-comments {
+  color: black;
+  padding: 1px;
+  background: rgba(192, 192, 192, 0.4);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 11px;
+  margin-bottom: 1px;
+}
+
+.num-comments:hover {
+  background:rgba(189, 197, 221, 0.4);
+}
+
 
 /*Votes*/
 .titles > p {
@@ -409,11 +427,6 @@ input[type=submit]:hover, input[type=submit]:hover{
   font-size: 1em;
   padding: 0;
   margin: 0;
-}
-
-.titles > footer {
-  grid-area: footer;
-  text-align: right;
 }
 
 .channel-flexbox {
@@ -552,3 +565,92 @@ body > #messages .success {
 .story-adder-container > form {
   display: inline;
 }
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(53, 120, 184);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #8f8f8f;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.menu {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  #login, #signup {
+    width: 90%;
+    margin: 5%;
+  }
+  .login-flexbox > a:not(.active) {
+    padding-left: 17%;
+    padding-right: 17%;
+  }
+
+  .active {
+    padding-left: 17%;
+    padding-right: 17%;
+  }
+
+  .login-header {
+    padding: 1px;
+  }
+
+  .flex-container-2 > ul {
+    display: none;
+  }
+
+  .header-flexbox {
+    display: none;
+  }
+
+  .menu {
+    display: flex;
+    padding: 10px;
+    background-color: rgb(53, 120, 184);
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .menu > span {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .menu > span:hover {
+    color: #8f8f8f;
+  }
+
+
+  
+}
+

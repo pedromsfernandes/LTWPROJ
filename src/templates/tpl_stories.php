@@ -105,7 +105,10 @@ function draw_story_footer($story){?>
   to <a href="../pages/channel.php?id=<?=$story['channel_id']?>"><?=getChannel($story['channel_id'])['channel_name']?></a>
     <?php
   }?>
-        NumComments: <?=getNumComments($story['post_id'])?></footer>
+      <div class="num-comments">
+      <a href="../pages/story.php?id=<?=$story['post_id']?>"><i class="fas fa-comment-dots"></i> <?=getNumComments($story['post_id'])?> Comments</a>
+      </div>
+  </footer>
         <?php
 }
 
