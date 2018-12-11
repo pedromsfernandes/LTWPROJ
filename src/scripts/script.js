@@ -157,20 +157,16 @@ function commentHandler(event){
                 <p>`+votes+`</p>
             </div>  
             <div style= "order: 1" class="vote">
-                <form>
-                    <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
-                    <input type="hidden" name="post_op" value="`+post_op+`">
-                    <input type="hidden" name="post_id" value="`+new_id+`">
-                    <input type="hidden" name="type" value="upvote">
-                </form>
+                <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
+                <input type="hidden" name="post_op" value="`+post_op+`">
+                <input type="hidden" name="post_id" value="`+new_id+`">
+                <input type="hidden" name="type" value="upvote">
             </div>
             <div style= "order: 3" class="vote">  
-                <form>
-                    <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
-                    <input type="hidden" name="post_op" value="`+post_op+`">
-                    <input type="hidden" name="post_id" value="`+new_id+`">
-                    <input type="hidden" name="type" value="downvote">
-                </form>
+                <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
+                <input type="hidden" name="post_op" value="`+post_op+`">
+                <input type="hidden" name="post_id" value="`+new_id+`">
+                <input type="hidden" name="type" value="downvote">
             </div>
             <div style= "order: 4" class="comment-op">  
                 <p>`+username+`</p>
@@ -192,16 +188,6 @@ function commentHandler(event){
         `
         
         comments.prepend(comment)
-
-        votes = comment.querySelectorAll('div.vote')
-
-        votes.forEach(function(data){
-            let button = data.querySelector('button')
-
-            button.addEventListener('click', function(event){
-                event.preventDefault()
-            })
-        })
 
         let commentBox = comment.querySelector('#addComment')
         let button = commentBox.querySelectorAll('input')[1]
@@ -297,22 +283,16 @@ function storyHandler(event){
                     <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
                 </div>
                 <div style= "order: 1" class="vote">
-                    <form method="post">
-                        <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
-                        <input type="hidden" name="post_op" value="`+data.post_op+`">
-                        <input type="hidden" name="post_id" value="`+data.post_id+`">
-                        <input type="hidden" name="type" value="upvote">
-                        <input type="hidden" name="csrf" value="`+session.csrf+`">
-                    </form>
+                    <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
+                    <input type="hidden" name="post_op" value="`+data.post_op+`">
+                    <input type="hidden" name="post_id" value="`+data.post_id+`">
+                    <input type="hidden" name="type" value="upvote">
                 </div>
                 <div style= "order: 3" class = "vote">
-                    <form method="post">
-                        <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
-                        <input type="hidden" name="post_op" value="`+data.post_op+`">
-                        <input type="hidden" name="post_id" value="`+data.post_id+`">
-                        <input type="hidden" name="type" value="downvote">
-                        <input type="hidden" name="csrf" value="`+session.csrf+`">
-                    </form>
+                    <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
+                    <input type="hidden" name="post_op" value="`+data.post_op+`">
+                    <input type="hidden" name="post_id" value="`+data.post_id+`">
+                    <input type="hidden" name="type" value="downvote">
                 </div>
                 <div style= "order: 2" class="vote-amount">
                     <p>`+data.num_votes+`</p>

@@ -67,20 +67,16 @@ function draw_story_titles($story) {
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>
         <div style= "order: 1" class="vote">
-          <form>
             <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
-          </form>
         </div>
         <div style= "order: 3" class="vote">
-          <form>
             <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
-          </form>
         </div>
         <div style= "order: 2" class="vote-amount">
           <p><?=getVotes($story['post_id']) ?></p>
@@ -122,20 +118,16 @@ function draw_story($story, $comments_on)
           <header><a href="../pages/story.php?id=<?=$story['post_id']?>"><?=htmlentities($story['post_title'])?></a></header>
         </div>        
         <div style= "order: 1" class="vote">
-          <form>
             <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="upvote">
-          </form>
         </div>
         <div style= "order: 3" class="vote">
-          <form>
             <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
             <input type="hidden" name="post_op" value="<?=$story['post_op']?>">
             <input type="hidden" name="post_id" value="<?=$story['post_id']?>">
             <input type="hidden" name="type" value="downvote">
-          </form>
         </div>
         <div style= "order: 2" class="vote-amount">
           <p><?=getVotes($story['post_id']) ?></p> 
@@ -211,20 +203,16 @@ function draw_comment($comment, $form = true)
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  
       <div style= "order: 1" class="vote">
-        <form>
           <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="upvote">
-        </form>
       </div>
       <div style= "order: 3" class="vote">  
-        <form>
           <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
           <input type="hidden" name="post_op" value="<?=$comment['post_op']?>">
           <input type="hidden" name="post_id" value="<?=$comment['post_id']?>">
           <input type="hidden" name="type" value="downvote">
-        </form>
       </div>
       <div style= "order: 4" class="comment-op">  
         <p><?=getUserName($comment['post_op'])?></p>
