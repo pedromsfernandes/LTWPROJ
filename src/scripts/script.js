@@ -377,6 +377,15 @@ function encodeForAjax(data) {
   }).join('&')
 }
 
+function toggleCommentDisplay(comment) {
+
+    if (comment.style.display === "none") {
+      comment.style.display = "block";
+    } else {
+      comment.style.display = "none";
+    }
+  }
+
 function closeAllSelect(elmnt) {
   /*a function that will close all select boxes in the document,
   except the current select box:*/
