@@ -9,20 +9,18 @@
   include_once('../database/db_user.php');
 
   // Verify if user is logged in
-  $stories = getAllStories();
 
   if (!isset($_SESSION['username'])) {
-    draw_header(null);
-  }
-  else {
-    //$stories = getSubscribedStories(getUserId($_SESSION['username']));
-    draw_header($_SESSION['username']);
+    die(header('Location: all.php'));
   }
 
+  $stories = getSubscribedStories(getUserId($_SESSION['username']));
+  
   foreach ($stories as $k => $story) {
       $stories[$k]['story_comments'] = getChildComments($story['post_id']);
   }
 
+  draw_header($_SESSION['username']);
   draw_stories($stories);
   draw_footer();
 ?>
