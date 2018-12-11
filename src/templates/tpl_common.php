@@ -29,7 +29,7 @@ function draw_header($username)
                 <a href="add_story.php"><i class="fas fa-plus-circle"></i> Add story</a>
             </nav>
             <div class="menu">
-             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+             <span  onclick="openNav()">&#9776; Menu</span>
             </div>
              <div class = "header-flexbox">      
                 <a href="../index.php"><img src="../../res/LogoSmall.png"> </a>
@@ -62,7 +62,7 @@ function draw_header($username)
                 <a href="signup.php"><i class="fas fa-pencil-alt"></i> Signup</a>
             </nav>
             <div class="menu">
-                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+                <span onclick="openNav()">&#9776; Menu</span>
             </div>
              <div class = "header-flexbox">   
              <a href="../index.php"><img src="../../res/LogoSmall.png"> </a>     

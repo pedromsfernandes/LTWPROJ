@@ -261,7 +261,9 @@ input[type=submit]:hover, input[type=submit]:hover{
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
+ol {
+  padding-inline-start: 5%;
+}
 .storytext {
   margin-left: 5px;
 }
@@ -275,10 +277,46 @@ input[type=submit]:hover, input[type=submit]:hover{
 .parent-comment {
   border-left: 3px solid var(--main-color);
   padding: 5px;
-  background: rgba(192, 192, 192, 0.541);
+  background: rgba(135, 159, 182, 0.541);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.submitted-comment {
+  font-size: 0.7em;
+}
+.submitted-comment > span {
+  font-size: 2em;
+  color: rgba(53, 120, 184,0.6);
+}
+#addComment {
+  display: flex;
+}
+#addComment > textarea{
+  margin-left: 9px;
+  box-sizing: border-box;
+  padding: 2px;
+  border: 1px solid rgb(33, 91, 124);
+  color: white;
+  background-color: rgba(2, 32, 66,0.7);
+}
+
+#addComment > input[type="submit"] {
+  font-size: 1em;
+  padding: 0.4em;
+  margin: 0;
+  margin-left: 2px;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+
+  background: rgb(33, 91, 124);
+  color: var(--panel-color);
+
+  font-family: Arial, Helvetica, sans-serif;
+  border:none;
+  border-radius: 2px;
+  text-transform: uppercase;
 }
 .post {
   display: block;
@@ -361,7 +399,7 @@ input[type=submit]:hover, input[type=submit]:hover{
   margin:0;
   font-size: 1em;
 }
-.vote > form > button {
+.vote  > button {
   font-size: 1em;
   background-color:transparent; 
   -webkit-transition-duration: 0.4s; 
@@ -369,7 +407,7 @@ input[type=submit]:hover, input[type=submit]:hover{
   color: rgb(41, 43, 46);
 }
 
-.vote > form > button:hover {
+.vote > button:hover {
   color: rgb(78, 137, 247);
 }
 
@@ -495,15 +533,6 @@ body > #messages .success {
 .new-element {
   display: inline;
 }
-.new-element > form > input[type="submit"]{
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-.new-element > form > input[type="submit"]:hover{
-  background-color: rgb(37, 156, 117);
-  color: white;
-}
 
 .choice-select {
   position: relative;
@@ -600,6 +629,8 @@ body > #messages .success {
   margin-left: 50px;
 }
 .menu {
+  font-size:30px;
+  cursor:pointer;
   display: none;
 }
 
