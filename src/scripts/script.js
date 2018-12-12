@@ -190,8 +190,13 @@ function commentHandler(event){
         </ol>
         </li>
         `
-        
+
         comments.prepend(comment)
+
+        let div = document.createElement('div')
+        div.innerHTML= `<button onclick="toggleCommentDisplay(p`+new_id+`)">Show/Hide</button>`
+
+        comments.prepend(div)
 
         let commentBox = comment.querySelector('#addComment')
         let button = commentBox.querySelectorAll('input')[1]
