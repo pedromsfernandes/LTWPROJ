@@ -16,8 +16,12 @@ if (list) {
 }
 
 let story_adder_buttons = document.querySelectorAll('#new-story input');
-story_adder_buttons[0].addEventListener('click', toggleTextStoryAdder);
-story_adder_buttons[1].addEventListener('click', toggleImgStoryAdder);
+
+if(story_adder_buttons.length != 0){
+    story_adder_buttons[0].addEventListener('click', toggleTextStoryAdder);
+    story_adder_buttons[1].addEventListener('click', toggleImgStoryAdder);
+}
+
 
 addVoteListeners()
 
