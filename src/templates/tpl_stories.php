@@ -288,7 +288,7 @@ function draw_comments($comments, $form = true, $display_children = true)
 function draw_text_story_adder()
 {
     ?>
-    <form action="../actions/action_add_story.php" method="post">
+    <form name="text-story" style="display:none;" action="../actions/action_add_story.php" method="post">
      <div class="choice-select" style="width:200px;"> 
           <select name="channel_id" required> <?php
             draw_select_channels(getAllChannels()); ?>
@@ -311,7 +311,7 @@ function draw_text_story_adder()
 function draw_img_story_adder()
 {
     ?>
-  <form action="../actions/action_add_story.php" method="post" enctype="multipart/form-data">
+  <form name="img-story" style="display:none;" action="../actions/action_add_story.php" method="post" enctype="multipart/form-data">
    <div class="choice-select" style="width:200px;"> 
         <select name="channel_id" required> <?php
           draw_select_channels(getAllChannels()); ?>

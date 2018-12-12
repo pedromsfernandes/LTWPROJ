@@ -5,188 +5,226 @@ getSession()
 
 var list = document.querySelector('#list')
 var channel = document.querySelector('article.new-story')
-if(channel)
-    var idC = channel.querySelectorAll('input')[2].value
+if (channel) var idC = channel.querySelectorAll('input')[2].value
 
-if(list){
-    let inputs = document.querySelectorAll('#sorting input')
+if (list) {
+  let inputs = document.querySelectorAll('#sorting input')
 
-    inputs[0].addEventListener('click', drawTopStories)
-    inputs[1].addEventListener('click', drawNewStories)
-    inputs[2].addEventListener('click', drawMostCommentedStories)
+  inputs[0].addEventListener('click', drawTopStories)
+  inputs[1].addEventListener('click', drawNewStories)
+  inputs[2].addEventListener('click', drawMostCommentedStories)
 }
+
+let story_adder_buttons = document.querySelectorAll('#new-story input');
+story_adder_buttons[0].addEventListener('click', toggleTextStoryAdder);
+story_adder_buttons[1].addEventListener('click', toggleImgStoryAdder);
 
 addVoteListeners()
 
 let channelInfo = document.querySelector('#channelInfo')
-if(channelInfo){
-    let button = channelInfo.querySelector('button')
+if (channelInfo) {
+  let button = channelInfo.querySelector('button')
 
-    if(button){
-        let info = channelInfo.querySelectorAll('input')
-        let channel_id = info[0].value
+  if (button) {
+    let info = channelInfo.querySelectorAll('input')
+    let channel_id = info[0].value
 
-        button.addEventListener('click', function(event){
-            event.preventDefault()
+    button.addEventListener('click', function(event) {
+      event.preventDefault()
 
-            let request = new XMLHttpRequest()
-            request.open('post', '../api/api_subscribe.php', true)
-            request.addEventListener('load', function(event){
-                event.preventDefault()
+      let request = new XMLHttpRequest()
+      request.open('post', '../api/api_subscribe.php', true)
+      request.addEventListener('load', function(event) {
+        event.preventDefault()
 
-                let answer = JSON.parse(this.responseText)
+        let answer = JSON.parse(this.responseText)
 
-                if(answer == 'reject_log'){
-                    window.location.href = "../pages/login.php";
-                } else
-                if(answer != 'reject_csrf'){
-                    button.innerHTML = answer[0]
+        if (answer == 'reject_log') {
+          window.location.href = '../pages/login.php';
+        }
+        else if (answer != 'reject_csrf') {
+          button.innerHTML = answer[0]
 
-                    let label = button.parentElement.parentElement.querySelector('div.subscribers')
+              let label = button.parentElement.parentElement.querySelector(
+                  'div.subscribers')
 
-                    label.innerHTML = "Subscribers: " + answer[1]
-                }
-            })
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({csrf: session.csrf, channel_id: channel_id}))
-        })
-    }
+          label.innerHTML = 'Subscribers: ' + answer[1]
+        }
+      })
+      request.setRequestHeader(
+          'Content-Type', 'application/x-www-form-urlencoded')
+      request.send(encodeForAjax({csrf: session.csrf, channel_id: channel_id}))
+    })
+  }
 }
 
 let commentBox = document.querySelectorAll('#addComment')
-commentBox.forEach(function(data){
-    let inputs = data.querySelectorAll('input')
-    let post_id = inputs[0].value
-    let button = inputs[1]
+commentBox.forEach(function(data) {
+  let inputs = data.querySelectorAll('input')
+  let post_id = inputs[0].value
+  let button = inputs[1]
 
-    button.addEventListener('click', function(event){
-        event.preventDefault()
+  button.addEventListener('click', function(event) {
+    event.preventDefault()
 
-        let area = data.querySelector('textarea')
-        let text = area.value 
-        if(text !== ''){
-            let request = new XMLHttpRequest()
-            request.open('post', '../api/api_add_comment.php', true)
-            request.addEventListener('load', commentHandler)
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
+    let area = data.querySelector('textarea')
+    let text = area.value
+    if (text !== '') {
+      let request = new XMLHttpRequest()
+      request.open('post', '../api/api_add_comment.php', true)
+      request.addEventListener('load', commentHandler)
+      request.setRequestHeader(
+          'Content-Type', 'application/x-www-form-urlencoded')
+      request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
 
-            area.value = ""
-        }
-    })
+      area.value = ''
+    }
+  })
 })
 
 var x, i, j, selElmnt, a, b, c;
 /*look for any elements with the class "channel-select":*/
-x = document.getElementsByClassName("choice-select");
+x = document.getElementsByClassName('choice-select');
 for (i = 0; i < x.length; i++) {
-  selElmnt = x[i].getElementsByTagName("select")[0];
+  selElmnt = x[i].getElementsByTagName('select')[0];
   /*for each element, create a new DIV that will act as the selected item:*/
-  a = document.createElement("DIV");
-  a.setAttribute("class", "select-selected");
+  a = document.createElement('DIV');
+  a.setAttribute('class', 'select-selected');
   a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
   x[i].appendChild(a);
   /*for each element, create a new DIV that will contain the option list:*/
-  b = document.createElement("DIV");
-  b.setAttribute("class", "select-items select-hide");
+  b = document.createElement('DIV');
+  b.setAttribute('class', 'select-items select-hide');
   for (j = 0; j < selElmnt.length; j++) {
     /*for each option in the original select element,
     create a new DIV that will act as an option item:*/
-    c = document.createElement("DIV");
+    c = document.createElement('DIV');
     c.innerHTML = selElmnt.options[j].innerHTML;
-    c.addEventListener("click", function(e) {
-        /*when an item is clicked, update the original select box,
-        and the selected item:*/
-        var y, i, k, s, h;
-        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-        h = this.parentNode.previousSibling;
-        for (i = 0; i < s.length; i++) {
-          if (s.options[i].innerHTML == this.innerHTML) {
-            s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
-            y = this.parentNode.getElementsByClassName("same-as-selected");
-            for (k = 0; k < y.length; k++) {
-              y[k].removeAttribute("class");
-            }
-            this.setAttribute("class", "same-as-selected");
-            break;
+    c.addEventListener('click', function(e) {
+      /*when an item is clicked, update the original select box,
+      and the selected item:*/
+      var y, i, k, s, h;
+      s = this.parentNode.parentNode.getElementsByTagName('select')[0];
+      h = this.parentNode.previousSibling;
+      for (i = 0; i < s.length; i++) {
+        if (s.options[i].innerHTML == this.innerHTML) {
+          s.selectedIndex = i;
+          h.innerHTML = this.innerHTML;
+          y = this.parentNode.getElementsByClassName('same-as-selected');
+          for (k = 0; k < y.length; k++) {
+            y[k].removeAttribute('class');
           }
+          this.setAttribute('class', 'same-as-selected');
+          break;
         }
-        h.click();
+      }
+      h.click();
     });
     b.appendChild(c);
   }
   x[i].appendChild(b);
-  a.addEventListener("click", function(e) {
-      /*when the select box is clicked, close any other select boxes,
-      and open/close the current select box:*/
-      e.stopPropagation();
-      closeAllSelect(this);
-      this.nextSibling.classList.toggle("select-hide");
-      this.classList.toggle("select-arrow-active");
-    });
+  a.addEventListener('click', function(e) {
+    /*when the select box is clicked, close any other select boxes,
+    and open/close the current select box:*/
+    e.stopPropagation();
+    closeAllSelect(this);
+    this.nextSibling.classList.toggle('select-hide');
+    this.classList.toggle('select-arrow-active');
+  });
 }
 
 
 
-
-
 //---------
-//functions
+// functions
 //---------
 
-function commentHandler(event){
-    event.preventDefault()
+function toggleTextStoryAdder(event) {
+  event.preventDefault();
 
-    let answer = JSON.parse(this.responseText)
+  let textForm = document.querySelector('form[name="text-story"]');
+  let imageForm = document.querySelector('form[name="img-story"]');
 
-    if(answer == 'reject_log'){
-        window.location.href = "../pages/login.php";
-    } else{
-        let post_id = answer[0]
-        let text = answer[1]
-        let votes = answer[2]
-        let post_op = answer[3]
-        let username = answer[4]
-        let date = answer[5].date
-        let new_id = answer[6].post_id
+  if (imageForm.style.display === 'block') imageForm.style.display = 'none';
 
-        let comments = document.querySelector('#p'+post_id).querySelector('ol')
+  if (textForm.style.display === 'none') textForm.style.display = 'block';
 
-        let comment = document.createElement('article')
-        comment.classList = 'parent-comment'
-        comment.id = 'p' + new_id
+}
 
-        comment.innerHTML = `
+function toggleImgStoryAdder(event) {
+  event.preventDefault();
+
+  let imageForm = document.querySelector('form[name="img-story"]');
+  let textForm = document.querySelector('form[name="text-story"]');
+
+  if (textForm.style.display === 'block') textForm.style.display = 'none';
+
+  if (imageForm.style.display === 'none') imageForm.style.display = 'block';
+}
+
+function commentHandler(event) {
+  event.preventDefault()
+
+  let answer = JSON.parse(this.responseText)
+
+  if (answer == 'reject_log') {
+    window.location.href = '../pages/login.php';
+  }
+  else {
+    let post_id = answer[0] 
+    let text = answer[1] 
+    let votes = answer[2] 
+    let post_op = answer[3] 
+    let username = answer[4] 
+    let date = answer[5].date
+    let new_id = answer[6].post_id
+
+    let comments = document.querySelector('#p' + post_id).querySelector('ol')
+
+    let comment = document.createElement('article')
+    comment.classList = 'parent-comment'
+    comment.id = 'p' + new_id
+
+    comment.innerHTML = `
         <div class="flex-container-1">          
             <div class="hide-comments">
-                <button onclick="toggleCommentDisplay(p`+new_id+`)"><i class="far fa-minus-square"></i></button> 
+                <button onclick="toggleCommentDisplay(p` +
+        new_id + `)"><i class="far fa-minus-square"></i></button> 
             </div>
             <div style= "order: 2" class="vote-amount">
-                <p>`+votes+`</p>
+                <p>` +
+        votes + `</p>
             </div>  
             <div style= "order: 1" class="vote">
                 <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
-                <input type="hidden" name="post_op" value="`+post_op+`">
-                <input type="hidden" name="post_id" value="`+new_id+`">
+                <input type="hidden" name="post_op" value="` +
+        post_op + `">
+                <input type="hidden" name="post_id" value="` +
+        new_id + `">
                 <input type="hidden" name="type" value="upvote">
             </div>
             <div style= "order: 3" class="vote">  
                 <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
-                <input type="hidden" name="post_op" value="`+post_op+`">
-                <input type="hidden" name="post_id" value="`+new_id+`">
+                <input type="hidden" name="post_op" value="` +
+        post_op + `">
+                <input type="hidden" name="post_id" value="` +
+        new_id + `">
                 <input type="hidden" name="type" value="downvote">
             </div>
             <div style= "order: 4" class="comment-op">  
-                <p>`+username+`</p>
+                <p>` +
+        username + `</p>
             </div>
         </div>
         <div class = "comment-text"> 
-            <p>`+text+`</p>
-            <div>Submitted by: <a href="profile.php?id=`+post_op+`">`+username+`</a> on `+date+`</div>
+            <p>` +
+        text + `</p>
+            <div>Submitted by: <a href="profile.php?id=` +
+        post_op + `">` + username + `</a> on ` + date + `</div>
         </div>
         <section id="addComment">
-            <input type="hidden" name="post_id" value="`+new_id+`">
+            <input type="hidden" name="post_id" value="` +
+        new_id + `">
             <textarea placeholder="Add a comment" required rows="4" cols="40">></textarea>
             <input type="submit" value="submit">
         </section>
@@ -196,267 +234,290 @@ function commentHandler(event){
         </li>
         `
 
-        comments.prepend(comment)
+    comments.prepend(comment)
 
-        let commentBox = comment.querySelector('#addComment')
-        let button = commentBox.querySelectorAll('input')[1]
+    let commentBox = comment.querySelector('#addComment')
+    let button = commentBox.querySelectorAll('input')[1]
 
-        button.addEventListener('click', function(event){
-            event.preventDefault()
+    button.addEventListener('click', function(event) {
+      event.preventDefault()
 
-            let area = commentBox.querySelector('textarea')
-            let text = area.value 
+      let area = commentBox.querySelector('textarea')
+      let text = area.value
 
-            let request = new XMLHttpRequest()
-            request.open('post', '../api/api_add_comment.php', true)
-            request.addEventListener('load', commentHandler)
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({cmt_text: text, post_id: new_id}))
+      let request = new XMLHttpRequest()
+      request.open('post', '../api/api_add_comment.php', true)
+      request.addEventListener('load', commentHandler)
+      request.setRequestHeader(
+          'Content-Type', 'application/x-www-form-urlencoded')
+      request.send(encodeForAjax({cmt_text: text, post_id: new_id}))
 
-            area.value = ""
-        })
-    }
-}
-
-function addVoteListeners(){
-    let votes = document.querySelectorAll('div.vote')
-
-    votes.forEach(function(data){
-        let button = data.querySelector('button')
-
-        let info = data.querySelectorAll('input')
-        let post_op = info[0].value
-        let post_id = info[1].value
-        let type = info[2].value
-
-        button.addEventListener('click', function(event){
-            event.preventDefault()
-
-            let request = new XMLHttpRequest()
-            request.open('post', '../api/api_vote.php', true)
-            request.addEventListener('load', function(event){
-                event.preventDefault()
-
-                let votes = JSON.parse(this.responseText)
-
-                if(votes == 'reject_log'){
-                    window.location.href = "../pages/login.php";
-                } else
-                if(votes != 'reject_csrf' && votes != 'reject_op'){
-                    let label = data.parentElement.querySelector('div.vote-amount').querySelector('p')
-                    label.innerHTML = ""+votes
-                }
-            })
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-            request.send(encodeForAjax({post_op: post_op, post_id: post_id, type: type, csrf: session.csrf}))
-        })
+      area.value = ''
     })
+  }
 }
 
-function drawTopStories(event){
-    event.preventDefault()
+function addVoteListeners() {
+  let votes = document.querySelectorAll('div.vote')
 
-    if(channel){
-        let request = new XMLHttpRequest()
-        request.addEventListener('load', storyHandler)
-        request.open('post', '../api/api_get_top_stories.php', true)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({channel: idC}))
-    }else{
-        let request = new XMLHttpRequest()
-        request.addEventListener('load', storyHandler)
-        request.open('post', '../api/api_get_top_stories.php', true)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({channel: -1}))
-    }
+  votes.forEach(function(data) {
+    let button = data.querySelector('button')
+
+    let info = data.querySelectorAll('input')
+    let post_op = info[0].value
+    let post_id = info[1].value
+    let type = info[2].value
+
+    button.addEventListener('click', function(event) {
+      event.preventDefault()
+
+      let request = new XMLHttpRequest()
+      request.open('post', '../api/api_vote.php', true)
+      request.addEventListener('load', function(event) {
+        event.preventDefault()
+
+        let votes = JSON.parse(this.responseText)
+
+        if (votes == 'reject_log') {
+          window.location.href = '../pages/login.php';
+        }
+        else if (votes != 'reject_csrf' && votes != 'reject_op') {
+          let label = data.parentElement.querySelector('div.vote-amount')
+                          .querySelector('p')
+          label.innerHTML = '' + votes
+        }
+      })
+      request.setRequestHeader(
+          'Content-Type', 'application/x-www-form-urlencoded')
+      request.send(encodeForAjax(
+          {post_op: post_op, post_id: post_id, type: type, csrf: session.csrf}))
+    })
+  })
 }
 
-function drawMostCommentedStories(event){
-    event.preventDefault()
+function drawTopStories(event) {
+  event.preventDefault()
 
+  if (channel) {
     let request = new XMLHttpRequest()
     request.addEventListener('load', storyHandler)
-    request.open('post', '../api/api_get_stories_by_comments.php', true)
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-
-    if(channel){
-        request.send(encodeForAjax({channel: idC}))
-    }else{
-       
-        request.send(encodeForAjax({channel: -1}))
-    }
+    request.open('post', '../api/api_get_top_stories.php', true)
+    request.setRequestHeader(
+        'Content-Type', 'application/x-www-form-urlencoded')
+    request.send(encodeForAjax({channel: idC}))
+  }
+  else {
+    let request = new XMLHttpRequest()
+    request.addEventListener('load', storyHandler)
+    request.open('post', '../api/api_get_top_stories.php', true)
+    request.setRequestHeader(
+        'Content-Type', 'application/x-www-form-urlencoded')
+    request.send(encodeForAjax({channel: -1}))
+  }
 }
 
-function drawNewStories(event){
-    event.preventDefault()
+function drawMostCommentedStories(event) {
+  event.preventDefault()
 
-    if(channel){
-        let request = new XMLHttpRequest()
-        request.addEventListener('load', storyHandler)
-        request.open('post', '../api/api_get_new_stories.php', true)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({channel: idC}))
-    }else{
-        let request = new XMLHttpRequest()
-        request.addEventListener('load', storyHandler)
-        request.open('post', '../api/api_get_new_stories.php', true)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({channel: -1}))
-    }
+  let request = new XMLHttpRequest()
+  request.addEventListener('load', storyHandler)
+  request.open('post', '../api/api_get_stories_by_comments.php', true)
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+  if (channel) {
+    request.send(encodeForAjax({channel: idC}))
+  }
+  else {
+    request.send(encodeForAjax({channel: -1}))
+  }
 }
 
-function storyHandler(event){
-    event.preventDefault()
+function drawNewStories(event) {
+  event.preventDefault()
 
-    let newStories = JSON.parse(this.responseText)
+  if (channel) {
+    let request = new XMLHttpRequest()
+    request.addEventListener('load', storyHandler)
+    request.open('post', '../api/api_get_new_stories.php', true)
+    request.setRequestHeader(
+        'Content-Type', 'application/x-www-form-urlencoded')
+    request.send(encodeForAjax({channel: idC}))
+  }
+  else {
+    let request = new XMLHttpRequest()
+    request.addEventListener('load', storyHandler)
+    request.open('post', '../api/api_get_new_stories.php', true)
+    request.setRequestHeader(
+        'Content-Type', 'application/x-www-form-urlencoded')
+    request.send(encodeForAjax({channel: -1}))
+  }
+}
 
-    let stories = list.querySelectorAll('div')
+function storyHandler(event) {
+  event.preventDefault()
 
-    stories.forEach(function(data){
-        data.remove()
-    })
+  let newStories = JSON.parse(this.responseText)
 
-    newStories.forEach(function(data){
-        let story = document.createElement('div')
-        story.classList.add('titles')
+  let stories = list.querySelectorAll('div')
 
-        story.innerHTML = 
-        `   <div class="flex-container-1">
+  stories.forEach(function(data) {
+    data.remove()
+  })
+
+  newStories.forEach(function(data) {
+    let story = document.createElement('div')
+    story.classList.add('titles')
+
+    story.innerHTML = `   <div class="flex-container-1">
                 <div style= "order: 4" class="title">
-                    <header><a href="../pages/story.php?id=`+data.post_id+`">`+data.post_title+`</a></header>
+                    <header><a href="../pages/story.php?id=` +
+        data.post_id + `">` + data.post_title + `</a></header>
                 </div>
                 <div style= "order: 1" class="vote">
                     <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
-                    <input type="hidden" name="post_op" value="`+data.post_op+`">
-                    <input type="hidden" name="post_id" value="`+data.post_id+`">
+                    <input type="hidden" name="post_op" value="` +
+        data.post_op + `">
+                    <input type="hidden" name="post_id" value="` +
+        data.post_id + `">
                     <input type="hidden" name="type" value="upvote">
                 </div>
                 <div style= "order: 3" class = "vote">
                     <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
-                    <input type="hidden" name="post_op" value="`+data.post_op+`">
-                    <input type="hidden" name="post_id" value="`+data.post_id+`">
+                    <input type="hidden" name="post_op" value="` +
+        data.post_op + `">
+                    <input type="hidden" name="post_id" value="` +
+        data.post_id + `">
                     <input type="hidden" name="type" value="downvote">
                 </div>
                 <div style= "order: 2" class="vote-amount">
-                    <p>`+data.num_votes+`</p>
+                    <p>` +
+        data.num_votes + `</p>
                 </div>
             </div>
             <div class="flex-container-2">
                 <ul>
-                    `+drawTags(data.tags)+`
+                    ` +
+        drawTags(data.tags) + `
                 </ul>
-                <footer>Submitted by: <a href="profile.php?id=`+data.post_op+`">`+data.user_name+`</a> on `
-                +data.post_date+drawChannel(data.channel_id, data.channel)+
-                `<div class="num-comments">
-                    <a href="../pages/story.php?id=`+data.post_id+`"><i class="fas fa-comment-dots"></i> `+data.num_comments+` Comments</a>
+                <footer>Submitted by: <a href="profile.php?id=` +
+        data.post_op + `">` + data.user_name + `</a> on ` + data.post_date +
+        drawChannel(data.channel_id, data.channel) +
+        `<div class="num-comments">
+                    <a href="../pages/story.php?id=` +
+        data.post_id + `"><i class="fas fa-comment-dots"></i> ` +
+        data.num_comments + ` Comments</a>
                 </div>
                 </footer>
             </div>`
 
-        list.append(story)
-    })
+    list.append(story)
+  })
 
-    addVoteListeners()
+  addVoteListeners()
 }
 
-function getSession(){
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', sessionHandler)
-    request.open('get', '../api/api_get_session.php', true)
-    request.send()
+function getSession() {
+  let request = new XMLHttpRequest()
+  request.addEventListener('load', sessionHandler)
+  request.open('get', '../api/api_get_session.php', true)
+  request.send()
 }
 
-function sessionHandler(event){
-    event.preventDefault()
+function sessionHandler(event) {
+  event.preventDefault()
 
-    session = JSON.parse(this.responseText)
+  session = JSON.parse(this.responseText)
 }
 
-function drawTags(tags){
-    let string = ""
+function drawTags(tags) {
+  let string = ''
 
-    tags.forEach(function(tag){
-        string += `<li><a href="search.php?search_text=%23`+tag.tag_text+`&search_type=stories&submit=Search">`+tag.tag_text+`</a></li>\n`
-    })
+  tags.forEach(function(tag) {
+    string += `<li><a href="search.php?search_text=%23` + tag.tag_text +
+        `&search_type=stories&submit=Search">` + tag.tag_text + `</a></li>\n`
+  })
 
-    return string
+  return string
 }
 
-function drawChannel(channel_id, channel_name){
-    let string = " "
+function drawChannel(channel_id, channel_name) {
+  let string = ' '
 
-    if (!channel){
-        string += `to <a href="../pages/channel.php?id=`+channel_id+`">`+channel_name+` </a>`
-    }
-    
-    return string
+  if (!channel) {
+    string += `to <a href="../pages/channel.php?id=` + channel_id + `">` +
+        channel_name + ` </a>`
+  }
+
+  return string
 }
 
 function encodeForAjax(data) {
-  return Object.keys(data).map(function(k){
-    return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-  }).join('&')
+  return Object.keys(data)
+      .map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+      })
+      .join('&')
 }
 
 function toggleCommentDisplay(comment) {
-    let childs = comment.childNodes;
-    if (childs[3].style.display === "none") {
-        comment.getElementsByTagName('i')[0].className = "far fa-minus-square";
-        for(let i = 3; i < childs.length; i+=2){
-            let a = childs[i];
-            a.style.display = "block";
-         }
-    } else {
-        comment.getElementsByTagName('i')[0].className = "far fa-plus-square";
-        for(let i = 3; i < childs.length; i+=2){
-            let a = childs[i];
-            a.style.display = "none";
-         }
+  let childs = comment.childNodes;
+  if (childs[3].style.display === 'none') {
+    comment.getElementsByTagName('i')[0].className = 'far fa-minus-square';
+    for (let i = 3; i < childs.length; i += 2) {
+      let a = childs[i];
+      a.style.display = 'block';
+    }
+  } else {
+    comment.getElementsByTagName('i')[0].className = 'far fa-plus-square';
+    for (let i = 3; i < childs.length; i += 2) {
+      let a = childs[i];
+      a.style.display = 'none';
     }
   }
+}
 
 function closeAllSelect(elmnt) {
   /*a function that will close all select boxes in the document,
   except the current select box:*/
   var x, y, i, arrNo = [];
-  x = document.getElementsByClassName("select-items");
-  y = document.getElementsByClassName("select-selected");
+  x = document.getElementsByClassName('select-items');
+  y = document.getElementsByClassName('select-selected');
   for (i = 0; i < y.length; i++) {
     if (elmnt == y[i]) {
       arrNo.push(i)
     } else {
-      y[i].classList.remove("select-arrow-active");
+      y[i].classList.remove('select-arrow-active');
     }
   }
   for (i = 0; i < x.length; i++) {
     if (arrNo.indexOf(i)) {
-      x[i].classList.add("select-hide");
+      x[i].classList.add('select-hide');
     }
   }
 }
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
-document.addEventListener("click", closeAllSelect);
+document.addEventListener('click', closeAllSelect);
 
 let entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#39;',
-    "/": '&#x2F;'
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '\'': '&#39;',
+  '/': '&#x2F;'
 };
 
 function escapeHtml(string) {
-    return String(string).replace(/[&<>"'\/]/g, function (s) {
-        return entityMap[s];
-    });
+  return String(string).replace(/[&<>"'\/]/g, function(s) {
+    return entityMap[s];
+  });
 }
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "280px";
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0px";
-  }
+  document.getElementById('mySidenav').style.width = '280px';
+}
+
+function closeNav() {
+  document.getElementById('mySidenav').style.width = '0px';
+}

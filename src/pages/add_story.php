@@ -8,5 +8,7 @@
 
     draw_header($_SESSION['username']); 
     draw_new_story_buttons();
+    draw_text_story_adder();
+    draw_img_story_adder();
     draw_footer();
 ?>
