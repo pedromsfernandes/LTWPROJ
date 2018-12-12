@@ -274,6 +274,11 @@ ol {
 .comment-text {
   padding-left: 10px;
 }
+
+.hide-comments > button {
+  font-size: 1.5em;
+  background: transparent;
+}
 .parent-comment {
   border-left: 3px solid var(--main-color);
   padding: 5px;
@@ -325,6 +330,15 @@ ol {
   margin: 1em;
   padding: 10px;
   background: rgba(192, 192, 192, 0.541);
+  
+}
+
+.storyimg > img {
+    display: block;
+    max-width:60%;
+    max-height:30%;
+    width: auto;
+    height: auto;
 }
 
 .title {

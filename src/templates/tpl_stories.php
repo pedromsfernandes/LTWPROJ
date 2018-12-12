@@ -194,7 +194,7 @@ function draw_comment_form($post)
     ?>
   <section id="addComment">
     <input type="hidden" name="post_id" value="<?=$post['post_id']?>">
-    <textarea placeholder="Add a comment"></textarea>
+    <textarea placeholder="Add a comment" required rows="4" cols="40"></textarea>
     <input type="submit" value="submit">
   </section> <?php
 }
@@ -222,13 +222,14 @@ function getChannelLink($matches)
     return "<a href=\"channel.php?id=$id\">$matches[0]</a>";
 }
 
-function draw_comment($comment, $form = true)
+function draw_comment($comment, $form = true, $display_children = true)
 {
     $children = getChildComments($comment['post_id']); ?>
-    <div><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)">Show/Hide</button>
-</div>
+   
 <article class="parent-comment" id="p<?=$comment['post_id']?>"> 
-    <div class="flex-container-1">       
+    <div class="flex-container-1">   
+    <div class="hide-comments"><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)"><i class="far fa-minus-square"></i></button>
+</div>    
       <div style= "order: 2" class="vote-amount">
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  
@@ -261,19 +262,24 @@ function draw_comment($comment, $form = true)
   <?php
     if ($form) {
         draw_comment_form($comment);
-    } ?>
+    } 
+    
+    if($display_children){
+
+    ?>
       <ol>
-  <?php draw_comments($children, $form); ?>
+  <?php draw_comments($children, $form, $display_children); ?>
       </ol>
+    <?php }?>
 </article> 
     </li>
   <?php
 }
       
-function draw_comments($comments, $form = true)
+function draw_comments($comments, $form = true, $display_children = true)
 {
     foreach ($comments as $comment) {
-        draw_comment($comment, $form);
+        draw_comment($comment, $form, $display_children);
     }
 }
 

@@ -63,14 +63,15 @@ commentBox.forEach(function(data){
 
         let area = data.querySelector('textarea')
         let text = area.value 
+        if(text !== ''){
+            let request = new XMLHttpRequest()
+            request.open('post', '../api/api_add_comment.php', true)
+            request.addEventListener('load', commentHandler)
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
 
-        let request = new XMLHttpRequest()
-        request.open('post', '../api/api_add_comment.php', true)
-        request.addEventListener('load', commentHandler)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
-
-        area.value = ""
+            area.value = ""
+        }
     })
 })
 
@@ -383,11 +384,19 @@ function encodeForAjax(data) {
 }
 
 function toggleCommentDisplay(comment) {
-
-    if (comment.style.display === "none") {
-      comment.style.display = "block";
+    let childs = comment.childNodes;
+    if (childs[3].style.display === "none") {
+        comment.getElementsByTagName('i')[0].className = "far fa-minus-square";
+        for(let i = 3; i < childs.length; i+=2){
+            let a = childs[i];
+            a.style.display = "block";
+         }
     } else {
-      comment.style.display = "none";
+        comment.getElementsByTagName('i')[0].className = "far fa-plus-square";
+        for(let i = 3; i < childs.length; i+=2){
+            let a = childs[i];
+            a.style.display = "none";
+         }
     }
   }
 
