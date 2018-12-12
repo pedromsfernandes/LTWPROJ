@@ -48,6 +48,6 @@
     draw_stories($stories);
 
   if($comments != null)
-    draw_comments($comments, false);
+    draw_comments($comments, false, false);
 
   draw_footer();

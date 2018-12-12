@@ -20,13 +20,6 @@
     function getAllStoriesByVotes()
     {
         $db = Database::instance()->db();
-        // $stmt = $db->prepare("SELECT post.* from 
-        //                     post,
-        //                     (   SELECT post_id, SUM(vote) AS sum FROM vote
-        //                         GROUP BY post_id
-        //                         ORDER BY sum DESC
-        //                     ) as votes 
-        //                     where post.post_id = votes.post_id and post.post_title IS NOT NULL");
         $stmt = $db->prepare("SELECT * FROM 
                             post JOIN (SELECT vote.post_id, SUM(vote.vote) AS num_votes
                                 FROM vote GROUP BY vote.post_id UNION 
@@ -69,7 +62,7 @@
     function searchStories($pattern)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM post WHERE post_title IS NOT NULL AND post_title LIKE ? OR post_text LIKE ?');
+        $stmt = $db->prepare('SELECT * FROM post WHERE post_title IS NOT NULL AND (post_title LIKE ? OR post_text LIKE ?)');
         $stmt->execute(array("%$pattern%", "%$pattern%"));
         return $stmt->fetchAll();
     }

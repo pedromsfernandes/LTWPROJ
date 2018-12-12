@@ -23,7 +23,7 @@ function draw_header($username)
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <a href="profile.php?id=<?=getUserId($_SESSION['username'])?>"><i class="fas fa-user"></i> <?=$username?></a>
                 <a href="../actions/action_logout.php"><i class="fas fa-arrow-left"></i> Logout</a>
-                <a href="../index.php"> <i class="fa fa-home"></i> Home</a>
+                <a href="all.php"> <i class="fas fa-globe"></i> All</a>
                 <a href="search.php"><i class="fas fa-search"></i> Search</a>
                 <a href="create_channel.php"><i class="fas fa-plus-circle"></i> Create channel</a>
                 <a href="add_story.php"><i class="fas fa-plus-circle"></i> Add story</a>
@@ -44,7 +44,7 @@ function draw_header($username)
                 <div style= "order: 2" class="toolbar">
                     <nav>
                         <ul>
-                        <li><a href="../index.php"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="all.php"> <i class="fas fa-globe"></i> All</a></li>
                         <li><a href="search.php"><i class="fas fa-search"></i> Search</a></li>
                         <li><a href="create_channel.php"><i class="fas fa-plus-circle"></i> Create channel</a></li>
                         <li><a href="add_story.php"><i class="fas fa-plus-circle"></i> Add story</a></li>

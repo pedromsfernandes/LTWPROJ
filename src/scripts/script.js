@@ -63,14 +63,15 @@ commentBox.forEach(function(data){
 
         let area = data.querySelector('textarea')
         let text = area.value 
+        if(text !== ''){
+            let request = new XMLHttpRequest()
+            request.open('post', '../api/api_add_comment.php', true)
+            request.addEventListener('load', commentHandler)
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
 
-        let request = new XMLHttpRequest()
-        request.open('post', '../api/api_add_comment.php', true)
-        request.addEventListener('load', commentHandler)
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-        request.send(encodeForAjax({cmt_text: text, post_id: post_id}))
-
-        area.value = ""
+            area.value = ""
+        }
     })
 })
 
