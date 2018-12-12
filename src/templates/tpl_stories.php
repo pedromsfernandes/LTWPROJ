@@ -5,6 +5,7 @@
     <section id="sorting">
         <input type="button" value = "Top">
         <input type="button" value = "New">
+        <input type="button" value = "Most commented">
     </section>
     <section id="list">
   <?php

@@ -43,6 +43,30 @@
         return $stmt->fetchAll();
     }
 
+    function getAllStoriesByComments()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * FROM 
+                            post JOIN (SELECT post_father AS post_id, COUNT(*) as numComments FROM post WHERE post_title IS NULL GROUP BY post_father UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_father FROM post WHERE post_father IS NOT NULL)) 
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    function getAllStoriesByCommentsFromChannel($channel)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * FROM 
+        post JOIN (SELECT post_father AS post_id, COUNT(*) as numComments FROM post GROUP BY post_father UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_father FROM post WHERE post_father IS NOT NULL)) 
+        USING(post_id) WHERE channel_id = ? AND post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC");
+        $stmt->execute(array($channel));
+        return $stmt->fetchAll();
+    }
+
     function getChannelStories($channel, $order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();

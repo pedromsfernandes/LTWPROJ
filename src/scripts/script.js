@@ -13,6 +13,7 @@ if(list){
 
     inputs[0].addEventListener('click', drawTopStories)
     inputs[1].addEventListener('click', drawNewStories)
+    inputs[2].addEventListener('click', drawMostCommentedStories)
 }
 
 addVoteListeners()
@@ -266,6 +267,22 @@ function drawTopStories(event){
         request.addEventListener('load', storyHandler)
         request.open('post', '../api/api_get_top_stories.php', true)
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        request.send(encodeForAjax({channel: -1}))
+    }
+}
+
+function drawMostCommentedStories(event){
+    event.preventDefault()
+
+    let request = new XMLHttpRequest()
+    request.addEventListener('load', storyHandler)
+    request.open('post', '../api/api_get_stories_by_comments.php', true)
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+    if(channel){
+        request.send(encodeForAjax({channel: idC}))
+    }else{
+       
         request.send(encodeForAjax({channel: -1}))
     }
 }
