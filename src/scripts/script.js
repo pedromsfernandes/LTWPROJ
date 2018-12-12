@@ -378,11 +378,19 @@ function encodeForAjax(data) {
 }
 
 function toggleCommentDisplay(comment) {
-
-    if (comment.style.display === "none") {
-      comment.style.display = "block";
+    let childs = comment.childNodes;
+    if (childs[3].style.display === "none") {
+        comment.getElementsByTagName('i')[0].className = "far fa-minus-square";
+        for(let i = 3; i < childs.length; i+=2){
+            let a = childs[i];
+            a.style.display = "block";
+         }
     } else {
-      comment.style.display = "none";
+        comment.getElementsByTagName('i')[0].className = "far fa-plus-square";
+        for(let i = 3; i < childs.length; i+=2){
+            let a = childs[i];
+            a.style.display = "none";
+         }
     }
   }
 

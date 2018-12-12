@@ -225,10 +225,11 @@ function getChannelLink($matches)
 function draw_comment($comment, $form = true)
 {
     $children = getChildComments($comment['post_id']); ?>
-    <div><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)">Show/Hide</button>
-</div>
+   
 <article class="parent-comment" id="p<?=$comment['post_id']?>"> 
-    <div class="flex-container-1">       
+    <div class="flex-container-1">   
+    <div class="hide-comments"><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)"><i class="far fa-minus-square"></i></button>
+</div>    
       <div style= "order: 2" class="vote-amount">
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  

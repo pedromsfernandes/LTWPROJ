@@ -274,6 +274,11 @@ ol {
 .comment-text {
   padding-left: 10px;
 }
+
+.hide-comments > button {
+  font-size: 1.5em;
+  background: transparent;
+}
 .parent-comment {
   border-left: 3px solid var(--main-color);
   padding: 5px;
