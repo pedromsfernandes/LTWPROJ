@@ -157,7 +157,10 @@ function commentHandler(event){
         comment.id = 'p' + new_id
 
         comment.innerHTML = `
-        <div class="flex-container-1">       
+        <div class="flex-container-1">          
+            <div class="hide-comments">
+                <button onclick="toggleCommentDisplay(p`+new_id+`)"><i class="far fa-minus-square"></i></button> 
+            </div>
             <div style= "order: 2" class="vote-amount">
                 <p>`+votes+`</p>
             </div>  
@@ -183,7 +186,7 @@ function commentHandler(event){
         </div>
         <section id="addComment">
             <input type="hidden" name="post_id" value="`+new_id+`">
-            <textarea placeholder="Add a comment"></textarea>
+            <textarea placeholder="Add a comment" required rows="4" cols="40">></textarea>
             <input type="submit" value="submit">
         </section>
         <ol>
@@ -193,11 +196,6 @@ function commentHandler(event){
         `
 
         comments.prepend(comment)
-
-        let div = document.createElement('div')
-        div.innerHTML= `<button onclick="toggleCommentDisplay(p`+new_id+`)">Show/Hide</button>`
-
-        comments.prepend(div)
 
         let commentBox = comment.querySelector('#addComment')
         let button = commentBox.querySelectorAll('input')[1]
