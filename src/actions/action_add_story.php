@@ -11,30 +11,34 @@
   }
 
   if ($_SESSION['csrf'] !== $_POST['csrf']) {
-    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+      die(header('Location: ' . $_SERVER['HTTP_REFERER']));
   }
 
   $story_title = $_POST['story_title'];
 
-  if(isset($_POST['story_text']))
-    $story_text = $_POST['story_text'];
-    
   $channel_id = $_POST['channel_id'];
   
   $user_id = getUserId($_SESSION['username']);
 
-  if(isset($_POST['tags']))
-    $tags = $_POST['tags'];
-
-  if($story_text === null){
-    insertImage();
-    $db = Database::instance()->db();
-    $img_id = $db->lastInsertId();
-    saveImage($img_id);
+  if (isset($_POST['tags'])) {
+      $tags = $_POST['tags'];
   }
 
-  $story_id = insertStory($story_title, $story_text, $img_id, $user_id,  $channel_id, $tags);
+  if (!isset($_POST['story_text'])) {
+      if (!preg_match("/.*.(jpg|jpeg)/", $_FILES['image']['name'], $matches)) {
+          $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Image extension not supported!');
+          die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+      };
+
+      insertImage();
+      $db = Database::instance()->db();
+      $img_id = $db->lastInsertId();
+      saveImage($img_id);
+  }
+  else
+    $story_text = $_POST['story_text'];
+
+  $story_id = insertStory($story_title, $story_text, $img_id, $user_id, $channel_id, $tags);
 
 
   header("Location: ../pages/story.php?id=$story_id");
-?>
