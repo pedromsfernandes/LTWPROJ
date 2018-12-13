@@ -87,7 +87,14 @@ function draw_story_titles($story)
         </div>
       </div>
       <div class="flex-container-2">
+      <?php
+      if($story['post_img'] !== null)
+        draw_story_img($story);
+      ?>
         <ul>
+        <li><a>ola</a></li>
+        <li><a>ola</a></li>
+        <li><a>ola</a></li>
         <?php
           draw_tags($story['post_id']); ?>
         </ul>

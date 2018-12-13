@@ -432,7 +432,12 @@ ol {
   flex: 1 1 auto;
   justify-content: space-between;
 }
-
+.flex-container-2 > div > img {
+  max-width:60px;
+  max-height:60px;
+  width: auto;
+  height: auto;
+}
 .flex-container-2 > ul {
   list-style-type: none;
   margin: 0;
