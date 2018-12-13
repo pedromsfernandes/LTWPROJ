@@ -92,9 +92,6 @@ function draw_story_titles($story)
         draw_story_img($story);
       ?>
         <ul>
-        <li><a>ola</a></li>
-        <li><a>ola</a></li>
-        <li><a>ola</a></li>
         <?php
           draw_tags($story['post_id']); ?>
         </ul>
