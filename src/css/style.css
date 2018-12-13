@@ -287,6 +287,10 @@ ol {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.parent-comment:hover {
+  background: rgba(255, 255, 255, 0.541);
+}
 .submitted-comment {
   font-size: 0.7em;
 }
@@ -294,6 +298,7 @@ ol {
   font-size: 2em;
   color: rgba(53, 120, 184,0.6);
 }
+
 #addComment {
   display: flex;
 }
