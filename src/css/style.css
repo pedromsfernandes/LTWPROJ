@@ -194,7 +194,7 @@ input[type=submit]:hover, input[type=submit]:hover{
 }
 
 .header-flexbox > div > nav > ul > li > a:hover {
-  color: #8f8f8f;
+  color: #ffffff;
 }
 
 .header-flexbox > div > nav > ul > li {
@@ -206,7 +206,7 @@ input[type=submit]:hover, input[type=submit]:hover{
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 18px;
-  color: #ffffff;
+  color: #b3b0b0;
   display: block;
   transition: 0.3s;
 }
@@ -631,13 +631,13 @@ body > #messages .success {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #ffffff;
+  color: #8f8f8f;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #8f8f8f;
+  color: #ffffff;
 }
 
 .sidenav .closebtn {
