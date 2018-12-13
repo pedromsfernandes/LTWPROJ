@@ -12,7 +12,7 @@
     function getAllStories($order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("SELECT * FROM post WHERE post_title IS NOT NULL ORDER BY $order $asc_desc");
+        $stmt = $db->prepare("SELECT * FROM post WHERE post_title IS NOT NULL ORDER BY $order $asc_desc LIMIT 10");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -25,7 +25,7 @@
                                 FROM vote GROUP BY vote.post_id UNION 
                                 SELECT post_id, 0 FROM post 
                                 WHERE post_id NOT IN (SELECT post_id FROM vote)) 
-                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC");
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC LIMIT 10");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -38,7 +38,7 @@
                                 FROM vote GROUP BY vote.post_id UNION 
                                 SELECT post_id, 0 FROM post 
                                 WHERE post_id NOT IN (SELECT post_id FROM vote)) 
-                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC) this where channel_id = ?");
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC) this where channel_id = ? LIMIT 10");
         $stmt->execute(array($channel));
         return $stmt->fetchAll();
     }
@@ -50,7 +50,7 @@
                             post JOIN (SELECT post_father AS post_id, COUNT(*) as numComments FROM post WHERE post_title IS NULL GROUP BY post_father UNION 
                                 SELECT post_id, 0 FROM post 
                                 WHERE post_id NOT IN (SELECT post_father FROM post WHERE post_father IS NOT NULL)) 
-                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC");
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC LIMIT 10");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -62,7 +62,7 @@
         post JOIN (SELECT post_father AS post_id, COUNT(*) as numComments FROM post GROUP BY post_father UNION 
                                 SELECT post_id, 0 FROM post 
                                 WHERE post_id NOT IN (SELECT post_father FROM post WHERE post_father IS NOT NULL)) 
-        USING(post_id) WHERE channel_id = ? AND post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC");
+        USING(post_id) WHERE channel_id = ? AND post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC LIMIT 10");
         $stmt->execute(array($channel));
         return $stmt->fetchAll();
     }
@@ -70,7 +70,7 @@
     function getChannelStories($channel, $order = "post_date", $asc_desc = "DESC")
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("SELECT * FROM post WHERE channel_id = ? AND post_title IS NOT NULL ORDER BY $order $asc_desc");
+        $stmt = $db->prepare("SELECT * FROM post WHERE channel_id = ? AND post_title IS NOT NULL ORDER BY $order $asc_desc LIMIT 10");
         $stmt->execute(array($channel));
         return $stmt->fetchAll();
     }
