@@ -399,6 +399,9 @@ function storyHandler(event) {
                 </div>
             </div>
             <div class="flex-container-2">
+              <div class="storyimg">
+                <img src="../images/originals/` + data.img + `.jpg">
+            </div>
                 <ul>
                     ` +
         drawTags(data.tags) + `

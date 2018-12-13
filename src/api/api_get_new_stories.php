@@ -17,6 +17,7 @@
        $stories[$key]['tags'] = getStoryTags($story['post_id']);
        $stories[$key]['num_votes'] = getVotes($story['post_id']);
        $stories[$key]['num_comments'] = getNumComments($story['post_id']);
+       $stories[$key]['img'] = getImg($story['post_id']);
     }
 
     echo json_encode($stories);

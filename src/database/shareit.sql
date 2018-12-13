@@ -64,6 +64,7 @@ INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
 INSERT INTO image VALUES(NULL);
+INSERT INTO image VALUES(NULL);
 
 INSERT INTO channel VALUES (NULL, 'soccer', 'Discuss soccer.', 1, NULL);
 INSERT INTO channel VALUES (NULL, 'movies', 'Discuss movies.', 2, NULL);
@@ -87,10 +88,10 @@ INSERT INTO user VALUES(NULL, 'castro', 'asdasd', NULL, 0, 8);
 INSERT INTO user VALUES(NULL, 'acaciomamao', 'asasdasdasdd', NULL, 0, 8);
 
 INSERT INTO post VALUES(NULL, 'ya', 'O incentivo ao avanço tecnológico, assim como a valorização de fatores subjetivos oferece uma interessante oportunidade para verificação de alternativas às soluções ortodoxas.
-', '2018-10-25 10:00:00', NULL, 1, NULL, 1);
+', '2018-10-25 10:00:00', 9, 1, NULL, 1);
 
 INSERT INTO post VALUES(NULL, 'ye', 'O cuidado em identificar pontos críticos na mobilidade dos capitais internacionais estende o alcance e a importância das direções preferenciais no sentido do progresso.
-', '2018-10-26 21:08:07',NULL, 2,  NULL, 2);
+', '2018-10-26 21:08:07', 9, 2,  NULL, 2);
 
 INSERT INTO post values(NULL, NULL, 'Casillas is a god.', '2018-10-25 10:05:00', NULL, 3, 1, NULL);
 INSERT INTO post values(NULL, NULL, 'Who needs Aboubakar?', '2018-10-25 10:30:00',NULL, 2, 1,  NULL);

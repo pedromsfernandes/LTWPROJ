@@ -134,3 +134,10 @@
         return $stmt->fetchAll();
     }
 
+    function getImg($story_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT post_img FROM post WHERE post_id = ?");
+        $stmt->execute(array($story_id));
+        return $stmt->fetch()['post_img'];
+    }
+

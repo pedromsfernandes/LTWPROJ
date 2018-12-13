@@ -35,8 +35,11 @@
       $img_id = $db->lastInsertId();
       saveImage($img_id);
   }
-  else
+  else{
     $story_text = $_POST['story_text'];
+    $img_id = 9;
+  }
+
 
   $story_id = insertStory($story_title, $story_text, $img_id, $user_id, $channel_id, $tags);
 

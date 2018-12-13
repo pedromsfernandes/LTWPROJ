@@ -88,7 +88,6 @@ function draw_story_titles($story)
       </div>
       <div class="flex-container-2">
       <?php
-      if($story['post_img'] !== null)
         draw_story_img($story);
       ?>
         <ul>
@@ -143,7 +142,7 @@ function draw_story($story, $comments_on)
         </div> 
       </div>
       <?php
-      if($story['post_img'] === null)
+      if($story['post_img'] == 9)
         draw_story_text($story);
       else
         draw_story_img($story);
