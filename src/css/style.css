@@ -2,7 +2,8 @@
  * Body
  */
 
-body {
+ body {
+  text-align: center;
   background-image: url(../../res/background.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -265,6 +266,7 @@ ol {
   padding-inline-start: 5%;
 }
 .storytext {
+  text-align: left;
   margin-left: 5px;
 }
 .comment-op > p{
@@ -280,6 +282,7 @@ ol {
   background: transparent;
 }
 .parent-comment {
+  text-align: left;
   border-left: 3px solid var(--main-color);
   padding: 5px;
   background: rgba(135, 159, 182, 0.541);
@@ -555,7 +558,8 @@ body > #messages .success {
 
 /* New Story */
 .new-element {
-  display: inline;
+  display: block;
+  margin: auto;
 }
 
 .choice-select {
@@ -612,6 +616,7 @@ body > #messages .success {
 
 /*Search*/
 #searchform {
+  text-align: left;
   display: block;
 }
 /*Story Adder*/
@@ -657,6 +662,7 @@ body > #messages .success {
   cursor:pointer;
   display: none;
 }
+
 
 @media only screen and (max-width: 768px) {
   #login, #signup {
