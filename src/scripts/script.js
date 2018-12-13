@@ -375,7 +375,7 @@ function storyHandler(event) {
     story.innerHTML = `   <div class="flex-container-1">
                 <div style= "order: 4" class="title">
                     <header><a href="../pages/story.php?id=` +
-        data.post_id + `">` + data.post_title + `</a></header>
+        data.post_id + `">` + escapeHtml(data.post_title) + `</a></header>
                 </div>
                 <div style= "order: 1" class="vote">
                     <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
