@@ -49,7 +49,7 @@
             if($comments == null)
                 echo 'Ups... Didn\'t find anything!';
             else
-                draw_comments($comments);
+                draw_comments($comments, false);
         }
         else if ($search_type == 'channels') {
             $channels = searchChannels($search_text);

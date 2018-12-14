@@ -157,14 +157,12 @@ function draw_story($story, $comments_on)
       </div>
       <div class="comments">
         <?php if ($comments_on) {
-                ?>
+                 draw_comment_form($story);
+                 }?>
         <ol>
           <?php
                 draw_comments($story['story_comments']); ?>
         </ol>
-          <?php
-            draw_comment_form($story);
-            } ?>
     </div>
   </article>
 <?php

@@ -73,7 +73,7 @@
    function getSubscribedChannels($user_id)
    {
        $db = Database::instance()->db();
-       $stmt = $db->prepare('SELECT * FROM subscription WHERE user_id = ?');
+       $stmt = $db->prepare('SELECT * FROM channel WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)');
        $stmt->execute(array($user_id));
        return $stmt->fetchAll();
    }
