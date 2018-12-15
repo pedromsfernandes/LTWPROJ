@@ -283,9 +283,9 @@ function draw_comment($comment, $form = true, $display_children = true)
     $children = getChildComments($comment['post_id']); ?>
    
 <article class="parent-comment" id="p<?=$comment['post_id']?>"> 
-    <div class="hide-comments"><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)"><i class="far fa-minus-square"></i></button>
-</div>   
-    <div class="flex-container-1">   
+  <div class="flex-container-1">  
+      <div class="hide-comments"><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)"><i class="far fa-minus-square"></i></button>
+      </div>    
       <div style= "order: 2" class="vote-amount">
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  

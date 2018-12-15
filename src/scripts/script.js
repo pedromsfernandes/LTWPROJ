@@ -197,12 +197,12 @@ function commentHandler(event) {
     comment.classList = 'parent-comment'
     comment.id = 'p' + new_id
 
-    comment.innerHTML = `        
+    comment.innerHTML = `   
+        <div class="flex-container-1">       
             <div class="hide-comments">
                 <button onclick="toggleCommentDisplay(p` +
         new_id + `)"><i class="far fa-minus-square"></i></button> 
             </div>
-        <div class="flex-container-1">  
             <div style= "order: 2" class="vote-amount">
                 <p>` +
         votes + `</p>
@@ -305,10 +305,13 @@ function addVoteListeners() {
 
           let otherVote
 
+          let all = data.parentElement.querySelectorAll('div')
+          let size = all.length
+
           if(type == "upvote")
-            otherVote = data.parentElement.querySelectorAll('div')[2]
+            otherVote = all[size-2]
           else
-            otherVote = data.parentElement.querySelectorAll('div')[1]
+            otherVote = all[size-3]
 
           otherVote.id = "v0"
         }
