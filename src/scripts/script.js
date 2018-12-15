@@ -154,8 +154,6 @@ function toggleTextStoryAdder(event) {
 
   let textForm = document.querySelector('#text-story');
   let imageForm = document.querySelector('#image-story');
-  console.log(textForm);
-  console.log(imageForm);
 
   if (imageForm.style.display === 'block') imageForm.style.display = 'none';
 
@@ -176,8 +174,6 @@ function toggleImgStoryAdder(event) {
 
 function commentHandler(event) {
   event.preventDefault()
-
-  console.log(this.responseText)
 
   let answer = JSON.parse(this.responseText)
 
@@ -301,10 +297,23 @@ function addVoteListeners() {
           let label = data.parentElement.querySelector('div.vote-amount')
                           .querySelector('p')
           label.innerHTML = '' + votes
+
+          if(data.id == "1")
+            data.id = "0"
+          else
+            data.id = "1"
+
+          let otherVote
+
+          if(type == "upvote")
+            otherVote = data.parentElement.querySelectorAll('div')[2]
+          else
+            otherVote = data.parentElement.querySelectorAll('div')[1]
+
+          otherVote.id = "0"
         }
       })
-      request.setRequestHeader(
-          'Content-Type', 'application/x-www-form-urlencoded')
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
       request.send(encodeForAjax(
           {post_op: post_op, post_id: post_id, type: type, csrf: session.csrf}))
     })

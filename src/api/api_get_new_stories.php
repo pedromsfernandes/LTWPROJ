@@ -6,7 +6,9 @@
     include_once('../database/db_post.php');
 
     $channel = $_POST['channel'];
-    $user_id = getUserId($_SESSION['username']);
+
+    if (isset($_SESSION['username'])) 
+        $user_id = getUserId($_SESSION['username']);
 
     switch($channel){
         case -1:
@@ -28,20 +30,18 @@
         $stories[$key]['num_comments'] = getNumComments($story['post_id']);
         $stories[$key]['img'] = getImg($story['post_id']);
 
-        $vote = postVoted($user_id, $story['post_id']);
-        switch($vote['vote']){
-            case -1:
-                $upvote = 0;
-                $downvote = 1;
-                break;
-            case 0:
-                $upvote = 0;
-                $downvote = 0;
-                break;
-            case 1:
-                $upvote = 1;
-                $downvote = 0;
-                break;
+        $upvote = 0;
+        $downvote = 0;
+        if (isset($_SESSION['username'])){
+            $vote = postVoted($user_id, $story['post_id']);
+            switch($vote['vote']){
+                case -1:
+                    $downvote = 1;
+                    break;
+                case 1:
+                    $upvote = 1;
+                    break;
+            }
         }
 
        $stories[$key]['upvote'] = $upvote;

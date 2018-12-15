@@ -28,19 +28,15 @@
     $stmt->execute();
     $date = $stmt->fetch();
 
+    $upvote = 0;
+    $downvote = 0;
     $vote = postVoted($user_id, $new_id['post_id']);
     switch($vote['vote']){
         case -1:
-            $upvote = 0;
             $downvote = 1;
-            break;
-        case 0:
-            $upvote = 0;
-            $downvote = 0;
             break;
         case 1:
             $upvote = 1;
-            $downvote = 0;
             break;
     }
 

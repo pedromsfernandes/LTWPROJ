@@ -77,21 +77,19 @@ function draw_select_channels($channels)
 }
 function draw_story_titles($story)
 {
+  $upvote = 0;
+  $downvote = 0;
+  if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
-    switch($vote['vote']){
-      case -1:
-        $upvote = 0;
-        $downvote = 1;
-        break;
-      case 0:
-        $upvote = 0;
-        $downvote = 0;
-        break;
-      case 1:
-        $upvote = 1;
-        $downvote = 0;
-        break;
-    }
+      switch($vote['vote']){
+        case -1:
+          $downvote = 1;
+          break;
+        case 1:
+          $upvote = 1;
+          break;
+      }
+  }
     ?>
     <div class="titles">
       <div class="flex-container-1">
@@ -147,21 +145,19 @@ function draw_story_footer($story)
 function draw_story($story, $comments_on)
 {
 
-  $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
-    switch($vote['vote']){
-      case -1:
-        $upvote = 0;
-        $downvote = 1;
-        break;
-      case 0:
-        $upvote = 0;
-        $downvote = 0;
-        break;
-      case 1:
-        $upvote = 1;
-        $downvote = 0;
-        break;
-    }
+  $upvote = 0;
+  $downvote = 0;
+  if (isset($_SESSION['username'])) {  
+    $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
+      switch($vote['vote']){
+        case -1:
+          $downvote = 1;
+          break;
+        case 1:
+          $upvote = 1;
+          break;
+      }
+  }
     ?>
   <article class="story" id="p<?=$story['post_id']?>">
     <div class="post">
@@ -270,21 +266,19 @@ function getChannelLink($matches)
 
 function draw_comment($comment, $form = true, $display_children = true)
 {
-  $vote = postVoted(getUserId($_SESSION['username']), $comment['post_id']);
-    switch($vote['vote']){
-      case -1:
-        $upvote = 0;
-        $downvote = 1;
-        break;
-      case 0:
-        $upvote = 0;
-        $downvote = 0;
-        break;
-      case 1:
-        $upvote = 1;
-        $downvote = 0;
-        break;
-    }
+  $upvote = 0;
+  $downvote = 0;
+  if (isset($_SESSION['username'])) {  
+    $vote = postVoted(getUserId($_SESSION['username']), $comment['post_id']);
+      switch($vote['vote']){
+        case -1:
+          $downvote = 1;
+          break;
+        case 1:
+          $upvote = 1;
+          break;
+      }
+  }
 
     $children = getChildComments($comment['post_id']); ?>
    
