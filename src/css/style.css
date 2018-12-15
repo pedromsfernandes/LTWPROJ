@@ -27,6 +27,10 @@
   background-color: var(--bg-color);
 }
 
+textarea {
+  font-family: var(--serif-font), serif;
+}
+
 /**
  * Generic
  */
@@ -66,7 +70,7 @@ input[type=textarea]{
   height: auto;
 }
 
-input[type="submit"], input[type="button"] {
+input[type="submit"], input[type="button"],input[type="file"],label[for="file"] {
   padding: 0.6em;
   margin: 0.5em;
 
@@ -85,7 +89,7 @@ input[type="submit"], input[type="button"] {
   text-transform: uppercase;
 }
 
-input[type=submit]:hover, input[type=submit]:hover{
+input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input[type="button"]:hover{
   background-color: rgb(37, 156, 117);
   color: white;
 }
@@ -305,13 +309,14 @@ ol {
 #addComment {
   display: flex;
 }
-#addComment > textarea{
+ textarea{
   margin-left: 9px;
   box-sizing: border-box;
   padding: 2px;
   border: 1px solid rgb(33, 91, 124);
   color: white;
   background-color: rgba(2, 32, 66,0.7);
+  resize: none;
 }
 
 #addComment > input[type="submit"] {
@@ -330,6 +335,10 @@ ol {
   border:none;
   border-radius: 2px;
   text-transform: uppercase;
+}
+#addComment > input[type="submit"]:hover {
+  background-color: rgb(37, 156, 117);
+  color: white;
 }
 .post {
   display: block;
@@ -350,8 +359,7 @@ ol {
 }
 
 .title {
-  text-align: center;
-  padding-left: 30px;
+  overflow:hidden;
 }
 .flex-container-3 {
   display: flex;
@@ -558,8 +566,37 @@ body > #messages .success {
 
 /* New Story */
 .new-element {
-  display: block;
-  margin: auto;
+  border-radius: 5px;
+  background-color: #799fd1;
+  padding: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+  z-index: -1;
+}
+.inputfile + label {
+  cursor: pointer; /* "hand" cursor */
+}
+.new-element > form > input[type="text"],.new-element > form > textarea {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.new-element > form > textarea {
+  height: 100px;
+  float: left;
+  margin-left: 0;
+}
+
+.new-element > form > input, .new-element > form > input, .new-element > form > input, .new-element > form > label {
+  margin-top: 20px;
 }
 
 .choice-select {
@@ -625,6 +662,7 @@ body > #messages .success {
 }
 
 .sidenav {
+  text-align: left;
   height: 100%;
   width: 0;
   position: fixed;
@@ -662,6 +700,7 @@ body > #messages .success {
   cursor:pointer;
   display: none;
 }
+
 
 
 @media only screen and (max-width: 768px) {
@@ -711,6 +750,9 @@ body > #messages .success {
     color: #8f8f8f;
   }
 
+  .new-element {
+    margin: auto;
+  }
 
   
 }

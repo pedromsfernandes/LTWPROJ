@@ -346,14 +346,41 @@ function draw_comments($comments, $form = true, $display_children = true)
 function draw_text_story_adder()
 {
     ?>
-    <form name="text-story" style="display:none;" action="../actions/action_add_story.php" method="post">
-     <div class="choice-select" style="width:200px;"> 
+    <article class="new-element" style="display:none;" id="text-story">
+      <form name="text-story" action="../actions/action_add_story.php" method="post">
+      <div class="choice-select" style="width:200px;"> 
+            <select name="channel_id" required> <?php
+              draw_select_channels(getAllChannels()); ?>
+            </select>
+        </div>
+          <input type="text" name="story_title" placeholder="Add story">
+          <textarea rows="4" cols="50" name="story_text" placeholder="What is on your mind?"></textarea>
+          </div>
+          <div class="tags">
+            <select name="tags[]" multiple> <?php
+            draw_select_tags(getAllTags()); ?>
+            </select>
+          </div>
+          <input type="submit" value="Submit">
+          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+      </form>
+    </article>
+  <?php
+}
+
+function draw_img_story_adder()
+{
+    ?>
+ <article class="new-element" style="display:none;" id="image-story">
+    <form name="img-story" action="../actions/action_add_story.php" method="post" enctype="multipart/form-data">
+    <div class="choice-select" style="width:200px;"> 
           <select name="channel_id" required> <?php
             draw_select_channels(getAllChannels()); ?>
           </select>
       </div>
         <input type="text" name="story_title" placeholder="Add story">
-        <input type="textarea" name="story_text" placeholder="What's on your mind?">
+        <input type="file" name="image" id="file" class="inputfile" >
+         <label for="file"><i class="fas fa-upload"></i> Choose a file</label>
         </div>
         <div class="tags">
           <select name="tags[]" multiple> <?php
@@ -363,29 +390,7 @@ function draw_text_story_adder()
         <input type="submit" value="Submit">
         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
-  <?php
-}
-
-function draw_img_story_adder()
-{
-    ?>
-  <form name="img-story" style="display:none;" action="../actions/action_add_story.php" method="post" enctype="multipart/form-data">
-   <div class="choice-select" style="width:200px;"> 
-        <select name="channel_id" required> <?php
-          draw_select_channels(getAllChannels()); ?>
-        </select>
-    </div>
-      <input type="text" name="story_title" placeholder="Add story">
-      <input type="file" name="image">
-      </div>
-      <div class="tags">
-        <select name="tags[]" multiple> <?php
-        draw_select_tags(getAllTags()); ?>
-        </select>
-      </div>
-      <input type="submit" value="Submit">
-      <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  </form>
+</article>
 <?php
 }
 
