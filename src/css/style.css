@@ -441,10 +441,9 @@ ol {
   color: rgb(41, 43, 46);
 }
 
-.vote > button:hover {
+.vote > button:hover{
   color: rgb(78, 137, 247);
 }
-
 
 .flex-container-2 {
   display: flex;
@@ -816,6 +815,7 @@ body > #messages .success {
   #login, #signup {
     width: 90%;
     margin: 5%;
+    max-width: 30em;
   }
   .login-flexbox > a:not(.active) {
     padding-left: 17%;
