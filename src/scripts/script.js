@@ -4,8 +4,19 @@ var session
 getSession()
 
 var list = document.querySelector('#list')
-var channel = document.querySelector('article.new-story')
-if (channel) var idC = channel.querySelectorAll('input')[2].value
+
+var page = 0
+
+var channelInfo = document.querySelector('#channelInfo')
+if (channelInfo){
+  var inf = channelInfo.querySelectorAll('input')
+  var idC = inf[0].value
+  page = 1
+}
+
+var home = document.querySelector('#home')
+if(home)
+  page = 2
 
 if (list) {
   let inputs = document.querySelectorAll('#sorting input')
@@ -25,14 +36,10 @@ if(story_adder_buttons.length != 0){
 
 addVoteListeners()
 
-let channelInfo = document.querySelector('#channelInfo')
 if (channelInfo) {
   let button = channelInfo.querySelector('button')
 
   if (button) {
-    let info = channelInfo.querySelectorAll('input')
-    let channel_id = info[0].value
-
     button.addEventListener('click', function(event) {
       event.preventDefault()
 
@@ -49,15 +56,13 @@ if (channelInfo) {
         else if (answer != 'reject_csrf') {
           button.innerHTML = answer[0]
 
-              let label = button.parentElement.parentElement.querySelector(
-                  'div.subscribers')
+          let label = button.parentElement.parentElement.querySelector('div.subscribers')
 
           label.innerHTML = 'Subscribers: ' + answer[1]
         }
       })
-      request.setRequestHeader(
-          'Content-Type', 'application/x-www-form-urlencoded')
-      request.send(encodeForAjax({csrf: session.csrf, channel_id: channel_id}))
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      request.send(encodeForAjax({csrf: session.csrf, channel_id: idC}))
     })
   }
 }
@@ -302,21 +307,21 @@ function addVoteListeners() {
 function drawTopStories(event) {
   event.preventDefault()
 
-  if (channel) {
-    let request = new XMLHttpRequest()
+  let request = new XMLHttpRequest()
     request.addEventListener('load', storyHandler)
     request.open('post', '../api/api_get_top_stories.php', true)
-    request.setRequestHeader(
-        'Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({channel: idC}))
-  }
-  else {
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', storyHandler)
-    request.open('post', '../api/api_get_top_stories.php', true)
-    request.setRequestHeader(
-        'Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({channel: -1}))
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+  switch(page){
+    case 0:
+      request.send(encodeForAjax({channel: -1}))
+      break
+    case 1:
+      request.send(encodeForAjax({channel: idC}))
+      break
+    case 2:
+      request.send(encodeForAjax({channel: -2}))
+      break
   }
 }
 
@@ -328,32 +333,37 @@ function drawMostCommentedStories(event) {
   request.open('post', '../api/api_get_stories_by_comments.php', true)
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
-  if (channel) {
-    request.send(encodeForAjax({channel: idC}))
-  }
-  else {
-    request.send(encodeForAjax({channel: -1}))
+  switch(page){
+    case 0:
+      request.send(encodeForAjax({channel: -1}))
+      break
+    case 1:
+      request.send(encodeForAjax({channel: idC}))
+      break
+    case 2:
+      request.send(encodeForAjax({channel: -2}))
+      break
   }
 }
 
 function drawNewStories(event) {
   event.preventDefault()
 
-  if (channel) {
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', storyHandler)
-    request.open('post', '../api/api_get_new_stories.php', true)
-    request.setRequestHeader(
-        'Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({channel: idC}))
-  }
-  else {
-    let request = new XMLHttpRequest()
-    request.addEventListener('load', storyHandler)
-    request.open('post', '../api/api_get_new_stories.php', true)
-    request.setRequestHeader(
-        'Content-Type', 'application/x-www-form-urlencoded')
-    request.send(encodeForAjax({channel: -1}))
+  let request = new XMLHttpRequest()
+  request.addEventListener('load', storyHandler)
+  request.open('post', '../api/api_get_new_stories.php', true)
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+  switch(page){
+    case 0:
+      request.send(encodeForAjax({channel: -1}))
+      break
+    case 1:
+      request.send(encodeForAjax({channel: idC}))
+      break
+    case 2:
+      request.send(encodeForAjax({channel: -2}))
+      break
   }
 }
 
@@ -450,7 +460,7 @@ function drawTags(tags) {
 function drawChannel(channel_id, channel_name) {
   let string = ' '
 
-  if (!channel) {
+  if (!channelInfo) {
     string += `to <a href="../pages/channel.php?id=` + channel_id + `">` +
         channel_name + ` </a>`
   }

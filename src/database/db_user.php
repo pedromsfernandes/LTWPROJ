@@ -65,10 +65,36 @@
 
     function getSubscribedStories($user_id){
         $db = Database::instance()->db();
-       $stmt = $db->prepare('SELECT * FROM post WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)');
-       $stmt->execute(array($user_id));
-       return $stmt->fetchAll();
-   }
+        $stmt = $db->prepare('SELECT * FROM post WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)');
+        $stmt->execute(array($user_id));
+        return $stmt->fetchAll();
+    }
+
+    function getSubscribedStoriesByVotes($user_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * from (SELECT * FROM 
+                            post JOIN (SELECT vote.post_id, SUM(vote.vote) AS num_votes
+                                FROM vote GROUP BY vote.post_id UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_id FROM vote)) 
+                            USING(post_id) WHERE post_title IS NOT NULL ORDER BY num_votes DESC, post_date DESC) this 
+                            WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)");
+        $stmt->execute(array($user_id));
+        return $stmt->fetchAll();
+    }
+
+    function getSubscribedStoriesByComments($user_id)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * FROM 
+                            post JOIN (SELECT post_father AS post_id, COUNT(*) as numComments FROM post GROUP BY post_father UNION 
+                                SELECT post_id, 0 FROM post 
+                                WHERE post_id NOT IN (SELECT post_father FROM post WHERE post_father IS NOT NULL)) 
+                            USING(post_id) WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?) 
+                            AND post_title IS NOT NULL ORDER BY numComments DESC, post_date DESC");
+        $stmt->execute(array($user_id));
+        return $stmt->fetchAll();
+    }
     
    function getSubscribedChannels($user_id)
    {

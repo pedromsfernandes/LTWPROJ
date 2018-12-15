@@ -21,6 +21,12 @@
   }
 
   draw_header($_SESSION['username']);
+  ?>
+  <section id="home">
+  <?php
   draw_stories($stories);
+  ?>
+  </section>
+  <?php
   draw_footer();
 ?>

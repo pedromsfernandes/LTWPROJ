@@ -1,4 +1,5 @@
 <?php
+    include_once('../includes/session.php');
     include_once('../database/db_story.php');
     include_once('../database/db_user.php');
     include_once('../database/db_channel.php');
@@ -6,10 +7,17 @@
 
     $channel = $_POST['channel'];
     
-    if($channel == -1)
-        $stories = getAllStoriesByVotes();
-    else
-        $stories = getAllStoriesByVotesFromChannel($channel);
+    switch($channel){
+        case -1:
+            $stories = getAllStoriesByVotes();
+            break;
+        case -2:
+            $stories = getSubscribedStoriesByVotes(getUserId($_SESSION['username']));
+            break;
+        default:
+            $stories = getAllStoriesByVotesFromChannel($channel);
+            break;
+    }
 
     foreach($stories as $key => $story){
        $stories[$key]['user_name'] = getUserName($story['post_op']);
