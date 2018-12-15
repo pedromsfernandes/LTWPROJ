@@ -28,7 +28,23 @@
     $stmt->execute();
     $date = $stmt->fetch();
 
-    $answer = [$post_id, $text, $votes, $user_id, $_SESSION['username'], $date, $new_id];
+    $vote = postVoted($user_id, $new_id['post_id']);
+    switch($vote['vote']){
+        case -1:
+            $upvote = 0;
+            $downvote = 1;
+            break;
+        case 0:
+            $upvote = 0;
+            $downvote = 0;
+            break;
+        case 1:
+            $upvote = 1;
+            $downvote = 0;
+            break;
+    }
+
+    $answer = [$post_id, $text, $votes, $user_id, $_SESSION['username'], $date, $new_id, $upvote, $downvote];
   }
 
   echo json_encode($answer);

@@ -175,6 +175,8 @@ function toggleImgStoryAdder(event) {
 function commentHandler(event) {
   event.preventDefault()
 
+  console.log(this.responseText)
+
   let answer = JSON.parse(this.responseText)
 
   if (answer == 'reject_log') {
@@ -188,6 +190,8 @@ function commentHandler(event) {
     let username = answer[4] 
     let date = answer[5].date
     let new_id = answer[6].post_id
+    let upvote = answer[7]
+    let downvote = answer[8]
 
     let comments = document.querySelector('#p' + post_id).querySelector('ol')
 
@@ -205,7 +209,7 @@ function commentHandler(event) {
                 <p>` +
         votes + `</p>
             </div>  
-            <div style= "order: 1" class="vote">
+            <div style= "order: 1" class="vote" id="`+upvote+`">
                 <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
                 <input type="hidden" name="post_op" value="` +
         post_op + `">
@@ -213,7 +217,7 @@ function commentHandler(event) {
         new_id + `">
                 <input type="hidden" name="type" value="upvote">
             </div>
-            <div style= "order: 3" class="vote">  
+            <div style= "order: 3" class="vote" id="`+downvote+`">  
                 <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
                 <input type="hidden" name="post_op" value="` +
         post_op + `">
@@ -388,7 +392,7 @@ function storyHandler(event) {
                     <header><a href="../pages/story.php?id=` +
         data.post_id + `">` + escapeHtml(data.post_title) + `</a></header>
                 </div>
-                <div style= "order: 1" class="vote">
+                <div style= "order: 1" class="vote" id="`+data.upvote+`">
                     <button name="upvote"> <i class="fas fa-chevron-up"></i> </button>
                     <input type="hidden" name="post_op" value="` +
         data.post_op + `">
@@ -396,7 +400,7 @@ function storyHandler(event) {
         data.post_id + `">
                     <input type="hidden" name="type" value="upvote">
                 </div>
-                <div style= "order: 3" class = "vote">
+                <div style= "order: 3" class = "vote" id="`+data.downvote+`">
                     <button name="downvote">  <i class="fas fa-chevron-down"></i> </button>
                     <input type="hidden" name="post_op" value="` +
         data.post_op + `">

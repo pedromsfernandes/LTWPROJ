@@ -65,7 +65,7 @@
 
     function getSubscribedStories($user_id){
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM post WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?)');
+        $stmt = $db->prepare('SELECT * FROM post WHERE channel_id IN (SELECT channel_id FROM subscription WHERE user_id = ?) ORDER BY post_date DESC');
         $stmt->execute(array($user_id));
         return $stmt->fetchAll();
     }
@@ -103,3 +103,10 @@
        $stmt->execute(array($user_id));
        return $stmt->fetchAll();
    }
+
+    function postVoted($user_id, $post_id){
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT vote FROM vote WHERE user_id = ? AND post_id = ?');
+        $stmt->execute(array($user_id, $post_id));
+        return $stmt->fetch();
+    }

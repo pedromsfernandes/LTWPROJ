@@ -6,13 +6,14 @@
     include_once('../database/db_post.php');
 
     $channel = $_POST['channel'];
+    $user_id = getUserId($_SESSION['username']);
 
     switch($channel){
         case -1:
             $stories = getAllStoriesByComments();
             break;
         case -2:
-            $stories = getSubscribedStories(getUserId($_SESSION['username']));
+            $stories = getSubscribedStoriesByComments($user_id);
             break;
         default:
             $stories = getAllStoriesByCommentsFromChannel($channel);
@@ -20,12 +21,31 @@
     }
     
     foreach($stories as $key => $story){
-       $stories[$key]['user_name'] = getUserName($story['post_op']);
-       $stories[$key]['channel'] = getChannel($story['channel_id'])['channel_name'];
-       $stories[$key]['tags'] = getStoryTags($story['post_id']);
-       $stories[$key]['num_votes'] = getVotes($story['post_id']);
-       $stories[$key]['num_comments'] = getNumComments($story['post_id']);
-       $stories[$key]['img'] = getImg($story['post_id']);
+        $stories[$key]['user_name'] = getUserName($story['post_op']);
+        $stories[$key]['channel'] = getChannel($story['channel_id'])['channel_name'];
+        $stories[$key]['tags'] = getStoryTags($story['post_id']);
+        $stories[$key]['num_votes'] = getVotes($story['post_id']);
+        $stories[$key]['num_comments'] = getNumComments($story['post_id']);
+        $stories[$key]['img'] = getImg($story['post_id']);
+
+        $vote = postVoted($user_id, $story['post_id']);
+        switch($vote['vote']){
+            case -1:
+                $upvote = 0;
+                $downvote = 1;
+                break;
+            case 0:
+                $upvote = 0;
+                $downvote = 0;
+                break;
+            case 1:
+                $upvote = 1;
+                $downvote = 0;
+                break;
+        }
+
+        $stories[$key]['upvote'] = $upvote;
+        $stories[$key]['downvote'] = $downvote;
     }
 
     echo json_encode($stories);
