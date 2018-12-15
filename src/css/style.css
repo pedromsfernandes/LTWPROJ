@@ -269,9 +269,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
   margin-top: 5px;
   margin-bottom: 5px;
 }
-ol {
-  padding-inline-start: 5%;
-}
+
 .storytext {
   text-align: left;
   margin-left: 5px;
@@ -345,7 +343,6 @@ ol {
 }
 .post {
   display: block;
-  padding: 5px;
   border: 3px solid var(--main-color);;
   margin: 1em;
   padding: 10px;
@@ -438,11 +435,12 @@ ol {
   background-color:transparent; 
   -webkit-transition-duration: 0.4s; 
   transition-duration: 0.4s;
-  color: rgb(41, 43, 46);
 }
-
-.vote > button:hover{
+#v1 > button {
   color: rgb(78, 137, 247);
+}
+#v0 > button {
+  color: rgb(41, 43, 46);
 }
 
 .flex-container-2 {
@@ -642,7 +640,7 @@ body > #messages .success {
 .new-element .tags, .container {
   text-align: left;
   margin-top: 20px;
-  display: inline-block;
+  display: flow-root;
   position: relative;
   padding-left: 35px;
   margin-bottom: 12px;

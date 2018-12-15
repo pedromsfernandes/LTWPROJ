@@ -27,19 +27,6 @@
   <?php
     if ($channel_id) {
         ?>
-
-    <article class="new-element">
-      <form action="../actions/action_add_story.php" method="post">
-        <input type="text" name="story_title" placeholder="Add story">
-        <textarea rows="4" cols="50" name="story_text" placeholder="What is on your mind?"></textarea>
-        <input type="hidden" name="channel_id" value="<?=$channel_id?>">
-        <select name="tags[]" multiple> <?php
-        draw_select_tags(getAllTags()); ?>
-        </select>
-        <input type="submit" value="Submit">
-        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-      </form>
-    </article>
   </section>
 <?php
     }
@@ -77,16 +64,16 @@ function draw_select_channels($channels)
 }
 function draw_story_titles($story)
 {
-  $upvote = "v0";
-  $downvote = "v0";
+  $upvote = 0;
+  $downvote = 0;
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = "v1";
+          $downvote = 1;
           break;
         case 1:
-          $upvote = "v1";
+          $upvote = 1;
           break;
       }
   }
@@ -145,16 +132,16 @@ function draw_story_footer($story)
 function draw_story($story, $comments_on)
 {
 
-  $upvote = "v0";
-  $downvote = "v0";
+  $upvote = 0;
+  $downvote = 0;
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = "v1";
+          $downvote = 1;
           break;
         case 1:
-          $upvote = "v1";
+          $upvote = 1;
           break;
       }
   }
@@ -266,16 +253,16 @@ function getChannelLink($matches)
 
 function draw_comment($comment, $form = true, $display_children = true)
 {
-  $upvote = "v0";
-  $downvote = "v0";
+  $upvote = 0;
+  $downvote = 0;
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $comment['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = "v1";
+          $downvote = 1;
           break;
         case 1:
-          $upvote = "v1";
+          $upvote = 1;
           break;
       }
   }
