@@ -4,6 +4,7 @@ var session
 getSession()
 
 var list = document.querySelector('#list')
+var sorting = document.querySelector('#sorting')
 
 var page = 0
 
@@ -18,7 +19,7 @@ var home = document.querySelector('#home')
 if(home)
   page = 2
 
-if (list) {
+if (sorting) {
   let inputs = document.querySelectorAll('#sorting input')
 
   inputs[0].addEventListener('click', drawTopStories)

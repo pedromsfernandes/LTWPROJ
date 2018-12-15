@@ -2,11 +2,21 @@
 {
     ?>  
   <section id="stories">
+
+    <?php
+    if($channel_id != -1){
+    ?>
+
     <section id="sorting">
         <input type="button" value = "Top">
         <input type="button" value = "New">
         <input type="button" value = "Most commented">
     </section>
+
+    <?php
+    }
+    ?>
+
     <section id="list">
   <?php
     foreach ($stories as $story) {

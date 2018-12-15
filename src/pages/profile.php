@@ -47,7 +47,7 @@
   if($stories != null){?>
   <h2>My Stories</h2>
   <?php
-    draw_stories($stories);
+    draw_stories($stories,-1);
   }
 
   if($comments != null){

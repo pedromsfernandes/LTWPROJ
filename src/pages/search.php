@@ -18,6 +18,10 @@
     draw_header($_SESSION['username']);
     draw_search_form();
 
+    ?>
+    <section id="search">
+    <?php
+
     if (isset($_GET['submit']) && preg_match("/[A-Z  | a-z]+/", $_GET['search_text'])) {
         $search_text = $_GET['search_text'];
         $search_type = $_GET['search_type'];
@@ -42,7 +46,7 @@
             if($stories == null)
                 echo 'Ups... Didn\'t find anything!';
             else
-                draw_stories($stories);
+                draw_stories($stories, -1);
         } else if ($search_type == 'comments') {
             $comments = searchComments($search_text);
 
@@ -63,5 +67,9 @@
             die(header('Location: ../pages/home.php'));
         }
     }
+
+    ?>
+    </section>
+    <?php
     
     draw_footer();
