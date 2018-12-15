@@ -77,16 +77,16 @@ function draw_select_channels($channels)
 }
 function draw_story_titles($story)
 {
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }
@@ -145,16 +145,16 @@ function draw_story_footer($story)
 function draw_story($story, $comments_on)
 {
 
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }
@@ -266,16 +266,16 @@ function getChannelLink($matches)
 
 function draw_comment($comment, $form = true, $display_children = true)
 {
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $comment['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }
@@ -283,9 +283,9 @@ function draw_comment($comment, $form = true, $display_children = true)
     $children = getChildComments($comment['post_id']); ?>
    
 <article class="parent-comment" id="p<?=$comment['post_id']?>"> 
-    <div class="flex-container-1">   
     <div class="hide-comments"><button onclick="toggleCommentDisplay(p<?=$comment['post_id']?>)"><i class="far fa-minus-square"></i></button>
-</div>    
+</div>   
+    <div class="flex-container-1">   
       <div style= "order: 2" class="vote-amount">
         <p><?=getVotes($comment['post_id']) ?></p>
       </div>  

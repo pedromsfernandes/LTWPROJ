@@ -197,12 +197,12 @@ function commentHandler(event) {
     comment.classList = 'parent-comment'
     comment.id = 'p' + new_id
 
-    comment.innerHTML = `
-        <div class="flex-container-1">          
+    comment.innerHTML = `        
             <div class="hide-comments">
                 <button onclick="toggleCommentDisplay(p` +
         new_id + `)"><i class="far fa-minus-square"></i></button> 
             </div>
+        <div class="flex-container-1">  
             <div style= "order: 2" class="vote-amount">
                 <p>` +
         votes + `</p>
@@ -298,10 +298,10 @@ function addVoteListeners() {
                           .querySelector('p')
           label.innerHTML = '' + votes
 
-          if(data.id == "1")
-            data.id = "0"
+          if(data.id == "v1")
+            data.id = "v0"
           else
-            data.id = "1"
+            data.id = "v1"
 
           let otherVote
 
@@ -310,7 +310,7 @@ function addVoteListeners() {
           else
             otherVote = data.parentElement.querySelectorAll('div')[1]
 
-          otherVote.id = "0"
+          otherVote.id = "v0"
         }
       })
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
