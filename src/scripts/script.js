@@ -235,7 +235,7 @@ function commentHandler(event) {
         <section id="addComment">
             <input type="hidden" name="post_id" value="` +
         new_id + `">
-            <textarea placeholder="Add a comment" required rows="4" cols="40">></textarea>
+            <textarea placeholder="Add a comment" required rows="4" cols="40"></textarea>
             <input type="submit" value="submit">
         </section>
         <ol>
