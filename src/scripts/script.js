@@ -152,8 +152,10 @@ for (i = 0; i < x.length; i++) {
 function toggleTextStoryAdder(event) {
   event.preventDefault();
 
-  let textForm = document.querySelector('form[name="text-story"]');
-  let imageForm = document.querySelector('form[name="img-story"]');
+  let textForm = document.querySelector('#text-story');
+  let imageForm = document.querySelector('#image-story');
+  console.log(textForm);
+  console.log(imageForm);
 
   if (imageForm.style.display === 'block') imageForm.style.display = 'none';
 
@@ -164,8 +166,8 @@ function toggleTextStoryAdder(event) {
 function toggleImgStoryAdder(event) {
   event.preventDefault();
 
-  let imageForm = document.querySelector('form[name="img-story"]');
-  let textForm = document.querySelector('form[name="text-story"]');
+  let imageForm = document.querySelector('#image-story');
+  let textForm = document.querySelector('#text-story');
 
   if (textForm.style.display === 'block') textForm.style.display = 'none';
 

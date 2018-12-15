@@ -50,8 +50,9 @@ function draw_channel_adder(){ ?>
 <article class="new-element">
     <form action="../actions/action_add_channel.php" method="post" enctype="multipart/form-data">
       <input type="text" name="channel_name" placeholder="Channel name">
-      <input type="textarea" name="channel_description" placeholder="What is the channel for?">
-      <input type="file" name="image">
+      <textarea rows="4" cols="50" placeholder="What is this channel for?"></textarea>
+      <input type="file" name="image" id="file" class="inputfile" >
+      <label for="file"><i class="fas fa-upload"></i> Choose a file</label>
       <input type="submit" value="Submit">
       <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
     </form>
