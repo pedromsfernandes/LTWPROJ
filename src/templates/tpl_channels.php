@@ -1,13 +1,15 @@
 <?php function draw_channels($channels){
     ?>
-<ul>
-<?php
-    foreach ($channels as $channel) {
-        ?>
-    <li><a href="../pages/channel.php?id=<?=$channel['channel_id']?>"><?=$channel['channel_name']?></a></li>
-<?php
-    } ?>
-</ul>
+<nav class="channels">
+  <ul>
+  <?php
+      foreach ($channels as $channel) {
+          ?>
+      <li><a href="../pages/channel.php?id=<?=$channel['channel_id']?>"><?=$channel['channel_name']?></a></li>
+  <?php
+      } ?>
+  </ul>
+    </nav>
     <?php
 }
 
@@ -18,7 +20,7 @@ function draw_channel_info($channel){
   <section id="channelInfo">
     <form method="post">
       <div class="channel-flexbox" style="background: url(../images/originals/<?=$channel['channel_header']?>.jpg)">
-        <?php
+      </div><?php
           if(isset($_SESSION['username'])){
         ?>
         <button name="subscribe">
@@ -41,7 +43,6 @@ function draw_channel_info($channel){
         <div class="subscribers">
           Subscribers: <?=getNumSubscribers($id)?>
         </div>
-    </div>
   </section>
 
 <?php

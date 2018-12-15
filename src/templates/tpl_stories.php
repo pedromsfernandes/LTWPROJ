@@ -28,10 +28,10 @@
     if ($channel_id) {
         ?>
 
-    <article class="new-story">
+    <article class="new-element">
       <form action="../actions/action_add_story.php" method="post">
         <input type="text" name="story_title" placeholder="Add story">
-        <input type="textarea" name="story_text" placeholder="What's on your mind?">
+        <textarea rows="4" cols="50" name="story_text" placeholder="What is on your mind?"></textarea>
         <input type="hidden" name="channel_id" value="<?=$channel_id?>">
         <select name="tags[]" multiple> <?php
         draw_select_tags(getAllTags()); ?>
@@ -48,7 +48,10 @@
 function draw_select_tag($tag)
 {
     ?>
-  <option value=<?=$tag['tag_id']?>><?=$tag['tag_text']?></option>
+    <label class="container">
+    <input type="checkbox" name="tags[]" value=<?=$tag['tag_id']?>><?=$tag['tag_text']?>
+    <span class="checkmark"></span>
+    </label>
   <?php
 }
 
@@ -357,9 +360,8 @@ function draw_text_story_adder()
           <textarea rows="4" cols="50" name="story_text" placeholder="What is on your mind?"></textarea>
           </div>
           <div class="tags">
-            <select name="tags[]" multiple> <?php
+             <?php
             draw_select_tags(getAllTags()); ?>
-            </select>
           </div>
           <input type="submit" value="Submit">
           <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
@@ -382,10 +384,8 @@ function draw_img_story_adder()
         <input type="file" name="image" id="file" class="inputfile" >
          <label for="file"><i class="fas fa-upload"></i> Choose a file</label>
         </div>
-        <div class="tags">
-          <select name="tags[]" multiple> <?php
+        <div class="tags"> <?php
           draw_select_tags(getAllTags()); ?>
-          </select>
         </div>
         <input type="submit" value="Submit">
         <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">

@@ -89,6 +89,9 @@ input[type="submit"], input[type="button"],input[type="file"],label[for="file"] 
   text-transform: uppercase;
 }
 
+.account > nav > ul{
+  padding: auto;
+}
 input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input[type="button"]:hover{
   background-color: rgb(37, 156, 117);
   color: white;
@@ -370,6 +373,7 @@ ol {
   display: block;
 }
 #list {
+  margin-bottom: 10px;
   padding: 5px;
   background: rgba(255, 255, 255, 0.541);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -503,9 +507,8 @@ ol {
 }
 
 .channel-flexbox {
-  padding: 5px;
-  display: flex;
-  background: rgba(240, 250, 249, 0.541);
+  display: block;
+  height: 60px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   justify-content: space-between;
   background-repeat: no-repeat;
@@ -515,33 +518,71 @@ ol {
 .channel {
   font-size: 2em;
   text-transform: capitalize;
-  color: #333;
+  color: white; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 10px; 
 }
 
-.channel-flexbox > button {
+#channelInfo > form > button {
   background-color: rgb(0, 102, 128); /* Green */
   border: none;
   color: white;
-  padding: 12px 28px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   cursor: pointer;
   border: 1px solid #333;
 }
-.channel-flexbox > button:active {
+#channelInfo > form  > button:active {
   background-color: rgb(23, 67, 78);
 }
 
 .subscribers {
-  margin-top: 40px;
+  margin-top: 5px;
+  text-transform: capitalize;
+  color: white; 
+   letter-spacing: -1px;  
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.7);
+   padding: 5px; 
 }
 
-
+/*Channels*/
+.channels {
+  box-sizing: border-box;
+}
+ 
+.channels > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+ 
+.channels > ul > li {
+  border: 1px solid #506a8b;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #799fd1;
+  padding: 12px;
+}.channels > ul > li > a {
+  color: #333;
+}
+ 
+.channels > ul > li a:hover {
+  color: #666;
+}
+ 
+.channels > ul > li.active a {
+  font-weight: bold;
+  color: #333;
+}
 
 /*
   Messages
@@ -597,6 +638,74 @@ body > #messages .success {
 
 .new-element > form > input, .new-element > form > input, .new-element > form > input, .new-element > form > label {
   margin-top: 20px;
+}
+
+.new-element .tags, .container {
+  text-align: left;
+  margin-top: 20px;
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.new-element .tags input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.new-element input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.new-element input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.new-element .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .choice-select {
@@ -754,6 +863,9 @@ body > #messages .success {
     margin: auto;
   }
 
+  #stories .new-element {
+    display: none;
+  }
   
 }
 
