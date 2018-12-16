@@ -5,19 +5,16 @@ getSession()
 
 var list = document.querySelector('#list')
 var sorting = document.querySelector('#sorting')
-
 var page = 0
-
 var channelInfo = document.querySelector('#channelInfo')
+var home = document.querySelector('#home')
+if(home)  page = 2
+var profile = document.querySelector('div.profile')
 if (channelInfo){
   var inf = channelInfo.querySelectorAll('input')
   var idC = inf[0].value
   page = 1
 }
-
-var home = document.querySelector('#home')
-if(home)
-  page = 2
 
 if (sorting) {
   let inputs = document.querySelectorAll('#sorting input')
@@ -283,6 +280,18 @@ function addVoteListeners() {
     button.addEventListener('click', function(event) {
       event.preventDefault()
 
+      let p = profile.querySelectorAll('p')[2]
+      let oldKarmaText = p.innerHTML
+      let oldKarma = oldKarmaText.substring(8)
+
+      let all = data.parentElement.querySelectorAll('div')
+      let l = all.length
+      let oldVotes
+      if(l == 5)
+        oldVotes = all[1].querySelector('p').innerHTML
+      else
+        oldVotes = all[3].querySelector('p').innerHTML
+
       let request = new XMLHttpRequest()
       request.open('post', '../api/api_vote.php', true)
       request.addEventListener('load', function(event) {
@@ -314,6 +323,10 @@ function addVoteListeners() {
             otherVote = all[size-3]
 
           otherVote.id = "v0"
+
+          let newKarma = parseInt(oldKarma)-parseInt(oldVotes)+parseInt(votes)
+
+          p.innerHTML = "Points: " + newKarma
         }
       })
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
