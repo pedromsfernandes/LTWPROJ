@@ -9,6 +9,8 @@
   background-repeat: no-repeat;
   --bg-color: rgb(0, 85, 160);
   --panel-color: rgb(2, 32, 66);
+  --background-blue: rgb(33, 91, 124);
+  --active: rgb(37, 156, 117);
 
   --main-color: rgb(36, 68, 156);
 
@@ -58,7 +60,7 @@ input[type=text],input[type=textarea], input[type=password] {
 
   padding: 1em;
 
-  border: 1px solid rgb(33, 91, 124);
+  border: 1px solid var(--background-blue);
 
   color: white;
 
@@ -77,7 +79,7 @@ input[type="submit"], input[type="button"],input[type="file"],label[for="file"] 
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 
-  background: rgb(33, 91, 124);
+  background: var(--background-blue);
   color: var(--panel-color);
 
   font-family: Arial, Helvetica, sans-serif;
@@ -93,7 +95,7 @@ input[type="submit"], input[type="button"],input[type="file"],label[for="file"] 
   padding: auto;
 }
 input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input[type="button"]:hover{
-  background-color: rgb(37, 156, 117);
+  background-color: var(--active);
   color: white;
 }
 
@@ -171,7 +173,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
 }
 
 .active {
-  background: rgb(37, 156, 117);
+  background: var(--active);
   text-align: center;
   font-size: 0.7em;
   color: white;
@@ -274,6 +276,9 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
   text-align: left;
   margin-left: 5px;
 }
+.comments {
+  padding: 10px;
+}
 .comment-op > p{
   margin:0;
 }
@@ -310,11 +315,11 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
 #addComment {
   display: flex;
 }
- textarea{
+textarea {
   margin-left: 9px;
   box-sizing: border-box;
   padding: 2px;
-  border: 1px solid rgb(33, 91, 124);
+  border: 1px solid var(--background-blue);
   color: white;
   background-color: rgba(2, 32, 66,0.7);
   resize: none;
@@ -329,7 +334,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 
-  background: rgb(33, 91, 124);
+  background: var(--background-blue);
   color: var(--panel-color);
 
   font-family: Arial, Helvetica, sans-serif;
@@ -338,7 +343,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
   text-transform: uppercase;
 }
 #addComment > input[type="submit"]:hover {
-  background-color: rgb(37, 156, 117);
+  background-color: var(--active);
   color: white;
 }
 .post {
@@ -357,7 +362,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
     width: auto;
     height: auto;
 }
-
+/*Home / All / Channel*/
 .title {
   overflow:hidden;
 }
@@ -387,7 +392,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
 
 #sorting > input {
   font-size: 16px;
-  background-color: rgb(33, 91, 124);
+  background-color: var(--background-blue);
   -moz-border-radius:28px;
 	-webkit-border-radius:28px;
 	border-radius:28px;
@@ -399,7 +404,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
 }
 
 #sorting > input:hover {
-  background-color:rgb(37, 156, 117);
+  background-color:var(--active);
 }
 .titles {
   display: block;
@@ -436,6 +441,7 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
   -webkit-transition-duration: 0.4s; 
   transition-duration: 0.4s;
 }
+/* Make votes highlighted */
 #v1 > button {
   color: rgb(78, 137, 247);
 }
