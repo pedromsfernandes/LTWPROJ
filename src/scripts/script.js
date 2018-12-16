@@ -8,7 +8,8 @@ var sorting = document.querySelector('#sorting')
 var page = 0
 var channelInfo = document.querySelector('#channelInfo')
 var home = document.querySelector('#home')
-if(home)  page = 2
+if(home)  
+  page = 2
 var profile = document.querySelector('div.profile')
 if (channelInfo){
   var inf = channelInfo.querySelectorAll('input')
@@ -280,17 +281,20 @@ function addVoteListeners() {
     button.addEventListener('click', function(event) {
       event.preventDefault()
 
-      let p = profile.querySelectorAll('p')[2]
-      let oldKarmaText = p.innerHTML
-      let oldKarma = oldKarmaText.substring(8)
+      let oldKarma, oldVotes, p
 
-      let all = data.parentElement.querySelectorAll('div')
-      let l = all.length
-      let oldVotes
-      if(l == 5)
-        oldVotes = all[1].querySelector('p').innerHTML
-      else
-        oldVotes = all[3].querySelector('p').innerHTML
+      if(profile){
+        p = profile.querySelectorAll('p')[2]
+        let oldKarmaText = p.innerHTML
+        oldKarma = oldKarmaText.substring(8)
+
+        let a = data.parentElement.querySelectorAll('div')
+        let l = a.length
+        if(l == 5)
+          oldVotes = a[1].querySelector('p').innerHTML
+        else
+          oldVotes = a[3].querySelector('p').innerHTML
+      }
 
       let request = new XMLHttpRequest()
       request.open('post', '../api/api_vote.php', true)
@@ -324,9 +328,11 @@ function addVoteListeners() {
 
           otherVote.id = "v0"
 
-          let newKarma = parseInt(oldKarma)-parseInt(oldVotes)+parseInt(votes)
+          if(profile){
+            let newKarma = parseInt(oldKarma)-parseInt(oldVotes)+parseInt(votes)
 
-          p.innerHTML = "Points: " + newKarma
+            p.innerHTML = "Points: " + newKarma
+          }
         }
       })
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
