@@ -24,12 +24,8 @@
     } ?>
     </section>
 
-  <?php
-    if ($channel_id) {
-        ?>
   </section>
-<?php
-    }
+  <?php
 }
 
 function draw_select_tag($tag)
@@ -64,16 +60,16 @@ function draw_select_channels($channels)
 }
 function draw_story_titles($story)
 {
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }
@@ -132,16 +128,16 @@ function draw_story_footer($story)
 function draw_story($story, $comments_on)
 {
 
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $story['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }
@@ -253,16 +249,16 @@ function getChannelLink($matches)
 
 function draw_comment($comment, $form = true, $display_children = true)
 {
-  $upvote = 0;
-  $downvote = 0;
+  $upvote = "v0";
+  $downvote = "v0";
   if (isset($_SESSION['username'])) {  
     $vote = postVoted(getUserId($_SESSION['username']), $comment['post_id']);
       switch($vote['vote']){
         case -1:
-          $downvote = 1;
+          $downvote = "v1";
           break;
         case 1:
-          $upvote = 1;
+          $upvote = "v1";
           break;
       }
   }

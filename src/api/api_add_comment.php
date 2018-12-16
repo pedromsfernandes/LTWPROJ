@@ -16,7 +16,7 @@
 
     $new_id = insertComment($comment_text, $post_id, $user_id);
 
-    $votes = getVotes($post_id);
+    $votes = getVotes($new_id['post_id']);
 
     $filtered = htmlspecialchars($comment_text);
     $links_on = preg_replace("/\[([0-9a-zA-Z ]*)]\(((?:https:\/\/|http:\/\/|www\.)[0-9a-zA-Z.\/?~#_=]*)\)/","<a href=\"$2\">$1</a>",$filtered);
