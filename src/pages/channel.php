@@ -39,4 +39,7 @@
   draw_header($username);
   draw_channel_info($channel);
   draw_stories($stories, $id);
+  draw_new_story_buttons();
+  draw_text_story_adder();
+  draw_img_story_adder();
   draw_footer();
