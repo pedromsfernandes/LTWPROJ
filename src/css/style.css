@@ -259,6 +259,38 @@ input[type=submit]:hover, input[type="file"]:hover,label[for="file"]:hover,input
 .editProfile:hover {
   opacity: 0.7;
 }
+.profile-editor {
+  border-radius: 5px;
+  background-color: #799fd1;
+  padding: 20px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.profile-editor > form {
+  display: grid;
+  grid-template-columns: auto auto; 
+  grid-template-rows: 1fr,1fr,1fr,1fr;
+  text-align: center;
+}
+
+.profile-editor > form > * {
+  margin-left: 0;
+  margin-right: 0;
+  overflow: hidden;
+}
+
+.profile-editor > form > label {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.profile-editor > form > input {
+  margin-bottom: 10px;
+}
+.profile-editor > form > input[type="submit"] {
+  grid-column: 1/3;
+}
 
 /**
 *Stories

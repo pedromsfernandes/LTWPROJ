@@ -12,7 +12,7 @@
 } 
 
 function draw_profile_editor($profile){?>
-<article class="new-element">
+<article class="profile-editor">
   <form method="post" action="../actions/action_edit_profile.php" enctype="multipart/form-data">
     <label for="username">Username: </label> <input type="text" name="username" value=<?=$profile['user_name']?> readonly>
     <label for="description">Description: </label> <input type="textarea" name="description" placeholder="Add something about yourself" value=<?=htmlspecialchars($profile['user_description'])?>>
