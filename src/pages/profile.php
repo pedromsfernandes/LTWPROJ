@@ -45,21 +45,21 @@
   }
 
   if($stories != null){?>
-  <h2>My Stories</h2>
+  <h2>Stories</h2>
   <?php
     draw_stories($stories,-1);
   }
 
   if($comments != null){
     ?>
-    <h2>My Comments</h2>
+    <h2>Comments</h2>
     <?php
         draw_comments($comments, false, false);
   }
 
   if($channels != null){
     ?>
-    <h2>My Channels</h2>
+    <h2>Channels</h2>
     <?php
         draw_channels($channels);
   }
