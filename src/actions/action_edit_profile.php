@@ -26,7 +26,7 @@
     $img_id = getProfile($id)['user_avatar'];
     if(is_uploaded_file($_FILES['image']['tmp_name'])){
 
-      if (!preg_match("/.*.(jpg|jpeg)/", $_FILES['image']['name'], $matches)) {
+      if (exif_imagetype($_FILES['image']['tmp_name']) != IMAGETYPE_JPEG)  {
         $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Image extension not supported!');
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     };

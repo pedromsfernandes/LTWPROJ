@@ -22,10 +22,14 @@
 
   if (isset($_POST['tags'])) {
       $tags = $_POST['tags'];
+  } else {
+      $tags = null;
   }
 
   if (!isset($_POST['story_text'])) {
-      if (!preg_match("/.*.(jpg|jpeg)/", $_FILES['image']['name'], $matches)) {
+      $story_text = null;
+    
+      if (exif_imagetype($_FILES['image']['tmp_name']) != IMAGETYPE_JPEG) {
           $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Image extension not supported!');
           die(header('Location: ' . $_SERVER['HTTP_REFERER']));
       };
@@ -34,10 +38,9 @@
       $db = Database::instance()->db();
       $img_id = $db->lastInsertId();
       saveImage($img_id);
-  }
-  else{
-    $story_text = $_POST['story_text'];
-    $img_id = 9;
+  } else {
+      $story_text = $_POST['story_text'];
+      $img_id = 9;
   }
 
 
