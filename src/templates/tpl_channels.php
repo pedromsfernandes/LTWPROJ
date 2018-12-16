@@ -19,7 +19,8 @@ function draw_channel_info($channel){
     ?>
   <section id="channelInfo">
     <form method="post">
-      <div class="channel-flexbox" style="background: url(../images/originals/<?=$channel['channel_header']?>.jpg)">
+      <div class="channel-flexbox" style="background: url(../images/originals/<?=$channel['channel_header']?>.jpg);    background-size: cover;
+    background-position-y: center;">
       </div><?php
           if(isset($_SESSION['username'])){
         ?>
