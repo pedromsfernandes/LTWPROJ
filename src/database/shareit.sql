@@ -129,7 +129,6 @@ END;
 CREATE TRIGGER RemPoint
 AFTER DELETE ON vote
 FOR EACH ROW
-WHEN Old.vote = 1
 BEGIN
 UPDATE user SET user_points = user_points - Old.vote WHERE user_id IN (SELECT post_op FROM post WHERE post_id = Old.post_id);
 END;
