@@ -899,6 +899,10 @@ body > #messages .success {
     margin: auto;
   }
 
+  .profile-editor {
+    margin: auto;
+  }
+
   #stories .new-element {
     display: none;
   }
