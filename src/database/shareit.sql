@@ -95,7 +95,10 @@ INSERT INTO post VALUES(NULL, 'ye', 'O cuidado em identificar pontos críticos n
 
 INSERT INTO post values(NULL, NULL, 'Casillas is a god.', '2018-10-25 10:05:00', NULL, 3, 1, NULL);
 INSERT INTO post values(NULL, NULL, 'Who needs Aboubakar?', '2018-10-25 10:30:00',NULL, 2, 1,  NULL);
-INSERT INTO post values(NULL, NULL, 'Poindexter is crazy', '2018-10-26 21:51:17', NULL,1, 2,  NULL);
+INSERT INTO post values(NULL, NULL, 'Poindexter is crazy', '2018-10-26 21:51:17', NULL, 1, 2,  NULL);
+INSERT INTO post values(NULL, NULL, 'Hes crazy accurate right?', '2018-10-27 20:45:19', NULL, 3 , 5,  NULL);
+INSERT INTO post values(NULL, NULL, 'Oh yeah he is.', '2018-10-28 21:51:17', NULL ,1, 6,  NULL);
+INSERT INTO post values(NULL, NULL, 'What about Kingpin?', '2018-10-27 18:24:45', NULL, 2 , 5,  NULL);
 INSERT INTO post values(NULL, NULL, 'Murdock and Nelson avocados at law!', '2018-10-26 22:32:41', NULL, 3, 2, NULL);
 
 -- TRIGGERS
